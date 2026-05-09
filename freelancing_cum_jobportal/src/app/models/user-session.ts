@@ -1,6 +1,6 @@
 export interface UserSession {
-  id?: number;
-  userId: number;
+  id?: string;
+  userId: string;
   jwtToken: string;
   deviceInfo: string;
   ipAddress: string;

@@ -1,1 +1,7 @@
-export interface Chat {}
+export interface Chat {
+  id?: string;
+  orderId: string;
+  isActive: boolean;
+  startTime: string;
+  expiryTime: string;
+}

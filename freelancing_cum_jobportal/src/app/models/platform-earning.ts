@@ -1,1 +1,5 @@
-export interface PlatformEarning {}
+export interface PlatformEarning {
+  id?: string;
+  orderId: string;
+  commissionAmount: number;
+}

@@ -1,1 +1,6 @@
-export interface ApplicationStatusHistory {}
+export interface ApplicationStatusHistory {
+  id?: string;
+  applicationId: string;
+  status: string;
+  changedAt: string;
+}
