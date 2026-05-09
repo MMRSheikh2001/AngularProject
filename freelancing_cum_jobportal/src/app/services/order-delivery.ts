@@ -1,6 +1,16 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { OrderDelivery } from '../models/order-delivery';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class OrderDelivery {}
+@Injectable({ providedIn: 'root' })
+export class OrderDeliveryService {
+  private url = 'http://localhost:3000/orderDeliveries';
+  constructor(private http: HttpClient) {}
+
+  findAll(): Observable<OrderDelivery[]> { return this.http.get<OrderDelivery[]>(this.url); }
+  getById(id: string): Observable<OrderDelivery> { return this.http.get<OrderDelivery>(`${this.url}/${id}`); }
+  save(d: OrderDelivery): Observable<OrderDelivery> { return this.http.post<OrderDelivery>(this.url, d); }
+  update(id: string, d: OrderDelivery): Observable<OrderDelivery> { return this.http.put<OrderDelivery>(`${this.url}/${id}`, d); }
+  delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+}

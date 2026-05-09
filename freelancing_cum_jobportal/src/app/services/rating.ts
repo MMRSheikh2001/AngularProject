@@ -1,6 +1,16 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Rating } from '../models/rating';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class Rating {}
+@Injectable({ providedIn: 'root' })
+export class RatingService {
+  private url = 'http://localhost:3000/ratings';
+  constructor(private http: HttpClient) {}
+
+  findAll(): Observable<Rating[]> { return this.http.get<Rating[]>(this.url); }
+  getById(id: string): Observable<Rating> { return this.http.get<Rating>(`${this.url}/${id}`); }
+  save(r: Rating): Observable<Rating> { return this.http.post<Rating>(this.url, r); }
+  update(id: string, r: Rating): Observable<Rating> { return this.http.put<Rating>(`${this.url}/${id}`, r); }
+  delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+}
