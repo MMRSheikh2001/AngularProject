@@ -6,7 +6,7 @@ import { Withdrawal } from '../models/withdrawal';
 @Injectable({ providedIn: 'root' })
 export class WithdrawalService {
   private url = 'http://localhost:3000/withdrawals';
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   findAll(): Observable<Withdrawal[]> { return this.http.get<Withdrawal[]>(this.url); }
   getById(id: string): Observable<Withdrawal> { return this.http.get<Withdrawal>(`${this.url}/${id}`); }
