@@ -6,11 +6,18 @@ import { OrderDelivery } from '../models/order-delivery';
 @Injectable({ providedIn: 'root' })
 export class OrderDeliveryService {
   private url = 'http://localhost:3000/orderDeliveries';
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   findAll(): Observable<OrderDelivery[]> { return this.http.get<OrderDelivery[]>(this.url); }
   getById(id: string): Observable<OrderDelivery> { return this.http.get<OrderDelivery>(`${this.url}/${id}`); }
   save(d: OrderDelivery): Observable<OrderDelivery> { return this.http.post<OrderDelivery>(this.url, d); }
   update(id: string, d: OrderDelivery): Observable<OrderDelivery> { return this.http.put<OrderDelivery>(`${this.url}/${id}`, d); }
   delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+
+  findByOrderId(orderId: string): Observable<OrderDelivery[]> {
+    return this.http.get<OrderDelivery[]>(`${this.url}?orderId=${orderId}`);
+  }
+  findLatestByOrderId(orderId: string): Observable<OrderDelivery[]> {
+    return this.http.get<OrderDelivery[]>(`${this.url}?orderId=${orderId}&_sort=deliveredAt&_order=desc`);
+  }
 }

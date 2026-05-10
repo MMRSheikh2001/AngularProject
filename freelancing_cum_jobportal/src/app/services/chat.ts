@@ -6,11 +6,21 @@ import { Chat } from '../models/chat';
 @Injectable({ providedIn: 'root' })
 export class ChatService {
   private url = 'http://localhost:3000/chats';
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   findAll(): Observable<Chat[]> { return this.http.get<Chat[]>(this.url); }
   getById(id: string): Observable<Chat> { return this.http.get<Chat>(`${this.url}/${id}`); }
   save(chat: Chat): Observable<Chat> { return this.http.post<Chat>(this.url, chat); }
   update(id: string, chat: Chat): Observable<Chat> { return this.http.put<Chat>(`${this.url}/${id}`, chat); }
   delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+
+  findByOrderId(orderId: string): Observable<Chat[]> {
+    return this.http.get<Chat[]>(`${this.url}?orderId=${orderId}`);
+  }
+  findActiveChats(): Observable<Chat[]> {
+    return this.http.get<Chat[]>(`${this.url}?isActive=true`);
+  }
+  findExpiredChats(): Observable<Chat[]> {
+    return this.http.get<Chat[]>(`${this.url}?isActive=false`);
+  }
 }

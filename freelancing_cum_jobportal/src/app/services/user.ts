@@ -13,4 +13,24 @@ export class UserService {
   save(user: User): Observable<User> { return this.http.post<User>(this.url, user); }
   update(id: string, user: User): Observable<User> { return this.http.put<User>(`${this.url}/${id}`, user); }
   delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+
+
+  findByEmail(email: string): Observable<User[]> {
+    return this.http.get<User[]>(`${this.url}?email=${email}`);
+  }
+  findByStatus(status: string): Observable<User[]> {
+    return this.http.get<User[]>(`${this.url}?status=${status}`);
+  }
+  findVerified(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.url}?isVerified=true`);
+  }
+  findUnverified(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.url}?isVerified=false`);
+  }
+  findActive(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.url}?isDeleted=false&status=active`);
+  }
+  searchByName(name: string): Observable<User[]> {
+    return this.http.get<User[]>(`${this.url}?name_like=${name}`);
+  }
 }

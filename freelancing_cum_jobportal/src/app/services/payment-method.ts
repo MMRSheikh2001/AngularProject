@@ -6,11 +6,21 @@ import { PaymentMethod } from '../models/payment-method';
 @Injectable({ providedIn: 'root' })
 export class PaymentMethodService {
   private url = 'http://localhost:3000/paymentMethods';
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   findAll(): Observable<PaymentMethod[]> { return this.http.get<PaymentMethod[]>(this.url); }
   getById(id: string): Observable<PaymentMethod> { return this.http.get<PaymentMethod>(`${this.url}/${id}`); }
   save(m: PaymentMethod): Observable<PaymentMethod> { return this.http.post<PaymentMethod>(this.url, m); }
   update(id: string, m: PaymentMethod): Observable<PaymentMethod> { return this.http.put<PaymentMethod>(`${this.url}/${id}`, m); }
   delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+
+  findByUserId(userId: string): Observable<PaymentMethod[]> {
+    return this.http.get<PaymentMethod[]>(`${this.url}?userId=${userId}`);
+  }
+  findByType(type: string): Observable<PaymentMethod[]> {
+    return this.http.get<PaymentMethod[]>(`${this.url}?type=${type}`);
+  }
+  findByUserIdAndType(userId: string, type: string): Observable<PaymentMethod[]> {
+    return this.http.get<PaymentMethod[]>(`${this.url}?userId=${userId}&type=${type}`);
+  }
 }

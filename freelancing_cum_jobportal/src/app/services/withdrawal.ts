@@ -13,4 +13,20 @@ export class WithdrawalService {
   save(w: Withdrawal): Observable<Withdrawal> { return this.http.post<Withdrawal>(this.url, w); }
   update(id: string, w: Withdrawal): Observable<Withdrawal> { return this.http.put<Withdrawal>(`${this.url}/${id}`, w); }
   delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+
+  findByUserId(userId: string): Observable<Withdrawal[]> {
+    return this.http.get<Withdrawal[]>(`${this.url}?userId=${userId}`);
+  }
+  findByStatus(status: string): Observable<Withdrawal[]> {
+    return this.http.get<Withdrawal[]>(`${this.url}?status=${status}`);
+  }
+  findByUserIdAndStatus(userId: string, status: string): Observable<Withdrawal[]> {
+    return this.http.get<Withdrawal[]>(`${this.url}?userId=${userId}&status=${status}`);
+  }
+  findByMethod(method: string): Observable<Withdrawal[]> {
+    return this.http.get<Withdrawal[]>(`${this.url}?method=${method}`);
+  }
+  findPending(): Observable<Withdrawal[]> {
+    return this.http.get<Withdrawal[]>(`${this.url}?status=pending`);
+  }
 }

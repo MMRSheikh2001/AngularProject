@@ -6,11 +6,21 @@ import { OrderRevision } from '../models/order-revision';
 @Injectable({ providedIn: 'root' })
 export class OrderRevisionService {
   private url = 'http://localhost:3000/orderRevisions';
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   findAll(): Observable<OrderRevision[]> { return this.http.get<OrderRevision[]>(this.url); }
   getById(id: string): Observable<OrderRevision> { return this.http.get<OrderRevision>(`${this.url}/${id}`); }
   save(r: OrderRevision): Observable<OrderRevision> { return this.http.post<OrderRevision>(this.url, r); }
   update(id: string, r: OrderRevision): Observable<OrderRevision> { return this.http.put<OrderRevision>(`${this.url}/${id}`, r); }
   delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+
+  findByOrderId(orderId: string): Observable<OrderRevision[]> {
+    return this.http.get<OrderRevision[]>(`${this.url}?orderId=${orderId}`);
+  }
+  findByRequestedBy(userId: string): Observable<OrderRevision[]> {
+    return this.http.get<OrderRevision[]>(`${this.url}?requestedBy=${userId}`);
+  }
+  findLatestByOrderId(orderId: string): Observable<OrderRevision[]> {
+    return this.http.get<OrderRevision[]>(`${this.url}?orderId=${orderId}&_sort=createdAt&_order=desc`);
+  }
 }
