@@ -1,7 +1,7 @@
 {
     "users": [
         {
-            "id": 1,
+            "id": "u1",
             "name": "Ahmed Rahman",
             "email": "ahmed@email.com",
             "phone": "01712345678",
@@ -11,33 +11,24 @@
             "isVerified": true,
             "status": "active",
             "isDeleted": false,
-            "createdAt": "2025-01-01"
+            "createdAt": "2025-01-01",
+            "role": "user",
+            "isSuperAdmin": false
         },
         {
-            "id": 2,
-            "name": "Sara Khan",
-            "email": "sara@email.com",
-            "phone": "01898765432",
-            "city": "Chittagong",
-            "area": "Agrabad",
-            "profileImage": "https://i.pravatar.cc/150?img=5",
+            "id": "a1",
+            "name": "Super Admin",
+            "email": "admin@workbridge.com",
+            "phone": "01900000000",
+            "city": "Dhaka",
+            "area": "Motijheel",
+            "profileImage": "https://i.pravatar.cc/150?img=1",
             "isVerified": true,
             "status": "active",
             "isDeleted": false,
-            "createdAt": "2025-01-15"
-        },
-        {
-            "id": 3,
-            "name": "Rahim Mia",
-            "email": "rahim@email.com",
-            "phone": "01611122233",
-            "city": "Sylhet",
-            "area": "Zindabazar",
-            "profileImage": "https://i.pravatar.cc/150?img=7",
-            "isVerified": false,
-            "status": "suspended",
-            "isDeleted": false,
-            "createdAt": "2025-02-01"
+            "createdAt": "2025-01-01",
+            "role": "admin",
+            "isSuperAdmin": true
         }
     ],
     "userSessions": [

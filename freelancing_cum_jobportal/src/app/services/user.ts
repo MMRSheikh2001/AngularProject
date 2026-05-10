@@ -32,5 +32,16 @@ export class UserService {
   }
   searchByName(name: string): Observable<User[]> {
     return this.http.get<User[]>(`${this.url}?name_like=${name}`);
+
+
+  }
+
+
+  findByRole(role: string): Observable<User[]> {
+    return this.http.get<User[]>(`${this.url}?role=${role}`);
+  }
+
+  findAdmins(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.url}?role=admin`);
   }
 }

@@ -10,4 +10,6 @@ export interface User {
   status: 'active' | 'suspended' | 'banned';
   isDeleted: boolean;
   createdAt: string;
+  role: 'user' | 'admin';
+  isSuperAdmin: boolean;
 }
