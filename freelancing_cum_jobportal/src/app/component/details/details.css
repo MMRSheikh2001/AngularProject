@@ -1,0 +1,175 @@
+.detail-card {
+    background: white;
+    border-radius: 14px;
+    padding: 24px;
+    border: 1.5px solid #e9ecef;
+}
+
+.company-logo-lg {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 1px solid #e9ecef;
+}
+
+.info-chip {
+    font-size: 13px;
+    color: #6c757d;
+    background: #f8f9fa;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.overview-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.overview-item:last-child {
+    border-bottom: none;
+}
+
+/* Pipeline */
+.pipeline-wrap {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 14px;
+}
+
+.pipeline-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #6c757d;
+    margin-bottom: 12px;
+}
+
+.pipeline-steps {
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    gap: 0;
+}
+
+.pipeline-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    flex: 1;
+    min-width: 60px;
+}
+
+.pipeline-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #dee2e6;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    z-index: 1;
+}
+
+.pipeline-step-active .pipeline-icon {
+    background: #0d6efd;
+    color: white;
+}
+
+.pipeline-label-text {
+    font-size: 10px;
+    color: #6c757d;
+    text-align: center;
+    margin-top: 4px;
+}
+
+.pipeline-line {
+    position: absolute;
+    top: 18px;
+    left: 55%;
+    width: 100%;
+    height: 2px;
+    background: #dee2e6;
+    z-index: 0;
+}
+
+/* Gig */
+.gig-cover {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 14px;
+}
+
+.package-card {
+    border-radius: 14px;
+    border: 2px solid #dee2e6;
+    overflow: hidden;
+}
+
+.package-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.package-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0d6efd;
+}
+
+.package-body {
+    padding: 16px;
+}
+
+.review-item {
+    padding: 14px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.review-item:last-child {
+    border-bottom: none;
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal-box {
+    background: white;
+    border-radius: 16px;
+    padding: 28px;
+    width: 100%;
+    max-width: 520px;
+    animation: slideUp 0.2s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

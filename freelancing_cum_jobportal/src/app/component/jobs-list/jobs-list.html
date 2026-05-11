@@ -1,1 +1,177 @@
-<p>jobs-list works!</p>
+<app-navbar></app-navbar>
+
+<div class="page-header">
+    <div class="container">
+        <h3 class="fw-bold mb-1">Browse Jobs</h3>
+        <p class="mb-0 opacity-75">{{ filteredJobs.length }} jobs found</p>
+    </div>
+</div>
+
+<div class="container py-4">
+    <div class="row g-4">
+
+        <!-- FILTER SIDEBAR -->
+        <div class="col-lg-3">
+            <div class="filter-card">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="fw-bold mb-0">
+                        <i class="bi bi-funnel me-2 text-primary"></i>Filters
+                    </h6>
+                    <button class="btn btn-link btn-sm p-0 text-danger" (click)="clearFilters()">Clear All</button>
+                </div>
+
+                <!-- Search -->
+                <div class="mb-3">
+                    <label class="filter-label">Search</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="Job title, company..."
+                        [(ngModel)]="searchKeyword" (input)="applyFilters()">
+                </div>
+
+                <!-- City -->
+                <div class="mb-3">
+                    <label class="filter-label">Location</label>
+                    <select class="form-select form-select-sm" [(ngModel)]="selectedCity" (change)="applyFilters()">
+                        <option value="">All Cities</option>
+                        <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+                    </select>
+                </div>
+
+                <!-- Job Type -->
+                <div class="mb-3">
+                    <label class="filter-label">Job Type</label>
+                    <div *ngFor="let type of jobTypes" class="form-check">
+                        <input class="form-check-input" type="radio" [value]="type" [(ngModel)]="selectedType"
+                            (change)="applyFilters()" [id]="'type-' + type">
+                        <label class="form-check-label small" [for]="'type-' + type">
+                            {{ type | titlecase }}
+                        </label>
+                    </div>
+                    <div class="form-check mt-1">
+                        <input class="form-check-input" type="radio" value="" [(ngModel)]="selectedType"
+                            (change)="applyFilters()" id="type-all">
+                        <label class="form-check-label small" for="type-all">All Types</label>
+                    </div>
+                </div>
+
+                <!-- Salary -->
+                <div class="mb-3">
+                    <label class="filter-label">Salary Range (৳)</label>
+                    <input type="number" class="form-control form-control-sm mb-2" placeholder="Min salary"
+                        [(ngModel)]="salaryMin" (change)="applyFilters()">
+                    <input type="number" class="form-control form-control-sm" placeholder="Max salary"
+                        [(ngModel)]="salaryMax" (change)="applyFilters()">
+                </div>
+
+            </div>
+        </div>
+
+        <!-- JOBS LIST -->
+        <div class="col-lg-9">
+
+            <!-- Sort bar -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted small">
+                    Showing {{ pagedJobs.length }} of {{ filteredJobs.length }} jobs
+                </span>
+                <select class="form-select form-select-sm w-auto" [(ngModel)]="sortBy" (change)="applyFilters()">
+                    <option value="latest">Latest First</option>
+                    <option value="salary-high">Salary High to Low</option>
+                    <option value="salary-low">Salary Low to High</option>
+                </select>
+            </div>
+
+            <!-- Loading -->
+            <div *ngIf="loading" class="text-center py-5">
+                <div class="spinner-border text-primary"></div>
+                <p class="mt-2 text-muted">Loading jobs...</p>
+            </div>
+
+            <!-- Error -->
+            <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+            <!-- No results -->
+            <div *ngIf="!loading && filteredJobs.length === 0" class="text-center py-5">
+                <i class="bi bi-search" style="font-size: 48px; color: #dee2e6;"></i>
+                <p class="mt-3 text-muted">No jobs found matching your filters.</p>
+                <button class="btn btn-outline-primary btn-sm" (click)="clearFilters()">
+                    Clear Filters
+                </button>
+            </div>
+
+            <!-- Job Cards -->
+            <div class="row g-3" *ngIf="!loading && pagedJobs.length > 0">
+                <div class="col-12" *ngFor="let job of pagedJobs">
+                    <div class="job-list-card">
+                        <div class="row align-items-center">
+
+                            <!-- Company logo -->
+                            <div class="col-auto">
+                                <img [src]="job.companyLogo" class="company-logo"
+                                    onerror="this.src='https://i.pravatar.cc/48'">
+                            </div>
+
+                            <!-- Job info -->
+                            <div class="col">
+                                <div class="d-flex align-items-center gap-2 flex-wrap mb-1">
+                                    <h6 class="mb-0 fw-semibold">{{ job.title }}</h6>
+                                    <span class="badge {{ getJobTypeBadge(job.jobType) }} badge-sm">
+                                        {{ job.jobType }}
+                                    </span>
+                                </div>
+                                <div class="text-muted small mb-2">{{ job.companyName }}</div>
+                                <div class="d-flex gap-3 flex-wrap">
+                                    <span class="info-chip">
+                                        <i class="bi bi-geo-alt me-1"></i>{{ job.city }}, {{ job.area }}
+                                    </span>
+                                    <span class="info-chip text-success fw-semibold">
+                                        <i class="bi bi-currency-dollar me-1"></i>
+                                        ৳{{ job.salaryMin | number }} - ৳{{ job.salaryMax | number }}
+                                    </span>
+                                    <span class="info-chip">
+                                        <i class="bi bi-briefcase me-1"></i>{{ job.experienceRequired }}
+                                    </span>
+                                    <span class="info-chip">
+                                        <i class="bi bi-calendar me-1"></i>Deadline: {{ job.deadline | date:'dd MMM' }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="col-auto d-flex flex-column gap-2">
+                                <a [routerLink]="['/details', 'job', job.id]" class="btn btn-primary btn-sm">
+                                    View Details
+                                </a>
+                                <button class="btn btn-outline-secondary btn-sm">
+                                    <i class="bi bi-bookmark me-1"></i>Save
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <nav *ngIf="totalPages > 1" class="mt-4">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" [class.disabled]="currentPage === 1">
+                        <a class="page-link" (click)="currentPage = currentPage - 1">
+                            <i class="bi bi-chevron-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item" *ngFor="let p of pages" [class.active]="p === currentPage">
+                        <a class="page-link" (click)="currentPage = p">{{ p }}</a>
+                    </li>
+                    <li class="page-item" [class.disabled]="currentPage === totalPages">
+                        <a class="page-link" (click)="currentPage = currentPage + 1">
+                            <i class="bi bi-chevron-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>

@@ -24,7 +24,7 @@ export const routes: Routes = [
     { path: 'dashboard/gigs', canActivate: [authGuard], loadComponent: () => import('./pages/dashboard/gigs-management/gigs-management').then(m => m.GigsManagement) },
     { path: 'dashboard/orders', canActivate: [authGuard], loadComponent: () => import('./pages/dashboard/orders/orders').then(m => m.Orders) },
     { path: 'dashboard/chat', canActivate: [authGuard], loadComponent: () => import('./pages/dashboard/chat/chat').then(m => m.Chat) },
-    { path: 'dashboard/wallet', canActivate: [authGuard], loadComponent: () => import('./pages/dashboard/wallet/wallet').then(m => m.Wallet) },
+    { path: 'dashboard/wallet', canActivate: [authGuard], loadComponent: () => import('./pages/dashboard/wallet/wallet').then(m => m.WalletComponent) },
     { path: 'dashboard/notifications', canActivate: [authGuard], loadComponent: () => import('./pages/dashboard/notifications/notifications').then(m => m.Notifications) },
 
     // Admin — authGuard + adminGuard both applied ✅

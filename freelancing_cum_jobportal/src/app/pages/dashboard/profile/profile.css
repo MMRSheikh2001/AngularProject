@@ -1,0 +1,48 @@
+.main-content {
+    flex: 1;
+    padding: 24px;
+    background: #f8f9fa;
+    min-height: 100vh;
+}
+
+.dash-card {
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+    border: 1.5px solid #e9ecef;
+}
+
+.profile-card {
+    background: white;
+    border-radius: 14px;
+    padding: 24px;
+    border: 1.5px solid #e9ecef;
+}
+
+.profile-avatar {
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #e7f1ff;
+}
+
+.rep-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 7px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.rep-row:last-child {
+    border-bottom: none;
+}
+
+.skill-tag {
+    background: #e7f1ff;
+    color: #0d6efd;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}

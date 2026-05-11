@@ -1,1 +1,239 @@
-<p>details works!</p>
+<app-navbar></app-navbar>
+
+<!-- Loading -->
+<div *ngIf="loading" class="text-center py-5 mt-5">
+    <div class="spinner-border text-primary"></div>
+</div>
+
+<!-- Error -->
+<div *ngIf="error" class="container mt-5">
+    <div class="alert alert-danger">{{ error }}</div>
+</div>
+
+<!-- ─── JOB DETAILS ─── -->
+<div *ngIf="!loading && type === 'job' && job" class="container py-4">
+    <div class="row g-4">
+
+        <!-- Main content -->
+        <div class="col-lg-8">
+            <!-- Header card -->
+            <div class="detail-card mb-4">
+                <div class="d-flex align-items-start gap-3 mb-4">
+                    <img [src]="job!.companyLogo" class="company-logo-lg" onerror="this.src='https://i.pravatar.cc/64'">
+                    <div class="flex-grow-1">
+                        <h3 class="fw-bold mb-1">{{ job!.title }}</h3>
+                        <h6 class="text-muted mb-2">{{ job!.companyName }}</h6>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <span class="info-chip"><i class="bi bi-geo-alt me-1"></i>{{ job!.city }}, {{ job!.area
+                                }}</span>
+                            <span class="info-chip"><i class="bi bi-briefcase me-1"></i>{{ job!.jobType }}</span>
+                            <span class="info-chip"><i class="bi bi-clock me-1"></i>{{ job!.experienceRequired }}</span>
+                            <span class="info-chip text-success fw-semibold">
+                                <i class="bi bi-currency-exchange me-1"></i>
+                                ৳{{ job!.salaryMin | number }} - ৳{{ job!.salaryMax | number }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hiring pipeline -->
+                <div class="pipeline-wrap">
+                    <div class="pipeline-label">Hiring Pipeline</div>
+                    <div class="pipeline-steps">
+                        <div *ngFor="let stage of hiringStages; let i = index" class="pipeline-step"
+                            [class.pipeline-step-active]="i === 0">
+                            <div class="pipeline-icon">
+                                <i class="bi {{ stage.icon }}"></i>
+                            </div>
+                            <div class="pipeline-label-text">{{ stage.label }}</div>
+                            <div class="pipeline-line" *ngIf="i < hiringStages.length - 1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="detail-card mb-4">
+                <h5 class="fw-bold mb-3">Job Description</h5>
+                <p class="text-muted">{{ job!.description }}</p>
+            </div>
+
+            <!-- Requirements -->
+            <div class="detail-card">
+                <h5 class="fw-bold mb-3">Requirements</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                        {{ job!.experienceRequired }} of experience required
+                    </li>
+                    <li class="mb-2">
+                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                        Application deadline: {{ job!.deadline | date:'dd MMM yyyy' }}
+                    </li>
+                    <li class="mb-2">
+                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                        Job type: {{ job!.jobType }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Sidebar actions -->
+        <div class="col-lg-4">
+            <div class="detail-card sticky-top" style="top: 80px;">
+                <h6 class="fw-bold mb-3">Quick Overview</h6>
+
+                <div class="overview-item">
+                    <span class="text-muted small">Salary</span>
+                    <span class="fw-semibold text-success">
+                        ৳{{ job!.salaryMin | number }} - ৳{{ job!.salaryMax | number }}
+                    </span>
+                </div>
+                <div class="overview-item">
+                    <span class="text-muted small">Job Type</span>
+                    <span class="badge bg-primary">{{ job!.jobType }}</span>
+                </div>
+                <div class="overview-item">
+                    <span class="text-muted small">Experience</span>
+                    <span class="fw-semibold">{{ job!.experienceRequired }}</span>
+                </div>
+                <div class="overview-item">
+                    <span class="text-muted small">Deadline</span>
+                    <span class="fw-semibold">{{ job!.deadline | date:'dd MMM yyyy' }}</span>
+                </div>
+
+                <hr>
+
+                <div *ngIf="applied" class="alert alert-success py-2 small text-center">
+                    <i class="bi bi-check-circle me-2"></i>Application submitted!
+                </div>
+
+                <button *ngIf="!applied" class="btn btn-primary w-100 mb-2" (click)="openApplyModal()">
+                    <i class="bi bi-send me-2"></i>Apply Now
+                </button>
+                <button class="btn btn-outline-secondary w-100">
+                    <i class="bi bi-bookmark me-2"></i>Save Job
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- ─── GIG DETAILS ─── -->
+<div *ngIf="!loading && type === 'gig' && gig" class="container py-4">
+    <div class="row g-4">
+
+        <!-- Main content -->
+        <div class="col-lg-8">
+            <!-- Cover Image -->
+            <img [src]="gig!.coverImage" class="gig-cover mb-4" onerror="this.src='https://picsum.photos/800/400'">
+
+            <!-- Title & seller -->
+            <div class="detail-card mb-4">
+                <h3 class="fw-bold mb-3">{{ gig!.title }}</h3>
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <img src="https://i.pravatar.cc/48?img=3" class="rounded-circle" width="48" height="48">
+                    <div>
+                        <div class="fw-semibold">Ahmed Rahman</div>
+                        <div class="d-flex align-items-center gap-1">
+                            <span class="text-warning">
+                                <i *ngFor="let s of getStars(gig!.rating || 0)" class="bi {{ s }}"
+                                    style="font-size: 12px;"></i>
+                            </span>
+                            <small class="text-muted">({{ gig!.totalOrders }} orders)</small>
+                        </div>
+                    </div>
+                    <span class="badge bg-warning text-dark ms-auto">Level 2</span>
+                </div>
+                <p class="text-muted mb-0">{{ gig!.description }}</p>
+            </div>
+
+            <!-- Reviews -->
+            <div class="detail-card">
+                <h5 class="fw-bold mb-4">Reviews</h5>
+                <div *ngFor="let review of mockReviews" class="review-item">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <img [src]="review.avatar" class="rounded-circle" width="36" height="36">
+                        <div>
+                            <div class="fw-semibold small">{{ review.name }}</div>
+                            <div class="text-warning">
+                                <i *ngFor="let s of getStars(review.rating)" class="bi {{ s }}"
+                                    style="font-size: 11px;"></i>
+                            </div>
+                        </div>
+                        <small class="text-muted ms-auto">{{ review.date | date:'dd MMM' }}</small>
+                    </div>
+                    <p class="text-muted small mb-0">{{ review.comment }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Packages sidebar -->
+        <div class="col-lg-4">
+            <div class="sticky-top" style="top: 80px;">
+                <div *ngFor="let pkg of packages" class="package-card {{ getPackageColor(pkg.name) }} mb-3">
+                    <div class="package-header">
+                        <span class="fw-bold text-capitalize">{{ pkg.name }}</span>
+                        <span class="package-price">${{ pkg.price }}</span>
+                    </div>
+                    <div class="package-body">
+                        <div class="mb-2">
+                            <i class="bi bi-clock me-2 text-muted"></i>
+                            <small>{{ pkg.deliveryDays }} days delivery</small>
+                        </div>
+                        <div class="mb-3">
+                            <i class="bi bi-check2-all me-2 text-success"></i>
+                            <small>{{ pkg.features }}</small>
+                        </div>
+                        <button class="btn btn-primary btn-sm w-100" (click)="orderGig(pkg)">
+                            Order {{ pkg.name | titlecase }}
+                        </button>
+                    </div>
+                </div>
+
+                <!-- No packages fallback -->
+                <div *ngIf="packages.length === 0" class="detail-card text-center">
+                    <p class="text-muted mb-3">Starting at <strong class="text-primary">$50</strong></p>
+                    <button class="btn btn-primary w-100" (click)="orderGigDefault()">
+                        Order Now
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- APPLY MODAL -->
+<div *ngIf="showModal" class="modal-overlay" (click)="showModal = false">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold mb-0">Apply for {{ job?.title }}</h5>
+            <button class="btn-close" (click)="showModal = false"></button>
+        </div>
+
+        <form [formGroup]="applyForm" (ngSubmit)="submitApplication()">
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Cover Letter</label>
+                <textarea formControlName="coverLetter" class="form-control" rows="6"
+                    placeholder="Tell the employer why you are the perfect candidate (min 50 characters)...">
+        </textarea>
+                <div *ngIf="applyForm.get('coverLetter')?.touched && applyForm.get('coverLetter')?.invalid"
+                    class="text-danger small mt-1">
+                    Cover letter must be at least 50 characters
+                </div>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary flex-grow-1" [disabled]="applying || applyForm.invalid">
+                    <span *ngIf="applying" class="spinner-border spinner-border-sm me-2"></span>
+                    {{ applying ? 'Submitting...' : 'Submit Application' }}
+                </button>
+                <button type="button" class="btn btn-outline-secondary" (click)="showModal = false">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<app-footer></app-footer>
