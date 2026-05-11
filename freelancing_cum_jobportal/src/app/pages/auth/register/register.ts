@@ -16,56 +16,82 @@ export class Register {
   form: FormGroup;
   loading = false;
   error = '';
+  showPassword = false;
+  showConfirm = false;
+
+  cities = ['Dhaka', 'Chittagong', 'Sylhet', 'Rajshahi', 'Khulna'];
 
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
     private router: Router
   ) {
+    // Redirect if already logged in
+    if (this.auth.isLoggedIn()) {
+      this.router.navigate(['/dashboard']);
+    }
+
     this.form = this.fb.group({
-      name: ['', Validators.required],
+      name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', Validators.required],
+      phone: ['', [Validators.required, Validators.pattern('^[0-9]{11}$')]],
       city: ['', Validators.required],
       area: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required]
+      confirmPassword: ['', Validators.required],
     });
   }
 
   get f() { return this.form.controls; }
 
+  get passwordStrength(): 'weak' | 'medium' | 'strong' {
+    const pwd = this.f['password'].value || '';
+    if (pwd.length < 6) return 'weak';
+    const hasUpper = /[A-Z]/.test(pwd);
+    const hasNumber = /[0-9]/.test(pwd);
+    const hasSpecial = /[!@#$%^&*]/.test(pwd);
+    const strong = hasUpper && hasNumber && hasSpecial;
+    return strong ? 'strong' : (hasNumber || hasUpper ? 'medium' : 'weak');
+  }
+
   passwordsMatch(): boolean {
     return this.f['password'].value === this.f['confirmPassword'].value;
   }
 
-  onSubmit() {
-    if (this.form.invalid || !this.passwordsMatch()) return;
-
-    this.loading = true;
+  onSubmit(): void {
     this.error = '';
 
-    const userData = {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    if (!this.passwordsMatch()) {
+      this.error = 'Passwords do not match.';
+      return;
+    }
+
+    this.loading = true;
+
+    this.auth.registerUser({
       name: this.f['name'].value,
       email: this.f['email'].value,
+      password: this.f['password'].value,
       phone: this.f['phone'].value,
       city: this.f['city'].value,
       area: this.f['area'].value,
-      profileImage: `https://i.pravatar.cc/150?u=${this.f['email'].value}`,
-      isVerified: false,
-      isDeleted: false,
-      status: 'active' as const,
-      createdAt: new Date().toISOString()
-    };
-
-    this.auth.register(userData).subscribe({
-      next: () => {
+    }).subscribe({
+      next: (result) => {
         this.loading = false;
-        this.router.navigate(['/verify-email']);
+        if (result.success) {
+          this.router.navigate(['/verify-email']);
+        } else {
+          this.error = result.message;
+        }
       },
       error: () => {
         this.loading = false;
-        this.error = 'Registration failed. Please try again.';
+        this.error = 'Unexpected error. Please try again.';
       }
     });
   }

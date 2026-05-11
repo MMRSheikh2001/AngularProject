@@ -4,6 +4,7 @@
             "id": "u1",
             "name": "Ahmed Rahman",
             "email": "ahmed@email.com",
+            "password": "password123",
             "phone": "01712345678",
             "city": "Dhaka",
             "area": "Gulshan",
@@ -16,9 +17,10 @@
             "isSuperAdmin": false
         },
         {
-            "id": "a1",
+            "id": "admin1",
             "name": "Super Admin",
             "email": "admin@workbridge.com",
+            "password": "admin123",
             "phone": "01900000000",
             "city": "Dhaka",
             "area": "Motijheel",

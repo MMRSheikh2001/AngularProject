@@ -23,45 +23,57 @@ export class Login {
     private auth: AuthService,
     private router: Router
   ) {
-    // Redirect if already logged in
     if (this.auth.isLoggedIn()) {
-      this.router.navigate(['/dashboard']);
+      this.redirectByRole();
     }
 
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['', [Validators.required]],
     });
   }
 
   get f() { return this.form.controls; }
 
-  onSubmit() {
-    if (this.form.invalid) return;
+  redirectByRole(): void {
+    const user = this.auth.getCurrentUser();
+    if (user?.role === 'admin') {
+      this.router.navigate(['/admin']);
+    } else {
+      this.router.navigate(['/dashboard']);
+    }
+  }
 
-    this.loading = true;
+  onSubmit(): void {
     this.error = '';
 
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    this.loading = true;
+
     this.auth.login(
-      this.f['email'].value,
+      this.f['email'].value.trim().toLowerCase(),
       this.f['password'].value
     ).subscribe({
-      next: (user) => {
+      next: (result) => {
         this.loading = false;
-        if (user) {
+        if (result.success && result.user) {
           // Navigate based on role
-          if (user.role === 'admin') {
+          if (result.user.role === 'admin') {
             this.router.navigate(['/admin']);
           } else {
             this.router.navigate(['/dashboard']);
           }
         } else {
-          this.error = 'Invalid email or password.';
+          this.error = result.message;
         }
       },
       error: () => {
         this.loading = false;
-        this.error = 'Login failed. Please try again.';
+        this.error = 'Unexpected error. Please try again.';
       }
     });
   }

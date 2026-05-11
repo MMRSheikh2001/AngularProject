@@ -11,74 +11,111 @@
                 <p class="text-muted small">Join thousands of professionals</p>
             </div>
 
-            <!-- Error -->
-            <div *ngIf="error" class="alert alert-danger py-2 small">{{ error }}</div>
+            <!-- Error Alert -->
+            <div *ngIf="error" class="alert alert-danger py-2 small d-flex align-items-center gap-2">
+                <i class="bi bi-exclamation-circle-fill"></i>{{ error }}
+            </div>
 
-            <!-- Form -->
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
+                <!-- Name -->
                 <div class="mb-3">
                     <label class="form-label small fw-semibold">Full Name</label>
-                    <input formControlName="name" type="text" class="form-control" placeholder="Ahmed Rahman">
-                    <div *ngIf="f['name'].touched && f['name'].invalid" class="text-danger small mt-1">Name is required
+                    <input formControlName="name" type="text" class="form-control"
+                        [class.is-invalid]="f['name'].touched && f['name'].invalid" placeholder="Ahmed Rahman">
+                    <div class="invalid-feedback">
+                        Name must be at least 3 characters.
                     </div>
                 </div>
 
+                <!-- Email -->
                 <div class="mb-3">
                     <label class="form-label small fw-semibold">Email</label>
-                    <input formControlName="email" type="email" class="form-control" placeholder="ahmed@email.com">
-                    <div *ngIf="f['email'].touched && f['email'].invalid" class="text-danger small mt-1">Valid email is
-                        required</div>
+                    <input formControlName="email" type="email" class="form-control"
+                        [class.is-invalid]="f['email'].touched && f['email'].invalid" placeholder="ahmed@email.com">
+                    <div class="invalid-feedback">
+                        Please enter a valid email address.
+                    </div>
                 </div>
 
+                <!-- Phone -->
                 <div class="mb-3">
                     <label class="form-label small fw-semibold">Phone</label>
-                    <input formControlName="phone" type="text" class="form-control" placeholder="01712345678">
-                    <div *ngIf="f['phone'].touched && f['phone'].invalid" class="text-danger small mt-1">Phone is
-                        required</div>
+                    <input formControlName="phone" type="tel" class="form-control"
+                        [class.is-invalid]="f['phone'].touched && f['phone'].invalid" placeholder="01712345678">
+                    <div class="invalid-feedback">
+                        Phone must be exactly 11 digits.
+                    </div>
                 </div>
 
+                <!-- City and Area -->
                 <div class="row mb-3">
                     <div class="col">
                         <label class="form-label small fw-semibold">City</label>
-                        <select formControlName="city" class="form-select">
+                        <select formControlName="city" class="form-select"
+                            [class.is-invalid]="f['city'].touched && f['city'].invalid">
                             <option value="">Select city</option>
-                            <option>Dhaka</option>
-                            <option>Chittagong</option>
-                            <option>Sylhet</option>
-                            <option>Rajshahi</option>
-                            <option>Khulna</option>
+                            <option *ngFor="let c of cities" [value]="c">{{ c }}</option>
                         </select>
-                        <div *ngIf="f['city'].touched && f['city'].invalid" class="text-danger small mt-1">City is
-                            required</div>
+                        <div class="invalid-feedback">Select a city.</div>
                     </div>
                     <div class="col">
                         <label class="form-label small fw-semibold">Area</label>
-                        <input formControlName="area" type="text" class="form-control" placeholder="Gulshan">
-                        <div *ngIf="f['area'].touched && f['area'].invalid" class="text-danger small mt-1">Area is
-                            required</div>
+                        <input formControlName="area" type="text" class="form-control"
+                            [class.is-invalid]="f['area'].touched && f['area'].invalid" placeholder="Gulshan">
+                        <div class="invalid-feedback">Area is required.</div>
                     </div>
                 </div>
 
-                <div class="mb-3">
+                <!-- Password -->
+                <div class="mb-2">
                     <label class="form-label small fw-semibold">Password</label>
-                    <input formControlName="password" type="password" class="form-control"
-                        placeholder="Min 6 characters">
-                    <div *ngIf="f['password'].touched && f['password'].invalid" class="text-danger small mt-1">Min 6
-                        characters required</div>
+                    <div class="input-group">
+                        <input formControlName="password" [type]="showPassword ? 'text' : 'password'"
+                            class="form-control" [class.is-invalid]="f['password'].touched && f['password'].invalid"
+                            placeholder="Min 6 characters">
+                        <button class="btn btn-outline-secondary" type="button" (click)="showPassword = !showPassword">
+                            <i class="bi" [class.bi-eye]="!showPassword" [class.bi-eye-slash]="showPassword"></i>
+                        </button>
+                        <div class="invalid-feedback">Minimum 6 characters required.</div>
+                    </div>
+
+                    <!-- Strength indicator -->
+                    <div class="mt-1" *ngIf="f['password'].value">
+                        <div class="progress" style="height: 4px;">
+                            <div class="progress-bar"
+                                [style.width]="passwordStrength === 'weak' ? '33%' : passwordStrength === 'medium' ? '66%' : '100%'"
+                                [class.bg-danger]="passwordStrength === 'weak'"
+                                [class.bg-warning]="passwordStrength === 'medium'"
+                                [class.bg-success]="passwordStrength === 'strong'">
+                            </div>
+                        </div>
+                        <small [class.text-danger]="passwordStrength === 'weak'"
+                            [class.text-warning]="passwordStrength === 'medium'"
+                            [class.text-success]="passwordStrength === 'strong'">
+                            {{ passwordStrength | titlecase }} password
+                        </small>
+                    </div>
                 </div>
 
+                <!-- Confirm Password -->
                 <div class="mb-4">
                     <label class="form-label small fw-semibold">Confirm Password</label>
-                    <input formControlName="confirmPassword" type="password" class="form-control"
-                        placeholder="Repeat password">
-                    <div *ngIf="f['confirmPassword'].touched && !passwordsMatch()" class="text-danger small mt-1">
-                        Passwords do not match</div>
+                    <div class="input-group">
+                        <input formControlName="confirmPassword" [type]="showConfirm ? 'text' : 'password'"
+                            class="form-control" [class.is-invalid]="f['confirmPassword'].touched && !passwordsMatch()"
+                            placeholder="Repeat password">
+                        <button class="btn btn-outline-secondary" type="button" (click)="showConfirm = !showConfirm">
+                            <i class="bi" [class.bi-eye]="!showConfirm" [class.bi-eye-slash]="showConfirm"></i>
+                        </button>
+                        <div class="invalid-feedback">Passwords do not match.</div>
+                    </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100" [disabled]="loading">
+                <!-- Submit -->
+                <button type="submit" class="btn btn-primary w-100 py-2" [disabled]="loading">
                     <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
-                    {{ loading ? 'Creating account...' : 'Register' }}
+                    {{ loading ? 'Creating account...' : 'Create Account' }}
                 </button>
 
             </form>

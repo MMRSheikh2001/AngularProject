@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../services/auth';
@@ -11,11 +11,30 @@ import { Router } from '@angular/router';
   templateUrl: './navbar.html',
   styleUrl: './navbar.css'
 })
-export class Navbar {
+export class Navbar implements OnInit {
+
+  isLoggedIn = false;
+  isAdmin = false;
+  userName = '';
+
   constructor(public auth: AuthService, private router: Router) { }
 
-  logout() {
+  ngOnInit(): void {
+    this.refreshState();
+  }
+
+  refreshState(): void {
+    const user = this.auth.getCurrentUser();
+    this.isLoggedIn = !!user;
+    this.isAdmin = user?.role === 'admin';
+    this.userName = user?.name || '';
+  }
+
+  logout(): void {
     this.auth.logout();
+    this.isLoggedIn = false;
+    this.isAdmin = false;
+    this.userName = '';
     this.router.navigate(['/login']);
   }
 }

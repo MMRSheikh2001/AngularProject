@@ -12,47 +12,57 @@
             </div>
 
             <!-- Error -->
-            <div *ngIf="error" class="alert alert-danger py-2 small">{{ error }}</div>
+            <div *ngIf="error" class="alert alert-danger py-2 small d-flex align-items-center gap-2">
+                <i class="bi bi-exclamation-circle-fill"></i>{{ error }}
+            </div>
 
-            <!-- Form -->
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
+                <!-- Email -->
                 <div class="mb-3">
                     <label class="form-label small fw-semibold">Email</label>
-                    <input formControlName="email" type="email" class="form-control" placeholder="ahmed@email.com">
-                    <div *ngIf="f['email'].touched && f['email'].invalid" class="text-danger small mt-1">Valid email is
-                        required</div>
+                    <input formControlName="email" type="email" class="form-control"
+                        [class.is-invalid]="f['email'].touched && f['email'].invalid" placeholder="ahmed@email.com">
+                    <div class="invalid-feedback">Please enter a valid email.</div>
                 </div>
 
+                <!-- Password -->
                 <div class="mb-4">
-                    <label class="form-label small fw-semibold">Password</label>
+                    <div class="d-flex justify-content-between">
+                        <label class="form-label small fw-semibold">Password</label>
+                        <a routerLink="/forgot-password" class="text-muted small">
+                            Forgot password?
+                        </a>
+                    </div>
                     <div class="input-group">
                         <input formControlName="password" [type]="showPassword ? 'text' : 'password'"
-                            class="form-control" placeholder="Your password">
+                            class="form-control" [class.is-invalid]="f['password'].touched && f['password'].invalid"
+                            placeholder="Your password">
                         <button class="btn btn-outline-secondary" type="button" (click)="showPassword = !showPassword">
-                            <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+                            <i class="bi" [class.bi-eye]="!showPassword" [class.bi-eye-slash]="showPassword"></i>
                         </button>
+                        <div class="invalid-feedback">Password is required.</div>
                     </div>
-                    <div *ngIf="f['password'].touched && f['password'].invalid" class="text-danger small mt-1">Password
-                        is required</div>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100" [disabled]="loading">
+                <!-- Submit -->
+                <button type="submit" class="btn btn-primary w-100 py-2" [disabled]="loading">
                     <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
                     {{ loading ? 'Logging in...' : 'Login' }}
                 </button>
 
             </form>
 
-            <div class="text-center mt-3">
-                <a routerLink="/forgot-password" class="text-muted small">
-                    Forgot password?
-                </a>
+            <!-- Test credentials hint -->
+            <div class="mt-3 p-2 bg-light rounded small text-muted">
+                <strong>Test accounts:</strong><br>
+                User: ahmed@email.com / password123<br>
+                Admin: admin@workbridge.com / admin123
             </div>
 
-            <p class="text-center mt-2 small text-muted">
+            <p class="text-center mt-3 small text-muted">
                 No account?
-                <a routerLink="/register" class="text-primary fw-semibold">Register</a>
+                <a routerLink="/register" class="text-primary fw-semibold">Register here</a>
             </p>
 
         </div>
