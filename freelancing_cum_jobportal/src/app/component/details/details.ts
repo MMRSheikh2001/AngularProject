@@ -10,7 +10,7 @@ import { GigPackageService } from '../../services/gig-package';
 import { JobApplicationService } from '../../services/job-application';
 import { AuthService } from '../../services/auth';
 import { Job } from '../../models/job';
-import { Gig, GigReview } from '../../models/gig';
+import { Gig } from '../../models/gig';
 import { GigPackage } from '../../models/gig-package';
 
 @Component({
@@ -24,6 +24,7 @@ export class Details implements OnInit {
 
   type = '';
   id = '';
+
   job: Job | null = null;
   gig: Gig | null = null;
   packages: GigPackage[] = [];
@@ -31,22 +32,29 @@ export class Details implements OnInit {
   relatedGigs: Gig[] = [];
   loading = true;
   error = '';
+
+  // Apply modal
   showModal = false;
+  applyForm: FormGroup;
   applying = false;
   applied = false;
   saved = false;
-  activePackageTab = 0;
-  activeFaqIndex = -1;
+
+  // Gig state
+  selectedPackage: GigPackage | null = null;
   activeImageIndex = 0;
+  activeFaqIndex = -1;
+  activeTab: 'description' | 'reviews' | 'faq' = 'description';
+
+  // Countdown
   daysLeft = 0;
-  applyForm: FormGroup;
 
   hiringStages = [
-    { label: 'Applied', icon: 'bi-file-text', color: '#0d6efd' },
-    { label: 'Screening', icon: 'bi-eye', color: '#6f42c1' },
-    { label: 'Interview', icon: 'bi-camera-video', color: '#fd7e14' },
-    { label: 'Offer', icon: 'bi-envelope-open', color: '#20c997' },
-    { label: 'Hired', icon: 'bi-trophy', color: '#198754' }
+    { label: 'Applied', icon: 'bi-file-text' },
+    { label: 'Screening', icon: 'bi-eye' },
+    { label: 'Interview', icon: 'bi-camera-video' },
+    { label: 'Offer', icon: 'bi-envelope-open' },
+    { label: 'Hired', icon: 'bi-trophy' }
   ];
 
   constructor(
@@ -78,7 +86,7 @@ export class Details implements OnInit {
       this.jobService.getById(this.id).subscribe({
         next: (job) => {
           this.job = job;
-          this.calculateDaysLeft(job.deadline);
+          this.calculateDeadline();
           this.loadRelatedJobs();
           this.loading = false;
         },
@@ -100,16 +108,17 @@ export class Details implements OnInit {
   loadPackages(): void {
     if (!this.gig?.id) return;
     this.gigPackageService.findByGigId(this.gig.id).subscribe({
-      next: (pkgs) => this.packages = pkgs
+      next: (pkgs) => {
+        this.packages = pkgs;
+        this.selectedPackage = pkgs.find(p => p.popular) || pkgs[1] || pkgs[0] || null;
+      }
     });
   }
 
   loadRelatedJobs(): void {
     this.jobService.findOpenJobs().subscribe({
       next: (jobs) => {
-        this.relatedJobs = jobs
-          .filter(j => j.id !== this.id)
-          .slice(0, 3);
+        this.relatedJobs = jobs.filter(j => j.id !== this.id).slice(0, 3);
       }
     });
   }
@@ -117,23 +126,21 @@ export class Details implements OnInit {
   loadRelatedGigs(): void {
     this.gigService.findActiveGigs().subscribe({
       next: (gigs) => {
-        this.relatedGigs = gigs
-          .filter(g => g.id !== this.id)
-          .slice(0, 4);
+        this.relatedGigs = gigs.filter(g => g.id !== this.id).slice(0, 3);
       }
     });
   }
 
-  calculateDaysLeft(deadline: string): void {
-    const diff = new Date(deadline).getTime() - new Date().getTime();
-    this.daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
+  calculateDeadline(): void {
+    if (!this.job?.deadline) return;
+    const deadline = new Date(this.job.deadline);
+    const now = new Date();
+    const diff = deadline.getTime() - now.getTime();
+    this.daysLeft = Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24)));
   }
 
   openApplyModal(): void {
-    if (!this.auth.isLoggedIn()) {
-      this.router.navigate(['/login']);
-      return;
-    }
+    if (!this.auth.isLoggedIn()) { this.router.navigate(['/login']); return; }
     this.showModal = true;
   }
 
@@ -158,15 +165,20 @@ export class Details implements OnInit {
   }
 
   orderGig(pkg: GigPackage): void {
-    if (!this.auth.isLoggedIn()) {
-      this.router.navigate(['/login']);
-      return;
-    }
-    alert(`Order placed for ${pkg.name} package — ৳${pkg.price}`);
+    if (!this.auth.isLoggedIn()) { this.router.navigate(['/login']); return; }
+    alert(`Redirecting to order: ${pkg.name} — $${pkg.price}`);
+  }
+
+  orderGigDefault(): void {
+    if (!this.auth.isLoggedIn()) { this.router.navigate(['/login']); return; }
+    alert('Order placed! Starting at $50');
   }
 
   toggleSave(): void { this.saved = !this.saved; }
-  toggleFaq(i: number): void { this.activeFaqIndex = this.activeFaqIndex === i ? -1 : i; }
+
+  toggleFaq(index: number): void {
+    this.activeFaqIndex = this.activeFaqIndex === index ? -1 : index;
+  }
 
   getStars(rating: number): string[] {
     return Array.from({ length: 5 }, (_, i) => {
@@ -176,22 +188,26 @@ export class Details implements OnInit {
     });
   }
 
-  getRatingStars(review: GigReview): string[] {
-    return this.getStars(review.rating);
+  getPackageBorderColor(name: string): string {
+    const map: Record<string, string> = {
+      basic: '#6c757d', standard: '#0d6efd', premium: '#ffc107'
+    };
+    return map[name] || '#6c757d';
   }
 
-  getDeadlineClass(): string {
-    if (this.daysLeft <= 3) return 'text-danger';
-    if (this.daysLeft <= 7) return 'text-warning';
+  getDeadlineUrgency(): string {
+    if (this.daysLeft <= 3) return 'text-danger fw-bold';
+    if (this.daysLeft <= 7) return 'text-warning fw-bold';
     return 'text-success';
   }
 
-  shareJob(): void {
-    if (navigator.share) {
-      navigator.share({ title: this.job?.title, url: window.location.href });
-    } else {
-      navigator.clipboard.writeText(window.location.href);
-      alert('Link copied!');
-    }
+  getAvgRating(): number {
+    if (!this.gig?.reviews?.length) return this.gig?.rating || 0;
+    const sum = this.gig.reviews.reduce((a, r) => a + r.rating, 0);
+    return Math.round((sum / this.gig.reviews.length) * 10) / 10;
+  }
+
+  getRevisionLabel(rev: number): string {
+    return rev >= 999 ? 'Unlimited' : `${rev} Revisions`;
   }
 }

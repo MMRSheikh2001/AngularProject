@@ -2,30 +2,26 @@
 
 <div *ngIf="loading" class="text-center py-5 mt-5">
     <div class="spinner-border text-primary"></div>
+    <p class="mt-2 text-muted">Loading...</p>
 </div>
+
 <div *ngIf="error" class="container mt-5">
     <div class="alert alert-danger">{{ error }}</div>
 </div>
 
-<!-- ═══════════ JOB DETAILS ═══════════ -->
-<div *ngIf="!loading && type === 'job' && job" class="container-fluid px-0">
+<!-- ═══════════════════════════════════════════
+     JOB DETAILS
+═══════════════════════════════════════════ -->
+<div *ngIf="!loading && type === 'job' && job">
 
-    <!-- Job Banner -->
-    <div class="job-banner">
+    <!-- Job header banner -->
+    <div class="job-hero">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-auto">
-                    <div class="company-logo-xl">
-                        <img [src]="job!.companyLogo" width="80" height="80"
-                            style="object-fit:cover;border-radius:12px">
-                        <span *ngIf="job!.companyVerified" class="verified-tick">
-                            <i class="bi bi-patch-check-fill text-primary"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="d-flex align-items-center gap-2 flex-wrap mb-1">
-                        <h3 class="fw-bold text-white mb-0">{{ job!.title }}</h3>
+            <div class="d-flex align-items-start gap-4 flex-wrap">
+                <img [src]="job!.companyLogo" class="company-logo-hero" onerror="this.src='https://i.pravatar.cc/80'">
+                <div class="flex-grow-1">
+                    <div class="d-flex align-items-center gap-2 flex-wrap mb-2">
+                        <h2 class="fw-bold mb-0 text-white">{{ job!.title }}</h2>
                         <span *ngIf="job!.isUrgent" class="badge bg-danger">
                             <i class="bi bi-lightning-fill me-1"></i>Urgent
                         </span>
@@ -33,22 +29,23 @@
                             <i class="bi bi-star-fill me-1"></i>Featured
                         </span>
                     </div>
-                    <div class="text-white opacity-85 fw-semibold mb-2">{{ job!.companyName }}</div>
-                    <div class="d-flex gap-3 flex-wrap">
-                        <span class="banner-chip"><i class="bi bi-geo-alt me-1"></i>{{ job!.city }}</span>
-                        <span class="banner-chip"><i class="bi bi-briefcase me-1"></i>{{ job!.jobType }}</span>
-                        <span class="banner-chip"><i class="bi bi-building me-1"></i>{{ job!.workplaceType }}</span>
-                        <span class="banner-chip"><i class="bi bi-people me-1"></i>{{ job!.vacancyCount }}
-                            Vacancies</span>
-                        <span class="banner-chip"><i class="bi bi-eye me-1"></i>{{ job!.viewCount }} Views</span>
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <span class="text-white fw-semibold fs-5">{{ job!.companyName }}</span>
+                        <span *ngIf="job!.companyInfo?.isVerified" class="badge bg-success">
+                            <i class="bi bi-patch-check-fill me-1"></i>Verified
+                        </span>
                     </div>
-                </div>
-                <div class="col-auto d-none d-md-block text-end">
-                    <div class="text-white opacity-75 small mb-1">Application Deadline</div>
-                    <div class="fw-bold text-white fs-5">{{ job!.deadline | date:'dd MMM yyyy' }}</div>
-                    <div class="{{ getDeadlineClass() }} fw-semibold small">
-                        <i class="bi bi-clock me-1"></i>
-                        {{ daysLeft > 0 ? daysLeft + ' days left' : 'Expired' }}
+                    <div class="d-flex flex-wrap gap-3">
+                        <span class="hero-chip"><i class="bi bi-geo-alt me-1"></i>{{ job!.city }}, {{ job!.area
+                            }}</span>
+                        <span class="hero-chip"><i class="bi bi-clock me-1"></i>{{ job!.jobType | titlecase }}</span>
+                        <span class="hero-chip"><i class="bi bi-building me-1"></i>{{ job!.workplaceType | titlecase
+                            }}</span>
+                        <span class="hero-chip"><i class="bi bi-briefcase me-1"></i>{{ job!.experienceRequired }}</span>
+                        <span class="hero-chip text-warning fw-bold">
+                            <i class="bi bi-currency-exchange me-1"></i>
+                            ৳{{ job!.salaryMin | number }} - ৳{{ job!.salaryMax | number }}
+                        </span>
                     </div>
                 </div>
             </div>
@@ -61,244 +58,242 @@
             <!-- MAIN CONTENT -->
             <div class="col-lg-8">
 
-                <!-- Quick Stats Row -->
-                <div class="row g-2 mb-4">
-                    <div class="col-6 col-md-3">
-                        <div class="quick-stat-card">
-                            <i class="bi bi-currency-exchange text-success"></i>
-                            <div class="qs-label">Salary</div>
-                            <div class="qs-value">৳{{ job!.salaryMin | number }}-{{ job!.salaryMax | number }}</div>
+                <!-- Quick Stats Bar -->
+                <div class="stats-bar mb-4">
+                    <div class="stat-item">
+                        <i class="bi bi-people text-primary"></i>
+                        <div>
+                            <div class="stat-val">{{ job!.vacancyCount }}</div>
+                            <div class="stat-lbl">Vacancies</div>
                         </div>
                     </div>
-                    <div class="col-6 col-md-3">
-                        <div class="quick-stat-card">
-                            <i class="bi bi-person-badge text-primary"></i>
-                            <div class="qs-label">Experience</div>
-                            <div class="qs-value">{{ job!.experienceRequired }}</div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <i class="bi bi-eye text-info"></i>
+                        <div>
+                            <div class="stat-val">{{ job!.viewCount | number }}</div>
+                            <div class="stat-lbl">Views</div>
                         </div>
                     </div>
-                    <div class="col-6 col-md-3">
-                        <div class="quick-stat-card">
-                            <i class="bi bi-building text-purple"></i>
-                            <div class="qs-label">Workplace</div>
-                            <div class="qs-value">{{ job!.workplaceType }}</div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <i class="bi bi-send text-success"></i>
+                        <div>
+                            <div class="stat-val">{{ job!.applicantsCount }}</div>
+                            <div class="stat-lbl">Applied</div>
                         </div>
                     </div>
-                    <div class="col-6 col-md-3">
-                        <div class="quick-stat-card">
-                            <i class="bi bi-people text-warning"></i>
-                            <div class="qs-label">Applicants</div>
-                            <div class="qs-value">{{ job!.applicantCount }}</div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <i class="bi bi-calendar-x" [ngClass]="getDeadlineUrgency()"></i>
+                        <div>
+                            <div class="stat-val" [ngClass]="getDeadlineUrgency()">
+                                {{ daysLeft }} days
+                            </div>
+                            <div class="stat-lbl">Remaining</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Description -->
-                <div class="detail-section mb-4">
-                    <h5 class="section-title">
-                        <i class="bi bi-file-text me-2"></i>Job Description
-                    </h5>
+                <!-- Tags -->
+                <div class="d-flex flex-wrap gap-2 mb-4" *ngIf="job!.tags?.length">
+                    <span *ngFor="let tag of job!.tags" class="tag-chip">
+                        <i class="bi bi-tag me-1"></i>{{ tag }}
+                    </span>
+                </div>
+
+                <!-- Team Environment -->
+                <div class="detail-section mb-3" *ngIf="job!.teamEnvironment">
+                    <h5 class="section-title">About This Role</h5>
+                    <p class="text-muted">{{ job!.teamEnvironment }}</p>
+                    <p class="text-muted" *ngIf="job!.growthOpportunity">
+                        <i class="bi bi-graph-up-arrow text-success me-2"></i>
+                        {{ job!.growthOpportunity }}
+                    </p>
+                </div>
+
+                <!-- Job Description -->
+                <div class="detail-section mb-3">
+                    <h5 class="section-title">Job Description</h5>
                     <p class="text-muted">{{ job!.description }}</p>
-                    <div class="company-description mt-3 p-3 bg-light rounded">
-                        <p class="small text-muted mb-0">{{ job!.companyOverview }}</p>
-                    </div>
                 </div>
 
                 <!-- Responsibilities -->
-                <div class="detail-section mb-4" *ngIf="job!.responsibilities?.length">
-                    <h5 class="section-title">
-                        <i class="bi bi-check2-square me-2"></i>Responsibilities
-                    </h5>
-                    <ul class="resp-list">
+                <div class="detail-section mb-3" *ngIf="job!.responsibilities?.length">
+                    <h5 class="section-title">Key Responsibilities</h5>
+                    <ul class="responsibility-list">
                         <li *ngFor="let r of job!.responsibilities">
-                            <i class="bi bi-arrow-right-circle-fill text-primary me-2"></i>{{ r }}
+                            <i class="bi bi-check-circle-fill text-primary me-2"></i>{{ r }}
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Daily Tasks -->
+                <div class="detail-section mb-3" *ngIf="job!.dailyTasks?.length">
+                    <h5 class="section-title">Daily Tasks</h5>
+                    <ul class="responsibility-list">
+                        <li *ngFor="let t of job!.dailyTasks">
+                            <i class="bi bi-arrow-right-circle text-success me-2"></i>{{ t }}
                         </li>
                     </ul>
                 </div>
 
                 <!-- Requirements -->
-                <div class="detail-section mb-4">
-                    <h5 class="section-title">
-                        <i class="bi bi-clipboard-check me-2"></i>Requirements
-                    </h5>
+                <div class="detail-section mb-3">
+                    <h5 class="section-title">Requirements</h5>
                     <div class="row g-3">
                         <div class="col-md-6">
                             <div class="req-card">
                                 <div class="req-card-title">
                                     <i class="bi bi-mortarboard text-primary me-2"></i>Education
                                 </div>
-                                <p class="small text-muted mb-2">{{ job!.educationRequirements }}</p>
-                                <div *ngIf="job!.preferredUniversities?.length">
-                                    <small class="text-muted fw-semibold">Preferred: </small>
-                                    <span *ngFor="let u of job!.preferredUniversities"
-                                        class="badge bg-light text-dark me-1 small">{{ u }}</span>
+                                <div class="req-card-body">{{ job!.educationLevel }}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="req-card">
+                                <div class="req-card-title">
+                                    <i class="bi bi-briefcase text-success me-2"></i>Experience
+                                </div>
+                                <div class="req-card-body">
+                                    {{ job!.experienceYearsMin }}-{{ job!.experienceYearsMax }} years
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="req-card">
                                 <div class="req-card-title">
-                                    <i class="bi bi-person-workspace text-success me-2"></i>Experience
+                                    <i class="bi bi-person-badge text-warning me-2"></i>Gender
                                 </div>
-                                <p class="small text-muted mb-2">{{ job!.experienceRequired }} of experience required
-                                </p>
-                                <div class="small text-muted">
-                                    <i class="bi bi-building me-1"></i>Industry: {{ job!.industry }}
-                                </div>
+                                <div class="req-card-body">{{ job!.genderPreference }}</div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Additional Requirements -->
-                    <div class="mt-3" *ngIf="job!.additionalRequirements?.length">
-                        <div class="req-card-title mb-2">
-                            <i class="bi bi-person-check text-info me-2"></i>Additional Requirements
+                        <div class="col-md-6">
+                            <div class="req-card">
+                                <div class="req-card-title">
+                                    <i class="bi bi-translate text-info me-2"></i>Language
+                                </div>
+                                <div class="req-card-body">{{ job!.languageRequirements }}</div>
+                            </div>
                         </div>
-                        <ul class="resp-list">
-                            <li *ngFor="let r of job!.additionalRequirements">
-                                <i class="bi bi-dot text-muted me-1"></i>{{ r }}
-                            </li>
-                        </ul>
                     </div>
                 </div>
 
                 <!-- Required Skills -->
-                <div class="detail-section mb-4" *ngIf="job!.requiredSkills?.length">
-                    <h5 class="section-title">
-                        <i class="bi bi-tools me-2"></i>Required Skills
-                    </h5>
-                    <div class="d-flex flex-wrap gap-2 mb-2">
-                        <span *ngFor="let skill of job!.requiredSkills" class="skill-badge required">
-                            <i class="bi bi-check me-1"></i>{{ skill }}
+                <div class="detail-section mb-3" *ngIf="job!.requiredSkills?.length">
+                    <h5 class="section-title">Required Skills</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span *ngFor="let skill of job!.requiredSkills" class="skill-chip skill-required">
+                            <i class="bi bi-check2 me-1"></i>{{ skill }}
                         </span>
                     </div>
-                    <div *ngIf="job!.preferredSkills?.length" class="mt-2">
-                        <small class="text-muted fw-semibold d-block mb-1">Nice to have:</small>
-                        <div class="d-flex flex-wrap gap-2">
-                            <span *ngFor="let skill of job!.preferredSkills" class="skill-badge preferred">
-                                {{ skill }}
-                            </span>
-                        </div>
+                </div>
+
+                <!-- Soft Skills -->
+                <div class="detail-section mb-3" *ngIf="job!.softSkills?.length">
+                    <h5 class="section-title">Soft Skills</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span *ngFor="let skill of job!.softSkills" class="skill-chip skill-soft">{{ skill }}</span>
                     </div>
                 </div>
 
                 <!-- Benefits -->
-                <div class="detail-section mb-4" *ngIf="job!.benefits?.length">
-                    <h5 class="section-title">
-                        <i class="bi bi-gift me-2"></i>Compensation & Benefits
-                    </h5>
-                    <div class="row g-2">
+                <div class="detail-section mb-3" *ngIf="job!.benefits?.length">
+                    <h5 class="section-title">Compensation & Benefits</h5>
+                    <div class="row g-3">
                         <div class="col-6 col-md-4" *ngFor="let benefit of job!.benefits">
-                            <div class="benefit-card">
-                                <i class="bi {{ benefit.icon }} text-primary me-2"></i>
-                                <span class="small fw-semibold">{{ benefit.name }}</span>
+                            <div class="benefit-item">
+                                <i class="bi {{ benefit.icon }} text-success"></i>
+                                <span>{{ benefit.name }}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex gap-2 flex-wrap mt-3">
-                        <span *ngIf="job!.salaryNegotiable" class="badge bg-success-subtle text-success">
-                            <i class="bi bi-check-circle me-1"></i>Salary Negotiable
-                        </span>
-                        <span *ngIf="job!.flexibleHours" class="badge bg-info-subtle text-info">
-                            <i class="bi bi-clock me-1"></i>Flexible Hours
-                        </span>
-                        <span *ngIf="job!.remoteSupport" class="badge bg-primary-subtle text-primary">
-                            <i class="bi bi-house me-1"></i>Remote Support
-                        </span>
-                    </div>
                 </div>
 
-                <!-- Office Photos -->
-                <div class="detail-section mb-4" *ngIf="job!.officeImages?.length">
-                    <h5 class="section-title">
-                        <i class="bi bi-buildings me-2"></i>Office Environment
-                    </h5>
-                    <div class="row g-2">
-                        <div class="col-6" *ngFor="let img of job!.officeImages">
-                            <img [src]="img" class="office-img" alt="Office">
+                <!-- Workplace -->
+                <div class="detail-section mb-3">
+                    <h5 class="section-title">Workplace Information</h5>
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <span class="badge bg-primary fs-6 py-2 px-3">
+                            <i class="bi bi-building me-2"></i>{{ job!.workplaceType | titlecase }}
+                        </span>
+                        <span class="text-muted">
+                            <i class="bi bi-geo-alt me-1"></i>{{ job!.fullAddress }}
+                        </span>
+                    </div>
+                    <!-- Office photos -->
+                    <div class="row g-2" *ngIf="job!.companyInfo?.officeImages?.length">
+                        <div class="col-6" *ngFor="let img of job!.companyInfo.officeImages">
+                            <img [src]="img" class="office-photo rounded" onerror="this.style.display='none'">
                         </div>
                     </div>
-                    <p class="text-muted small mt-2">
-                        <i class="bi bi-geo-alt me-1"></i>{{ job!.officeAddress }}
-                    </p>
                 </div>
 
                 <!-- Company Info -->
-                <div class="detail-section mb-4">
-                    <h5 class="section-title">
-                        <i class="bi bi-building me-2"></i>About {{ job!.companyName }}
-                    </h5>
-                    <div class="d-flex align-items-center gap-3 mb-3">
-                        <img [src]="job!.companyLogo" width="56" height="56"
-                            style="border-radius:10px;object-fit:cover">
-                        <div>
-                            <h6 class="fw-bold mb-1">
-                                {{ job!.companyName }}
-                                <i *ngIf="job!.companyVerified" class="bi bi-patch-check-fill text-primary ms-1"></i>
-                            </h6>
-                            <small class="text-muted">{{ job!.industry }} • Est. {{ job!.companyFounded }}</small>
-                        </div>
-                    </div>
-                    <p class="text-muted small">{{ job!.companyOverview }}</p>
-                    <div class="row g-2 mt-2">
-                        <div class="col-auto">
-                            <small class="company-detail-chip">
-                                <i class="bi bi-people me-1"></i>{{ job!.companySize }} employees
-                            </small>
-                        </div>
-                        <div class="col-auto" *ngIf="job!.companyWebsite">
-                            <a [href]="job!.companyWebsite" target="_blank"
-                                class="company-detail-chip text-decoration-none">
-                                <i class="bi bi-globe me-1"></i>Website
-                            </a>
-                        </div>
-                        <div class="col-auto" *ngIf="job!.linkedinUrl">
-                            <a [href]="job!.linkedinUrl" target="_blank"
-                                class="company-detail-chip text-decoration-none">
-                                <i class="bi bi-linkedin me-1"></i>LinkedIn
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Hiring Pipeline -->
-                <div class="detail-section mb-4">
-                    <h5 class="section-title">
-                        <i class="bi bi-diagram-3 me-2"></i>Hiring Process
-                    </h5>
-                    <div class="pipeline-flow">
-                        <div *ngFor="let stage of hiringStages; let i = index" class="pipeline-node">
-                            <div class="pipeline-circle" [style.background]="stage.color">
-                                <i class="bi {{ stage.icon }}"></i>
+                <div class="detail-section mb-3" *ngIf="job!.companyInfo">
+                    <h5 class="section-title">About {{ job!.companyName }}</h5>
+                    <div class="company-info-card">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <img [src]="job!.companyLogo" class="rounded" width="56" height="56"
+                                onerror="this.src='https://i.pravatar.cc/56'">
+                            <div>
+                                <div class="fw-bold">{{ job!.companyName }}</div>
+                                <div class="text-muted small">{{ job!.companyInfo.industry }}</div>
+                                <span *ngIf="job!.companyInfo.isVerified" class="badge bg-success small">
+                                    <i class="bi bi-patch-check me-1"></i>Verified Employer
+                                </span>
                             </div>
-                            <div class="pipeline-label">{{ stage.label }}</div>
-                            <div class="pipeline-arrow" *ngIf="i < hiringStages.length - 1">
-                                <i class="bi bi-chevron-right text-muted"></i>
+                        </div>
+                        <p class="text-muted small mb-3">{{ job!.companyInfo.overview }}</p>
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <div class="company-meta">
+                                    <i class="bi bi-people text-primary me-2"></i>
+                                    <span class="small">{{ job!.companyInfo.companySize }}</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="company-meta">
+                                    <i class="bi bi-calendar3 text-info me-2"></i>
+                                    <span class="small">Founded {{ job!.companyInfo.foundedYear }}</span>
+                                </div>
+                            </div>
+                            <div class="col-6" *ngIf="job!.companyInfo.website">
+                                <div class="company-meta">
+                                    <i class="bi bi-globe text-success me-2"></i>
+                                    <a [href]="job!.companyInfo.website" target="_blank" class="small text-success">
+                                        Website
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-6" *ngIf="job!.companyInfo.linkedinUrl">
+                                <div class="company-meta">
+                                    <i class="bi bi-linkedin text-primary me-2"></i>
+                                    <a [href]="job!.companyInfo.linkedinUrl" target="_blank" class="small text-primary">
+                                        LinkedIn
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Related Jobs -->
-                <div class="detail-section" *ngIf="relatedJobs.length">
-                    <h5 class="section-title">
-                        <i class="bi bi-briefcase me-2"></i>Similar Jobs
-                    </h5>
-                    <div class="row g-3">
-                        <div class="col-md-4" *ngFor="let rj of relatedJobs">
-                            <a [routerLink]="['/details', 'job', rj.id]" class="related-card text-decoration-none">
-                                <div class="d-flex align-items-center gap-2 mb-2">
-                                    <img [src]="rj.companyLogo" width="36" height="36"
-                                        style="border-radius:8px;object-fit:cover">
-                                    <div>
-                                        <div class="fw-semibold small text-dark">{{ rj.title }}</div>
-                                        <div class="text-muted" style="font-size:11px">{{ rj.companyName }}</div>
-                                    </div>
-                                </div>
-                                <div class="text-success small fw-semibold">
-                                    ৳{{ rj.salaryMin | number }}-{{ rj.salaryMax | number }}
-                                </div>
+                <div class="detail-section mb-3" *ngIf="relatedJobs.length > 0">
+                    <h5 class="section-title">Similar Jobs</h5>
+                    <div *ngFor="let rj of relatedJobs" class="related-item">
+                        <img [src]="rj.companyLogo" class="related-logo" onerror="this.src='https://i.pravatar.cc/36'">
+                        <div class="flex-grow-1">
+                            <a [routerLink]="['/details', 'job', rj.id]"
+                                class="fw-semibold small text-primary text-decoration-none">
+                                {{ rj.title }}
                             </a>
+                            <div class="text-muted" style="font-size:12px">
+                                {{ rj.companyName }} • {{ rj.city }}
+                            </div>
+                        </div>
+                        <div class="text-success small fw-semibold">
+                            ৳{{ rj.salaryMax | number }}
                         </div>
                     </div>
                 </div>
@@ -307,90 +302,93 @@
 
             <!-- SIDEBAR -->
             <div class="col-lg-4">
-                <div class="sticky-top" style="top: 80px;">
+                <div class="sticky-sidebar">
 
                     <!-- Apply Card -->
                     <div class="apply-card mb-3">
-                        <div *ngIf="applied" class="text-center py-2 mb-3">
-                            <div class="text-success fw-semibold">
-                                <i class="bi bi-check-circle-fill me-2 fs-4"></i>Application Submitted!
+                        <div class="text-center mb-3">
+                            <div class="deadline-badge" [ngClass]="getDeadlineUrgency()">
+                                <i class="bi bi-clock me-1"></i>
+                                {{ daysLeft }} days left to apply
+                            </div>
+                            <div class="text-muted small mt-1">
+                                Deadline: {{ job!.deadline | date:'dd MMM yyyy' }}
                             </div>
                         </div>
 
-                        <div class="deadline-banner mb-3" [class.deadline-urgent]="daysLeft <= 7">
-                            <i class="bi bi-clock me-2"></i>
-                            <span *ngIf="daysLeft > 0">{{ daysLeft }} days remaining</span>
-                            <span *ngIf="daysLeft <= 0">Application closed</span>
+                        <div *ngIf="applied" class="alert alert-success py-2 text-center small mb-3">
+                            <i class="bi bi-check-circle me-2"></i>Application submitted!
                         </div>
 
-                        <button *ngIf="!applied && daysLeft > 0" class="btn btn-primary w-100 mb-2 py-2 fw-semibold"
+                        <button *ngIf="!applied" class="btn btn-primary w-100 py-2 mb-2 fw-bold"
                             (click)="openApplyModal()">
                             <i class="bi bi-send me-2"></i>Apply Now
                         </button>
 
-                        <div class="d-flex gap-2 mb-3">
-                            <button class="btn flex-grow-1 fw-semibold" [class.btn-warning]="saved"
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-sm flex-grow-1" [class.btn-warning]="saved"
                                 [class.btn-outline-secondary]="!saved" (click)="toggleSave()">
-                                <i class="bi me-1" [class.bi-bookmark-fill]="saved" [class.bi-bookmark]="!saved"></i>
-                                {{ saved ? 'Saved' : 'Save Job' }}
+                                <i class="bi" [class.bi-bookmark-fill]="saved" [class.bi-bookmark]="!saved"></i>
+                                {{ saved ? 'Saved' : 'Save' }}
                             </button>
-                            <button class="btn btn-outline-secondary" (click)="shareJob()">
-                                <i class="bi bi-share"></i>
+                            <button class="btn btn-outline-secondary btn-sm flex-grow-1">
+                                <i class="bi bi-share me-1"></i>Share
                             </button>
-                        </div>
-
-                        <!-- Job Overview Table -->
-                        <div class="overview-table">
-                            <div class="ov-row">
-                                <span class="ov-label">Vacancy</span>
-                                <span class="ov-value fw-semibold">{{ job!.vacancyCount }}</span>
-                            </div>
-                            <div class="ov-row">
-                                <span class="ov-label">Salary</span>
-                                <span class="ov-value text-success fw-semibold">
-                                    ৳{{ job!.salaryMin | number }} - ৳{{ job!.salaryMax | number }}
-                                </span>
-                            </div>
-                            <div class="ov-row">
-                                <span class="ov-label">Type</span>
-                                <span class="ov-value">
-                                    <span class="badge bg-primary">{{ job!.jobType }}</span>
-                                </span>
-                            </div>
-                            <div class="ov-row">
-                                <span class="ov-label">Workplace</span>
-                                <span class="ov-value">
-                                    <span class="badge bg-info text-dark">{{ job!.workplaceType }}</span>
-                                </span>
-                            </div>
-                            <div class="ov-row">
-                                <span class="ov-label">Experience</span>
-                                <span class="ov-value">{{ job!.experienceRequired }}</span>
-                            </div>
-                            <div class="ov-row">
-                                <span class="ov-label">Gender</span>
-                                <span class="ov-value">{{ job!.gender }}</span>
-                            </div>
-                            <div class="ov-row">
-                                <span class="ov-label">Deadline</span>
-                                <span class="ov-value {{ getDeadlineClass() }}">
-                                    {{ job!.deadline | date:'dd MMM yyyy' }}
-                                </span>
-                            </div>
-                            <div class="ov-row">
-                                <span class="ov-label">Published</span>
-                                <span class="ov-value text-muted">{{ job!.publishedAt | date:'dd MMM' }}</span>
-                            </div>
+                            <button class="btn btn-outline-danger btn-sm">
+                                <i class="bi bi-flag"></i>
+                            </button>
                         </div>
                     </div>
 
-                    <!-- Tags -->
-                    <div class="detail-section" *ngIf="job!.tags?.length">
-                        <div class="small fw-semibold mb-2 text-muted">JOB TAGS</div>
-                        <div class="d-flex flex-wrap gap-1">
-                            <span *ngFor="let tag of job!.tags" class="badge bg-light text-dark border">
-                                {{ tag }}
+                    <!-- Job Overview -->
+                    <div class="detail-section mb-3">
+                        <h6 class="fw-bold mb-3">Job Overview</h6>
+                        <div class="overview-row">
+                            <span class="text-muted small">Published</span>
+                            <span class="small fw-semibold">{{ job!.publishedDate | date:'dd MMM yyyy' }}</span>
+                        </div>
+                        <div class="overview-row">
+                            <span class="text-muted small">Vacancy</span>
+                            <span class="small fw-semibold">{{ job!.vacancyCount }}</span>
+                        </div>
+                        <div class="overview-row">
+                            <span class="text-muted small">Salary</span>
+                            <span class="small fw-semibold text-success">
+                                ৳{{ job!.salaryMin | number }} - ৳{{ job!.salaryMax | number }}
+                                <span *ngIf="job!.salaryNegotiable" class="text-muted">(Negotiable)</span>
                             </span>
+                        </div>
+                        <div class="overview-row">
+                            <span class="text-muted small">Job Type</span>
+                            <span class="badge bg-primary small">{{ job!.jobType }}</span>
+                        </div>
+                        <div class="overview-row">
+                            <span class="text-muted small">Workplace</span>
+                            <span class="badge bg-info text-dark small">{{ job!.workplaceType }}</span>
+                        </div>
+                        <div class="overview-row">
+                            <span class="text-muted small">Experience</span>
+                            <span class="small fw-semibold">{{ job!.experienceRequired }}</span>
+                        </div>
+                        <div class="overview-row">
+                            <span class="text-muted small">Industry</span>
+                            <span class="small fw-semibold">{{ job!.industry }}</span>
+                        </div>
+                        <div class="overview-row">
+                            <span class="text-muted small">Location</span>
+                            <span class="small fw-semibold">{{ job!.city }}, {{ job!.division }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Hiring Pipeline -->
+                    <div class="detail-section">
+                        <h6 class="fw-bold mb-3">Hiring Pipeline</h6>
+                        <div *ngFor="let stage of hiringStages; let i = index" class="pipeline-row"
+                            [class.pipeline-active]="i === 0">
+                            <div class="pipeline-dot" [class.pipeline-dot-active]="i === 0">
+                                <i class="bi {{ stage.icon }}"></i>
+                            </div>
+                            <span class="small">{{ stage.label }}</span>
                         </div>
                     </div>
 
@@ -401,296 +399,369 @@
     </div>
 </div>
 
-<!-- ═══════════ GIG DETAILS ═══════════ -->
-<div *ngIf="!loading && type === 'gig' && gig" class="container py-4">
-    <div class="row g-4">
 
-        <!-- MAIN CONTENT -->
-        <div class="col-lg-8">
+<!-- ═══════════════════════════════════════════
+     GIG DETAILS
+═══════════════════════════════════════════ -->
+<div *ngIf="!loading && type === 'gig' && gig">
 
-            <!-- Gig Title Section -->
-            <div class="mb-4">
-                <div class="d-flex gap-2 flex-wrap mb-2">
-                    <span class="badge bg-primary">Web Development</span>
-                    <span *ngIf="gig!.isFeatured" class="badge bg-warning text-dark">
-                        <i class="bi bi-star-fill me-1"></i>Featured
-                    </span>
-                </div>
+    <div class="container py-4">
+        <div class="row g-4">
+
+            <!-- MAIN CONTENT -->
+            <div class="col-lg-8">
+
+                <!-- Gig Title -->
                 <h3 class="fw-bold mb-3">{{ gig!.title }}</h3>
 
-                <!-- Seller Row -->
-                <div class="seller-row mb-3">
+                <!-- Seller Info -->
+                <div class="seller-bar mb-4">
                     <img src="https://i.pravatar.cc/48?img=3" class="rounded-circle" width="48" height="48">
-                    <div>
-                        <div class="fw-semibold">Ahmed Rahman
-                            <span class="badge bg-warning text-dark ms-2 small">Level 2</span>
-                        </div>
+                    <div class="flex-grow-1">
                         <div class="d-flex align-items-center gap-2">
-                            <span class="text-warning">
-                                <i *ngFor="let s of getStars(gig!.rating)" class="bi {{ s }}"
-                                    style="font-size: 12px;"></i>
+                            <span class="fw-semibold">Ahmed Rahman</span>
+                            <span class="badge bg-success" style="font-size: 10px;">
+                                <i class="bi bi-circle-fill me-1" style="font-size: 7px;"></i>Online
                             </span>
-                            <span class="fw-bold small">{{ gig!.rating }}</span>
-                            <span class="text-muted small">({{ gig!.totalOrders }} orders)</span>
-                            <span class="online-dot"></span>
-                            <span class="text-success small">Online</span>
+                            <span class="badge bg-warning text-dark">Level 2</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-3 mt-1">
+                            <span class="text-warning">
+                                <i *ngFor="let s of getStars(getAvgRating())" class="bi {{ s }}"
+                                    style="font-size: 12px;"></i>
+                                <span class="text-dark ms-1 small">{{ getAvgRating() }}</span>
+                            </span>
+                            <span class="text-muted small">({{ gig!.totalOrders }} reviews)</span>
+                            <span class="text-muted small">
+                                <i class="bi bi-clock me-1"></i>{{ gig!.responseTime }}
+                            </span>
                         </div>
                     </div>
-                    <div class="ms-auto d-flex gap-2">
-                        <button class="btn btn-outline-secondary btn-sm" (click)="toggleSave()">
-                            <i class="bi me-1" [class.bi-heart-fill]="saved" [class.bi-heart]="!saved"></i>
-                            {{ gig!.savedCount + (saved ? 1 : 0) }}
-                        </button>
-                        <button class="btn btn-outline-secondary btn-sm" (click)="shareJob()">
+                    <div class="text-end">
+                        <button class="btn btn-outline-secondary btn-sm me-1">
                             <i class="bi bi-share"></i>
                         </button>
+                        <button class="btn btn-outline-warning btn-sm">
+                            <i class="bi bi-heart"></i>
+                        </button>
                     </div>
                 </div>
 
-                <!-- Gig Stats Row -->
-                <div class="d-flex gap-3 flex-wrap mb-3">
+                <!-- Image Gallery -->
+                <div class="gallery-wrap mb-4">
+                    <img [src]="(gig!.images?.length ? gig!.images[activeImageIndex] : gig!.coverImage)"
+                        class="gallery-main" onerror="this.src='https://picsum.photos/seed/gig/700/400'">
+                    <div class="gallery-thumbs" *ngIf="gig!.images?.length > 1">
+                        <img *ngFor="let img of gig!.images; let i = index" [src]="img" class="gallery-thumb"
+                            [class.gallery-thumb-active]="i === activeImageIndex" (click)="activeImageIndex = i">
+                    </div>
+                </div>
+
+                <!-- Stats Row -->
+                <div class="gig-stats-row mb-4">
                     <div class="gig-stat">
-                        <i class="bi bi-eye text-primary"></i>
-                        <span>{{ gig!.viewCount }}</span> views
+                        <div class="gig-stat-val text-success">{{ gig!.totalOrders }}</div>
+                        <div class="gig-stat-lbl">Completed</div>
                     </div>
                     <div class="gig-stat">
-                        <i class="bi bi-clock text-success"></i>
-                        Responds in <span>{{ gig!.responseTime }}</span>
+                        <div class="gig-stat-val text-warning">{{ getAvgRating() }}</div>
+                        <div class="gig-stat-lbl">Avg Rating</div>
                     </div>
                     <div class="gig-stat">
-                        <i class="bi bi-check-circle text-success"></i>
-                        <span>{{ gig!.completionRate }}%</span> completion
+                        <div class="gig-stat-val text-primary">{{ gig!.queueCount }}</div>
+                        <div class="gig-stat-lbl">In Queue</div>
                     </div>
                     <div class="gig-stat">
-                        <i class="bi bi-people text-info"></i>
-                        <span>{{ gig!.queueCount }}</span> in queue
+                        <div class="gig-stat-val text-info">{{ gig!.repeatClientPercent }}%</div>
+                        <div class="gig-stat-lbl">Repeat Clients</div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Image Gallery -->
-            <div class="gig-gallery mb-4">
-                <div class="main-image mb-2">
-                    <img [src]="(gig!.images?.length ? gig!.images : [gig!.coverImage])[activeImageIndex]"
-                        class="gallery-main-img" onerror="this.src='https://picsum.photos/600/400'">
-                </div>
-                <div class="d-flex gap-2 flex-wrap">
-                    <img *ngFor="let img of (gig!.images?.length ? gig!.images : [gig!.coverImage]); let i = index"
-                        [src]="img" class="gallery-thumb" [class.active-thumb]="activeImageIndex === i"
-                        (click)="activeImageIndex = i" onerror="this.src='https://picsum.photos/100/70'">
-                </div>
-            </div>
-
-            <!-- Description -->
-            <div class="detail-section mb-4">
-                <h5 class="section-title">
-                    <i class="bi bi-info-circle me-2"></i>About This Gig
-                </h5>
-                <p class="text-muted">{{ gig!.description }}</p>
-
-                <div *ngIf="gig!.whatClientGets?.length" class="mt-3">
-                    <div class="fw-semibold mb-2">What you'll get:</div>
-                    <ul class="resp-list">
-                        <li *ngFor="let item of gig!.whatClientGets">
-                            <i class="bi bi-check-circle-fill text-success me-2"></i>{{ item }}
-                        </li>
-                    </ul>
+                <!-- Tags -->
+                <div class="d-flex flex-wrap gap-2 mb-4" *ngIf="gig!.tags?.length">
+                    <span *ngFor="let tag of gig!.tags" class="tag-chip">{{ tag }}</span>
                 </div>
 
-                <div *ngIf="gig!.technologiesUsed?.length" class="mt-3">
-                    <div class="fw-semibold mb-2">Technologies:</div>
-                    <div class="d-flex flex-wrap gap-2">
-                        <span *ngFor="let tech of gig!.technologiesUsed" class="skill-badge required">{{ tech }}</span>
+                <!-- Tabs -->
+                <div class="gig-tabs mb-4">
+                    <button class="gig-tab" [class.active]="activeTab === 'description'"
+                        (click)="activeTab = 'description'">Description</button>
+                    <button class="gig-tab" [class.active]="activeTab === 'reviews'" (click)="activeTab = 'reviews'">
+                        Reviews ({{ gig!.reviews?.length || 0 }})
+                    </button>
+                    <button class="gig-tab" [class.active]="activeTab === 'faq'"
+                        (click)="activeTab = 'faq'">FAQ</button>
+                </div>
+
+                <!-- Description Tab -->
+                <div *ngIf="activeTab === 'description'">
+                    <div class="detail-section mb-3">
+                        <h6 class="section-title-small">About This Gig</h6>
+                        <p class="text-muted">{{ gig!.description }}</p>
                     </div>
-                </div>
-            </div>
 
-            <!-- Package Comparison Table -->
-            <div class="detail-section mb-4" *ngIf="packages.length > 1">
-                <h5 class="section-title">
-                    <i class="bi bi-table me-2"></i>Package Comparison
-                </h5>
-                <div class="table-responsive">
-                    <table class="table table-bordered text-center align-middle">
-                        <thead>
-                            <tr>
-                                <th class="text-start text-muted small">Features</th>
-                                <th *ngFor="let pkg of packages" class="pkg-header"
-                                    [class.pkg-standard]="pkg.name === 'standard'"
-                                    [class.pkg-premium]="pkg.name === 'premium'">
-                                    {{ pkg.name | titlecase }}
-                                    <div class="fw-bold fs-5">৳{{ pkg.price }}</div>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="text-start text-muted small">Delivery</td>
-                                <td *ngFor="let pkg of packages">{{ pkg.deliveryDays }} days</td>
-                            </tr>
-                            <tr>
-                                <td class="text-start text-muted small">Revisions</td>
-                                <td *ngFor="let pkg of packages">{{ pkg.revisions || 1 }}</td>
-                            </tr>
-                            <tr>
-                                <td class="text-start text-muted small">Features</td>
-                                <td *ngFor="let pkg of packages" class="small">{{ pkg.features }}</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td *ngFor="let pkg of packages">
-                                    <button class="btn btn-primary btn-sm w-100" (click)="orderGig(pkg)">Order</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- FAQ -->
-            <div class="detail-section mb-4" *ngIf="gig!.faqs?.length">
-                <h5 class="section-title">
-                    <i class="bi bi-question-circle me-2"></i>Frequently Asked Questions
-                </h5>
-                <div *ngFor="let faq of gig!.faqs; let i = index" class="faq-item">
-                    <div class="faq-question" (click)="toggleFaq(i)">
-                        <span>{{ faq.question }}</span>
-                        <i class="bi" [class.bi-plus]="activeFaqIndex !== i" [class.bi-dash]="activeFaqIndex === i"></i>
+                    <div class="detail-section mb-3" *ngIf="gig!.whatYouGet?.length">
+                        <h6 class="section-title-small">What You Get</h6>
+                        <ul class="responsibility-list">
+                            <li *ngFor="let item of gig!.whatYouGet">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>{{ item }}
+                            </li>
+                        </ul>
                     </div>
-                    <div class="faq-answer" *ngIf="activeFaqIndex === i">
-                        {{ faq.answer }}
-                    </div>
-                </div>
-            </div>
 
-            <!-- Reviews -->
-            <div class="detail-section mb-4" *ngIf="gig!.reviews?.length">
-                <h5 class="section-title">
-                    <i class="bi bi-chat-quote me-2"></i>
-                    Reviews ({{ gig!.reviews.length }})
-                    <span class="text-warning ms-2">
-                        <i class="bi bi-star-fill"></i> {{ gig!.rating }}
-                    </span>
-                </h5>
-
-                <!-- Rating breakdown -->
-                <div class="row mb-4">
-                    <div class="col-auto">
-                        <div class="rating-big text-center">
-                            <div class="display-4 fw-bold text-warning">{{ gig!.rating }}</div>
-                            <div class="text-warning mb-1">
-                                <i *ngFor="let s of getStars(gig!.rating)" class="bi {{ s }}"></i>
-                            </div>
-                            <div class="text-muted small">{{ gig!.reviews.length }} reviews</div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="rating-bar-row">
-                            <span class="small text-muted">Communication</span>
-                            <div class="progress flex-grow-1">
-                                <div class="progress-bar bg-warning"
-                                    [style.width]="(gig!.communicationRating / 5 * 100) + '%'"></div>
-                            </div>
-                            <span class="small fw-bold">{{ gig!.communicationRating }}</span>
-                        </div>
-                        <div class="rating-bar-row">
-                            <span class="small text-muted">Delivery</span>
-                            <div class="progress flex-grow-1">
-                                <div class="progress-bar bg-warning"
-                                    [style.width]="(gig!.deliveryRating / 5 * 100) + '%'"></div>
-                            </div>
-                            <span class="small fw-bold">{{ gig!.deliveryRating }}</span>
+                    <div class="detail-section mb-3" *ngIf="gig!.technologies?.length">
+                        <h6 class="section-title-small">Technologies Used</h6>
+                        <div class="d-flex flex-wrap gap-2">
+                            <span *ngFor="let tech of gig!.technologies" class="skill-chip skill-required">{{ tech
+                                }}</span>
                         </div>
                     </div>
                 </div>
 
-                <div *ngFor="let review of gig!.reviews" class="review-card mb-3">
-                    <div class="d-flex align-items-center gap-2 mb-2">
-                        <img [src]="review.reviewerAvatar" class="rounded-circle" width="40" height="40">
-                        <div class="flex-grow-1">
-                            <div class="fw-semibold small">{{ review.reviewerName }}</div>
-                            <div class="text-warning" style="font-size: 12px;">
-                                <i *ngFor="let s of getRatingStars(review)" class="bi {{ s }}"></i>
-                                <span class="text-muted ms-1 small">{{ review.date | date:'MMM yyyy' }}</span>
+                <!-- Reviews Tab -->
+                <div *ngIf="activeTab === 'reviews'">
+
+                    <!-- Rating breakdown -->
+                    <div class="rating-breakdown mb-4" *ngIf="gig!.reviews?.length">
+                        <div class="row align-items-center">
+                            <div class="col-3 text-center">
+                                <div class="rating-big">{{ getAvgRating() }}</div>
+                                <div class="text-warning">
+                                    <i *ngFor="let s of getStars(getAvgRating())" class="bi {{ s }}"></i>
+                                </div>
+                                <div class="text-muted small">{{ gig!.reviews?.length }} reviews</div>
+                            </div>
+                            <div class="col-9">
+                                <div class="rating-row">
+                                    <span class="small text-muted w-100">Communication</span>
+                                    <div class="progress flex-grow-1 mx-2" style="height: 6px;">
+                                        <div class="progress-bar bg-warning"
+                                            [style.width]="(gig!.communicationRating / 5 * 100) + '%'"></div>
+                                    </div>
+                                    <span class="small fw-semibold">{{ gig!.communicationRating }}</span>
+                                </div>
+                                <div class="rating-row">
+                                    <span class="small text-muted w-100">Delivery</span>
+                                    <div class="progress flex-grow-1 mx-2" style="height: 6px;">
+                                        <div class="progress-bar bg-warning"
+                                            [style.width]="(gig!.deliveryRating / 5 * 100) + '%'"></div>
+                                    </div>
+                                    <span class="small fw-semibold">{{ gig!.deliveryRating }}</span>
+                                </div>
+                                <div class="rating-row">
+                                    <span class="small text-muted w-100">Value</span>
+                                    <div class="progress flex-grow-1 mx-2" style="height: 6px;">
+                                        <div class="progress-bar bg-warning"
+                                            [style.width]="(gig!.valueRating / 5 * 100) + '%'"></div>
+                                    </div>
+                                    <span class="small fw-semibold">{{ gig!.valueRating }}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <p class="text-muted small mb-0">{{ review.comment }}</p>
-                </div>
-            </div>
 
-            <!-- Related Gigs -->
-            <div class="detail-section" *ngIf="relatedGigs.length">
-                <h5 class="section-title">
-                    <i class="bi bi-grid me-2"></i>Related Services
-                </h5>
-                <div class="row g-3">
-                    <div class="col-6 col-md-3" *ngFor="let rg of relatedGigs">
-                        <a [routerLink]="['/details', 'gig', rg.id]" class="related-gig-card text-decoration-none">
-                            <img [src]="rg.coverImage" class="w-100 mb-2"
-                                style="height:80px;object-fit:cover;border-radius:8px">
-                            <div class="text-dark small fw-semibold line-clamp-2">{{ rg.title }}</div>
-                            <div class="text-primary small">From $50</div>
-                        </a>
+                    <!-- Individual reviews -->
+                    <div *ngFor="let review of gig!.reviews" class="review-card mb-3">
+                        <div class="d-flex align-items-center gap-3 mb-2">
+                            <img [src]="review.reviewerAvatar" class="rounded-circle" width="40" height="40">
+                            <div>
+                                <div class="fw-semibold small">{{ review.reviewerName }}</div>
+                                <div class="text-warning">
+                                    <i *ngFor="let s of getStars(review.rating)" class="bi {{ s }}"
+                                        style="font-size: 11px;"></i>
+                                </div>
+                            </div>
+                            <small class="text-muted ms-auto">{{ review.createdAt | date:'dd MMM yyyy' }}</small>
+                        </div>
+                        <p class="text-muted small mb-0">{{ review.comment }}</p>
+                    </div>
+
+                    <div *ngIf="!gig!.reviews?.length" class="text-center py-4 text-muted">
+                        No reviews yet.
                     </div>
                 </div>
+
+                <!-- FAQ Tab -->
+                <div *ngIf="activeTab === 'faq'">
+                    <div *ngFor="let faq of gig!.faqs; let i = index" class="faq-item mb-2">
+                        <div class="faq-question" (click)="toggleFaq(i)">
+                            <span>{{ faq.question }}</span>
+                            <i class="bi" [class.bi-chevron-down]="activeFaqIndex !== i"
+                                [class.bi-chevron-up]="activeFaqIndex === i"></i>
+                        </div>
+                        <div class="faq-answer" *ngIf="activeFaqIndex === i">
+                            {{ faq.answer }}
+                        </div>
+                    </div>
+                    <div *ngIf="!gig!.faqs?.length" class="text-center py-4 text-muted">
+                        No FAQs added.
+                    </div>
+                </div>
+
+                <!-- Related Gigs -->
+                <div class="mt-4" *ngIf="relatedGigs.length > 0">
+                    <h5 class="section-title">Related Services</h5>
+                    <div class="row g-3">
+                        <div class="col-md-4" *ngFor="let rg of relatedGigs">
+                            <a [routerLink]="['/details', 'gig', rg.id]" class="related-gig-card text-decoration-none">
+                                <img [src]="rg.coverImage" class="related-gig-img"
+                                    onerror="this.src='https://picsum.photos/200/120'">
+                                <div class="p-2">
+                                    <div class="small fw-semibold text-dark line-clamp-2">{{ rg.title }}</div>
+                                    <div class="text-warning small">
+                                        <i class="bi bi-star-fill"></i> {{ rg.rating }}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
-        </div>
+            <!-- SIDEBAR — Packages -->
+            <div class="col-lg-4">
+                <div class="sticky-sidebar">
 
-        <!-- PACKAGE SIDEBAR -->
-        <div class="col-lg-4">
-            <div class="sticky-top" style="top: 80px;">
-
-                <!-- Package tabs -->
-                <div class="package-sidebar">
-                    <div class="package-tabs">
-                        <button *ngFor="let pkg of packages; let i = index" class="pkg-tab"
-                            [class.active]="activePackageTab === i" (click)="activePackageTab = i">
+                    <!-- Package Tabs -->
+                    <div class="package-tabs mb-0">
+                        <button *ngFor="let pkg of packages" class="package-tab"
+                            [class.active]="selectedPackage?.name === pkg.name" (click)="selectedPackage = pkg">
                             {{ pkg.name | titlecase }}
+                            <span *ngIf="pkg.popular" class="popular-dot"></span>
                         </button>
                     </div>
 
-                    <div *ngFor="let pkg of packages; let i = index">
-                        <div *ngIf="activePackageTab === i" class="pkg-content">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h5 class="fw-bold mb-0 text-capitalize">{{ pkg.name }}</h5>
-                                <div class="fw-bold fs-4 text-primary">৳{{ pkg.price }}</div>
+                    <!-- Selected Package -->
+                    <div *ngIf="selectedPackage" class="package-detail-card"
+                        [style.border-color]="getPackageBorderColor(selectedPackage.name)">
+
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <div class="fw-semibold text-capitalize">{{ selectedPackage.name }}</div>
+                                <div class="text-muted small">{{ selectedPackage.description }}</div>
                             </div>
-                            <p class="text-muted small mb-3">{{ pkg.features }}</p>
-                            <div class="d-flex gap-3 mb-3">
-                                <div class="pkg-detail">
-                                    <i class="bi bi-clock text-muted me-1"></i>
-                                    <small>{{ pkg.deliveryDays }} day delivery</small>
-                                </div>
-                                <div class="pkg-detail">
-                                    <i class="bi bi-arrow-clockwise text-muted me-1"></i>
-                                    <small>{{ pkg.revisions || 1 }} revision(s)</small>
-                                </div>
+                            <div class="package-price">${{ selectedPackage.price }}</div>
+                        </div>
+
+                        <div class="d-flex gap-3 mb-3">
+                            <div class="pkg-meta">
+                                <i class="bi bi-clock text-muted me-1"></i>
+                                <small>{{ selectedPackage.deliveryDays }} days</small>
                             </div>
-                            <button class="btn btn-primary w-100 mb-2 py-2 fw-semibold" (click)="orderGig(pkg)">
-                                <i class="bi bi-cart me-2"></i>Order {{ pkg.name | titlecase }}
-                            </button>
-                            <button class="btn btn-outline-secondary w-100 btn-sm">
-                                <i class="bi bi-chat me-2"></i>Contact Seller
+                            <div class="pkg-meta">
+                                <i class="bi bi-arrow-clockwise text-muted me-1"></i>
+                                <small>{{ getRevisionLabel(selectedPackage.revisions) }}</small>
+                            </div>
+                        </div>
+
+                        <!-- Feature list -->
+                        <ul class="feature-list mb-3">
+                            <li *ngFor="let f of selectedPackage.featureList" [class.feature-included]="f.included"
+                                [class.feature-excluded]="!f.included">
+                                <i class="bi me-2" [class.bi-check-circle-fill]="f.included"
+                                    [class.bi-x-circle]="!f.included"></i>
+                                {{ f.label }}
+                            </li>
+                        </ul>
+
+                        <button class="btn btn-primary w-100 fw-bold py-2" (click)="orderGig(selectedPackage)">
+                            <i class="bi bi-cart me-2"></i>Continue — ${{ selectedPackage.price }}
+                        </button>
+
+                        <div class="text-center mt-2">
+                            <button class="btn btn-link btn-sm text-muted">
+                                <i class="bi bi-chat me-1"></i>Contact Seller
                             </button>
                         </div>
                     </div>
 
-                    <!-- Fallback if no packages -->
-                    <div *ngIf="packages.length === 0" class="pkg-content">
-                        <div class="text-center py-3">
-                            <div class="fw-bold fs-4 text-primary mb-3">Starting at $50</div>
-                            <button class="btn btn-primary w-100 py-2">
-                                <i class="bi bi-cart me-2"></i>Order Now
-                            </button>
+                    <!-- Package Comparison -->
+                    <div class="detail-section mt-3" *ngIf="packages.length > 1">
+                        <h6 class="fw-bold mb-3 small">Package Comparison</h6>
+                        <div class="comparison-table">
+                            <table class="w-100">
+                                <thead>
+                                    <tr>
+                                        <th class="small text-muted">Feature</th>
+                                        <th *ngFor="let pkg of packages" class="text-center small">
+                                            {{ pkg.name | titlecase }}
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="small">Price</td>
+                                        <td *ngFor="let pkg of packages" class="text-center small fw-bold">
+                                            ${{ pkg.price }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="small">Delivery</td>
+                                        <td *ngFor="let pkg of packages" class="text-center small">
+                                            {{ pkg.deliveryDays }}d
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="small">Revisions</td>
+                                        <td *ngFor="let pkg of packages" class="text-center small">
+                                            {{ getRevisionLabel(pkg.revisions) }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="small">Source Code</td>
+                                        <td *ngFor="let pkg of packages" class="text-center">
+                                            <i class="bi" style="font-size: 14px;"
+                                                [class.bi-check-circle-fill]="pkg.includesSourceCode"
+                                                [class.text-success]="pkg.includesSourceCode"
+                                                [class.bi-x-circle]="!pkg.includesSourceCode"
+                                                [class.text-danger]="!pkg.includesSourceCode"></i>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="small">Commercial Use</td>
+                                        <td *ngFor="let pkg of packages" class="text-center">
+                                            <i class="bi" style="font-size: 14px;"
+                                                [class.bi-check-circle-fill]="pkg.includesCommercialUse"
+                                                [class.text-success]="pkg.includesCommercialUse"
+                                                [class.bi-x-circle]="!pkg.includesCommercialUse"
+                                                [class.text-danger]="!pkg.includesCommercialUse"></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+
+                    <!-- Seller Stats -->
+                    <div class="detail-section mt-3">
+                        <h6 class="fw-bold mb-3 small">About the Seller</h6>
+                        <div class="overview-row">
+                            <span class="text-muted small">Member Since</span>
+                            <span class="small">{{ gig!.publishedDate | date:'MMM yyyy' }}</span>
+                        </div>
+                        <div class="overview-row">
+                            <span class="text-muted small">Languages</span>
+                            <span class="small">{{ gig!.languages?.join(', ') }}</span>
+                        </div>
+                        <div class="overview-row">
+                            <span class="text-muted small">Response Time</span>
+                            <span class="small text-success">{{ gig!.responseTime }}</span>
+                        </div>
+                        <div class="overview-row">
+                            <span class="text-muted small">Views</span>
+                            <span class="small">{{ gig!.viewCount | number }}</span>
+                        </div>
+                        <div class="overview-row">
+                            <span class="text-muted small">Saves</span>
+                            <span class="small">{{ gig!.savedCount }}</span>
+                        </div>
+                    </div>
+
                 </div>
-
             </div>
-        </div>
 
+        </div>
     </div>
 </div>
 
@@ -698,29 +769,34 @@
 <div *ngIf="showModal" class="modal-overlay" (click)="showModal = false">
     <div class="modal-box" (click)="$event.stopPropagation()">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <div>
-                <h5 class="fw-bold mb-0">Apply for Position</h5>
-                <div class="text-muted small">{{ job?.title }} at {{ job?.companyName }}</div>
-            </div>
+            <h5 class="fw-bold mb-0">Apply for {{ job?.title }}</h5>
             <button class="btn-close" (click)="showModal = false"></button>
         </div>
+        <p class="text-muted small mb-3">
+            <i class="bi bi-info-circle me-1"></i>
+            Write a compelling cover letter. Employers spend ~6 seconds reading each application.
+        </p>
         <form [formGroup]="applyForm" (ngSubmit)="submitApplication()">
             <div class="mb-3">
                 <label class="form-label fw-semibold small">Cover Letter *</label>
-                <textarea formControlName="coverLetter" class="form-control" rows="7"
-                    placeholder="Tell the employer why you are the best candidate for this position. Mention your relevant experience, skills, and motivation (minimum 50 characters)...">
+                <textarea formControlName="coverLetter" class="form-control" rows="7" placeholder="Dear Hiring Manager,
+
+I am writing to express my strong interest in the {{ job?.title }} position at {{ job?.companyName }}...
+
+(Minimum 50 characters required)">
         </textarea>
-                <div *ngIf="applyForm.get('coverLetter')?.touched && applyForm.get('coverLetter')?.invalid"
-                    class="text-danger small mt-1">
-                    Cover letter must be at least 50 characters
+                <div class="d-flex justify-content-between mt-1">
+                    <div *ngIf="applyForm.get('coverLetter')?.touched && applyForm.get('coverLetter')?.invalid"
+                        class="text-danger small">
+                        Minimum 50 characters required
+                    </div>
+                    <small class="text-muted ms-auto">
+                        {{ applyForm.get('coverLetter')?.value?.length || 0 }} chars
+                    </small>
                 </div>
-                <small class="text-muted">
-                    {{ applyForm.get('coverLetter')?.value?.length || 0 }} characters
-                </small>
             </div>
             <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-primary flex-grow-1 py-2"
-                    [disabled]="applying || applyForm.invalid">
+                <button type="submit" class="btn btn-primary flex-grow-1" [disabled]="applying || applyForm.invalid">
                     <span *ngIf="applying" class="spinner-border spinner-border-sm me-2"></span>
                     {{ applying ? 'Submitting...' : 'Submit Application' }}
                 </button>

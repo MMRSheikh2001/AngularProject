@@ -241,123 +241,6 @@
             ]
         }
     ],
-    "jobs": [
-        {
-            "id": "j1",
-            "employerId": "u2",
-            "title": "Senior Angular Developer",
-            "description": "We are looking for an experienced Angular developer to join our growing team.",
-            "companyName": "TechCorp BD",
-            "companyLogo": "https://i.pravatar.cc/64?img=10",
-            "city": "Dhaka",
-            "area": "Banani",
-            "salaryMin": 60000,
-            "salaryMax": 100000,
-            "jobType": "full-time",
-            "experienceRequired": "3-5 years",
-            "deadline": "2025-07-30",
-            "status": "open",
-            "isDeleted": false,
-            "createdAt": "2025-05-01",
-            "publishedAt": "2025-05-01",
-            "vacancyCount": 3,
-            "gender": "Any",
-            "ageRange": "25-40",
-            "workplaceType": "Hybrid",
-            "industry": "Information Technology",
-            "department": "Engineering",
-            "companySize": "201-500",
-            "companyWebsite": "https://techcorpbd.com",
-            "companyOverview": "TechCorp BD is a leading software company building next-gen digital solutions for enterprises across Bangladesh and beyond.",
-            "companyFounded": "2015",
-            "companyVerified": true,
-            "officeAddress": "House 45, Road 11, Banani, Dhaka 1213",
-            "officeImages": [
-                "https://picsum.photos/seed/office1/400/250",
-                "https://picsum.photos/seed/office2/400/250"
-            ],
-            "educationRequirements": "BSc/MSc in Computer Science, Software Engineering or related field",
-            "preferredUniversities": [
-                "BUET",
-                "DU",
-                "BRAC University",
-                "NSU"
-            ],
-            "responsibilities": [
-                "Develop and maintain Angular-based web applications",
-                "Collaborate with backend developers on REST API integration",
-                "Write clean, maintainable, and well-tested code",
-                "Participate in code reviews and architectural decisions",
-                "Mentor junior developers"
-            ],
-            "additionalRequirements": [
-                "Strong communication skills in English",
-                "Ability to work in Agile/Scrum environment",
-                "Problem-solving mindset",
-                "Team player attitude"
-            ],
-            "requiredSkills": [
-                "Angular",
-                "TypeScript",
-                "Bootstrap",
-                "REST APIs",
-                "Git"
-            ],
-            "preferredSkills": [
-                "Spring Boot",
-                "Docker",
-                "AWS",
-                "RxJS",
-                "NgRx"
-            ],
-            "certifications": [],
-            "salaryNegotiable": true,
-            "benefits": [
-                {
-                    "name": "Health Insurance",
-                    "icon": "bi-heart-pulse"
-                },
-                {
-                    "name": "Lunch",
-                    "icon": "bi-cup-hot"
-                },
-                {
-                    "name": "Festival Bonus",
-                    "icon": "bi-gift"
-                },
-                {
-                    "name": "Flexible Hours",
-                    "icon": "bi-clock"
-                },
-                {
-                    "name": "Remote Support",
-                    "icon": "bi-house"
-                },
-                {
-                    "name": "Performance Bonus",
-                    "icon": "bi-trophy"
-                }
-            ],
-            "festivalBonus": true,
-            "insurance": true,
-            "lunchProvided": true,
-            "remoteSupport": true,
-            "performanceBonus": true,
-            "flexibleHours": true,
-            "viewCount": 342,
-            "applicantCount": 28,
-            "isUrgent": true,
-            "isFeatured": true,
-            "tags": [
-                "Angular",
-                "Frontend",
-                "Hybrid",
-                "Senior"
-            ],
-            "linkedinUrl": "https://linkedin.com/company/techcorpbd",
-            "facebookUrl": "https://facebook.com/techcorpbd"
-        }
-    ],
     "jobSkills": [
         {
             "id": 1,
@@ -552,147 +435,6 @@
         {
             "id": 6,
             "name": "Mobile Development"
-        }
-    ],
-    "gigs": [
-        {
-            "id": "g1",
-            "freelancerId": "u1",
-            "categoryId": "c1",
-            "title": "I will build your Angular web application with Bootstrap",
-            "description": "I will develop a fully responsive, professional Angular 19 web application for your business. Using Bootstrap 5, modern UI/UX principles, and clean code architecture.",
-            "status": "active",
-            "isDeleted": false,
-            "coverImage": "https://picsum.photos/seed/gig1/600/400",
-            "rating": 4.9,
-            "totalOrders": 127,
-            "images": [
-                "https://picsum.photos/seed/gig1a/600/400",
-                "https://picsum.photos/seed/gig1b/600/400",
-                "https://picsum.photos/seed/gig1c/600/400"
-            ],
-            "tags": [
-                "Angular",
-                "Bootstrap",
-                "TypeScript",
-                "Responsive"
-            ],
-            "deliveryTime": 7,
-            "revisionCount": 3,
-            "responseTime": "1 hour",
-            "technologiesUsed": [
-                "Angular 19",
-                "Bootstrap 5",
-                "TypeScript",
-                "RxJS"
-            ],
-            "whatClientGets": [
-                "Fully responsive Angular application",
-                "Source code with documentation",
-                "30 days post-delivery support",
-                "Free minor revisions"
-            ],
-            "queueCount": 3,
-            "isFeatured": true,
-            "viewCount": 1240,
-            "completionRate": 98,
-            "communicationRating": 4.9,
-            "deliveryRating": 4.8,
-            "savedCount": 87,
-            "faqs": [
-                {
-                    "question": "What information do you need to start?",
-                    "answer": "I need your design mockups or reference sites, required features list, and any backend API documentation if available."
-                },
-                {
-                    "question": "Can you integrate with my existing backend?",
-                    "answer": "Yes, I can integrate with any REST API backend including Spring Boot, Node.js, Django, etc."
-                },
-                {
-                    "question": "Do you provide source code?",
-                    "answer": "Absolutely! Full source code is delivered with proper documentation and setup instructions."
-                }
-            ],
-            "reviews": [
-                {
-                    "id": "rv1",
-                    "reviewerId": "u3",
-                    "reviewerName": "Sara Khan",
-                    "reviewerAvatar": "https://i.pravatar.cc/40?img=5",
-                    "rating": 5,
-                    "comment": "Exceptional work! Delivered a flawless Angular app ahead of schedule. Will definitely hire again.",
-                    "communicationRating": 5,
-                    "deliveryRating": 5,
-                    "date": "2025-04-20"
-                },
-                {
-                    "id": "rv2",
-                    "reviewerId": "u4",
-                    "reviewerName": "Rahim Mia",
-                    "reviewerAvatar": "https://i.pravatar.cc/40?img=7",
-                    "rating": 5,
-                    "comment": "Professional, responsive and delivers quality. The app looks amazing!",
-                    "communicationRating": 5,
-                    "deliveryRating": 5,
-                    "date": "2025-04-10"
-                }
-            ]
-        }
-    ],
-    "gigPackages": [
-        {
-            "id": 1,
-            "gigId": 1,
-            "name": "basic",
-            "price": 50,
-            "deliveryDays": 3,
-            "features": "1 page, responsive, Bootstrap",
-            "revisions": 2
-        },
-        {
-            "id": 2,
-            "gigId": 1,
-            "name": "standard",
-            "price": 100,
-            "deliveryDays": 5,
-            "features": "5 pages, responsive, animations",
-            "revisions": 2
-        },
-        {
-            "id": 3,
-            "gigId": 1,
-            "name": "premium",
-            "price": 200,
-            "deliveryDays": 10,
-            "features": "Unlimited pages, full stack, deployment",
-            "revisions": 2
-        },
-        {
-            "id": 4,
-            "gigId": 2,
-            "name": "basic",
-            "price": 30,
-            "deliveryDays": 2,
-            "features": "2 logo concepts, PNG files",
-            "revisions": 2
-        },
-        {
-            "id": 5,
-            "gigId": 2,
-            "name": "standard",
-            "price": 60,
-            "deliveryDays": 3,
-            "features": "5 concepts, all formats",
-            "revisions": 2
-        },
-        {
-            "id": 6,
-            "gigId": 2,
-            "name": "premium",
-            "price": 120,
-            "deliveryDays": 5,
-            "features": "Unlimited revisions, brand kit",
-            "revisions": 2
         }
     ],
     "orders": [
@@ -1402,6 +1144,354 @@
                 "j3"
             ],
             "recommendedJobsCount": 15
+        }
+    ],
+    "jobs": [
+        {
+            "id": "j1",
+            "employerId": "u2",
+            "title": "Senior Angular Developer",
+            "description": "We are looking for an experienced Angular Developer to join our growing engineering team.",
+            "companyName": "TechCorp BD",
+            "companyLogo": "https://i.pravatar.cc/64?img=10",
+            "city": "Dhaka",
+            "area": "Banani",
+            "salaryMin": 60000,
+            "salaryMax": 100000,
+            "jobType": "full-time",
+            "experienceRequired": "3-5 years",
+            "deadline": "2025-07-30",
+            "status": "open",
+            "isDeleted": false,
+            "createdAt": "2025-05-01",
+            "vacancyCount": 3,
+            "workplaceType": "hybrid",
+            "division": "Dhaka",
+            "district": "Dhaka",
+            "fullAddress": "House 12, Road 4, Banani, Dhaka-1213",
+            "industry": "Software & Technology",
+            "educationLevel": "BSc in Computer Science or related field",
+            "preferredUniversities": [
+                "BUET",
+                "BRACU",
+                "NSU",
+                "IIT DU"
+            ],
+            "experienceYearsMin": 3,
+            "experienceYearsMax": 5,
+            "preferredIndustries": [
+                "Software",
+                "Fintech",
+                "E-commerce"
+            ],
+            "requiredSkills": [
+                "Angular",
+                "TypeScript",
+                "RxJS",
+                "REST APIs",
+                "Git"
+            ],
+            "softSkills": [
+                "Team player",
+                "Self-motivated",
+                "Problem solving",
+                "Communication"
+            ],
+            "languageRequirements": "Bangla (Native), English (Proficient)",
+            "responsibilities": [
+                "Develop scalable Angular applications",
+                "Collaborate with backend team on API integration",
+                "Review code and mentor junior developers",
+                "Participate in agile sprint planning"
+            ],
+            "dailyTasks": [
+                "Feature development in Angular 17+",
+                "Code review via GitHub PRs",
+                "Daily standup meetings",
+                "Bug fixing and performance optimization"
+            ],
+            "kpis": [
+                "Feature delivery on time",
+                "Code quality score above 80%",
+                "Zero critical production bugs"
+            ],
+            "benefits": [
+                {
+                    "name": "Festival Bonus",
+                    "icon": "bi-gift"
+                },
+                {
+                    "name": "Medical Allowance",
+                    "icon": "bi-heart-pulse"
+                },
+                {
+                    "name": "Performance Bonus",
+                    "icon": "bi-graph-up-arrow"
+                },
+                {
+                    "name": "Flexible Hours",
+                    "icon": "bi-clock"
+                },
+                {
+                    "name": "Work From Home",
+                    "icon": "bi-house"
+                },
+                {
+                    "name": "Lunch Facility",
+                    "icon": "bi-cup-hot"
+                }
+            ],
+            "salaryNegotiable": true,
+            "festivalBonus": true,
+            "mobileAllowance": true,
+            "medicalAllowance": true,
+            "lunchFacility": true,
+            "performanceBonus": true,
+            "flexibleHours": true,
+            "workFromHome": true,
+            "genderPreference": "Any",
+            "isUrgent": true,
+            "isFeatured": true,
+            "tags": [
+                "Angular",
+                "Frontend",
+                "Remote-friendly",
+                "Senior"
+            ],
+            "viewCount": 1240,
+            "applicantsCount": 47,
+            "companyInfo": {
+                "website": "https://techcorp.com.bd",
+                "industry": "Software & Technology",
+                "companySize": "51-200 employees",
+                "foundedYear": 2015,
+                "overview": "TechCorp BD is a leading software company building next-gen digital solutions for Bangladesh and global markets.",
+                "linkedinUrl": "https://linkedin.com/company/techcorp-bd",
+                "facebookUrl": "https://facebook.com/techcorpbd",
+                "isVerified": true,
+                "officeImages": [
+                    "https://picsum.photos/seed/office1/400/200",
+                    "https://picsum.photos/seed/office2/400/200"
+                ]
+            },
+            "teamEnvironment": "Work in a collaborative team of 8 engineers with flat hierarchy and open communication culture.",
+            "growthOpportunity": "Fast-track growth with annual reviews, tech conferences, and international project exposure.",
+            "publishedDate": "2025-05-01"
+        }
+    ],
+    "gigs": [
+        {
+            "id": "g1",
+            "freelancerId": "u1",
+            "categoryId": "cat1",
+            "title": "I will build your professional Angular 19 web application",
+            "description": "I will build a complete, production-ready Angular application with modern best practices, responsive Bootstrap UI, REST API integration, and clean architecture.",
+            "status": "active",
+            "isDeleted": false,
+            "coverImage": "https://picsum.photos/seed/gig1/600/400",
+            "rating": 4.9,
+            "totalOrders": 127,
+            "images": [
+                "https://picsum.photos/seed/gig1a/600/400",
+                "https://picsum.photos/seed/gig1b/600/400",
+                "https://picsum.photos/seed/gig1c/600/400"
+            ],
+            "videoUrl": "",
+            "tags": [
+                "Angular",
+                "TypeScript",
+                "Bootstrap",
+                "REST API",
+                "SPA"
+            ],
+            "technologies": [
+                "Angular 19",
+                "TypeScript",
+                "Bootstrap 5",
+                "RxJS",
+                "Spring Boot"
+            ],
+            "whatYouGet": [
+                "Fully responsive Angular application",
+                "Clean, documented source code",
+                "REST API integration",
+                "Deployment guide",
+                "30-day post-delivery support"
+            ],
+            "faqs": [
+                {
+                    "question": "Will you provide source code?",
+                    "answer": "Yes, full source code is included in Standard and Premium packages."
+                },
+                {
+                    "question": "Can you work with my existing backend?",
+                    "answer": "Absolutely. I can integrate with any REST API or GraphQL backend."
+                },
+                {
+                    "question": "Do you offer revisions?",
+                    "answer": "Yes, Basic has 2 revisions, Standard has 5, Premium has unlimited."
+                }
+            ],
+            "reviews": [
+                {
+                    "id": "rev1",
+                    "reviewerId": "u2",
+                    "reviewerName": "Sara Khan",
+                    "reviewerAvatar": "https://i.pravatar.cc/40?img=5",
+                    "rating": 5,
+                    "comment": "Absolutely amazing work! Ahmed delivered a pixel-perfect Angular app ahead of schedule. Communication was excellent throughout.",
+                    "communicationRating": 5,
+                    "deliveryRating": 5,
+                    "valueRating": 5,
+                    "createdAt": "2025-04-20"
+                },
+                {
+                    "id": "rev2",
+                    "reviewerId": "u3",
+                    "reviewerName": "Rahim Mia",
+                    "reviewerAvatar": "https://i.pravatar.cc/40?img=7",
+                    "rating": 5,
+                    "comment": "Second time working with Ahmed. Always delivers clean, professional code. Highly recommended!",
+                    "communicationRating": 5,
+                    "deliveryRating": 4,
+                    "valueRating": 5,
+                    "createdAt": "2025-04-15"
+                }
+            ],
+            "queueCount": 3,
+            "responseTime": "Under 1 hour",
+            "languages": [
+                "Bangla",
+                "English"
+            ],
+            "isFeatured": true,
+            "totalRevenue": 12700,
+            "repeatClientPercent": 68,
+            "communicationRating": 4.9,
+            "deliveryRating": 4.8,
+            "valueRating": 4.9,
+            "viewCount": 3420,
+            "savedCount": 89,
+            "publishedDate": "2025-01-15"
+        }
+    ],
+    "gigPackages": [
+        {
+            "id": "gp1",
+            "gigId": "g1",
+            "name": "basic",
+            "price": 50,
+            "deliveryDays": 3,
+            "features": "1 page, responsive",
+            "revisions": 2,
+            "includesSourceCode": false,
+            "includesCommercialUse": false,
+            "description": "A single-page Angular application with responsive Bootstrap design.",
+            "popular": false,
+            "featureList": [
+                {
+                    "label": "1 Page Application",
+                    "included": true
+                },
+                {
+                    "label": "Responsive Design",
+                    "included": true
+                },
+                {
+                    "label": "Source Code",
+                    "included": false
+                },
+                {
+                    "label": "API Integration",
+                    "included": false
+                },
+                {
+                    "label": "Commercial Use",
+                    "included": false
+                },
+                {
+                    "label": "Deployment Help",
+                    "included": false
+                }
+            ]
+        },
+        {
+            "id": "gp2",
+            "gigId": "g1",
+            "name": "standard",
+            "price": 150,
+            "deliveryDays": 7,
+            "features": "Up to 5 pages, API integration, source code",
+            "revisions": 5,
+            "includesSourceCode": true,
+            "includesCommercialUse": true,
+            "description": "Multi-page Angular app with REST API integration and full source code.",
+            "popular": true,
+            "featureList": [
+                {
+                    "label": "Up to 5 Pages",
+                    "included": true
+                },
+                {
+                    "label": "Responsive Design",
+                    "included": true
+                },
+                {
+                    "label": "Source Code",
+                    "included": true
+                },
+                {
+                    "label": "API Integration",
+                    "included": true
+                },
+                {
+                    "label": "Commercial Use",
+                    "included": true
+                },
+                {
+                    "label": "Deployment Help",
+                    "included": false
+                }
+            ]
+        },
+        {
+            "id": "gp3",
+            "gigId": "g1",
+            "name": "premium",
+            "price": 350,
+            "deliveryDays": 14,
+            "features": "Full project, unlimited pages, deployment, 30-day support",
+            "revisions": 999,
+            "includesSourceCode": true,
+            "includesCommercialUse": true,
+            "description": "Complete production-ready Angular application with deployment and 30-day support.",
+            "popular": false,
+            "featureList": [
+                {
+                    "label": "Unlimited Pages",
+                    "included": true
+                },
+                {
+                    "label": "Responsive Design",
+                    "included": true
+                },
+                {
+                    "label": "Source Code",
+                    "included": true
+                },
+                {
+                    "label": "API Integration",
+                    "included": true
+                },
+                {
+                    "label": "Commercial Use",
+                    "included": true
+                },
+                {
+                    "label": "Deployment Help",
+                    "included": true
+                }
+            ]
         }
     ]
 }

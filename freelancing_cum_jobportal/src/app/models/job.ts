@@ -3,6 +3,18 @@ export interface JobBenefit {
   icon: string;
 }
 
+export interface CompanyInfo {
+  website: string;
+  industry: string;
+  companySize: string;
+  foundedYear: number;
+  overview: string;
+  linkedinUrl: string;
+  facebookUrl: string;
+  isVerified: boolean;
+  officeImages: string[];
+}
+
 export interface Job {
   id?: string;
   employerId: string;
@@ -23,49 +35,41 @@ export interface Job {
   isDeleted: boolean;
   createdAt: string;
 
-  // ── Extended ──
+  // ── Extended Fields ──
   vacancyCount: number;
-  gender: 'Any' | 'Male' | 'Female';
-  ageRange: string;
-  workplaceType: 'Onsite' | 'Remote' | 'Hybrid';
+  workplaceType: 'onsite' | 'remote' | 'hybrid';
+  division: string;
+  district: string;
+  fullAddress: string;
   industry: string;
-  department: string;
-  companySize: string;
-  companyWebsite: string;
-  companyOverview: string;
-  companyFounded: string;
-  companyVerified: boolean;
-  officeAddress: string;
-  officeImages: string[];
-
-  // ── Requirements ──
-  educationRequirements: string;
+  educationLevel: string;
   preferredUniversities: string[];
-  responsibilities: string[];
-  additionalRequirements: string[];
+  experienceYearsMin: number;
+  experienceYearsMax: number;
+  preferredIndustries: string[];
   requiredSkills: string[];
-  preferredSkills: string[];
-  certifications: string[];
-
-  // ── Compensation ──
-  salaryNegotiable: boolean;
+  softSkills: string[];
+  languageRequirements: string;
+  responsibilities: string[];
+  dailyTasks: string[];
+  kpis: string[];
   benefits: JobBenefit[];
+  salaryNegotiable: boolean;
   festivalBonus: boolean;
-  insurance: boolean;
-  lunchProvided: boolean;
-  remoteSupport: boolean;
+  mobileAllowance: boolean;
+  medicalAllowance: boolean;
+  lunchFacility: boolean;
   performanceBonus: boolean;
   flexibleHours: boolean;
-
-  // ── Metadata ──
-  viewCount: number;
-  applicantCount: number;
+  workFromHome: boolean;
+  genderPreference: 'Any' | 'Male' | 'Female';
   isUrgent: boolean;
   isFeatured: boolean;
   tags: string[];
-  publishedAt: string;
-
-  // ── Social ──
-  linkedinUrl: string;
-  facebookUrl: string;
+  viewCount: number;
+  applicantsCount: number;
+  companyInfo: CompanyInfo;
+  teamEnvironment: string;
+  growthOpportunity: string;
+  publishedDate: string;
 }

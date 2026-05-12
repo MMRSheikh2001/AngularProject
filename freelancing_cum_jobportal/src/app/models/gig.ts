@@ -12,7 +12,13 @@ export interface GigReview {
   comment: string;
   communicationRating: number;
   deliveryRating: number;
-  date: string;
+  valueRating: number;
+  createdAt: string;
+}
+
+export interface GigPackageFeature {
+  label: string;
+  included: boolean;
 }
 
 export interface Gig {
@@ -25,25 +31,28 @@ export interface Gig {
   description: string;
   status: 'active' | 'paused' | 'deleted';
   isDeleted: boolean;
-  coverImage: string;
-  rating: number;
-  totalOrders: number;
+  coverImage?: string;
+  rating?: number;
+  totalOrders?: number;
 
-  // ── Extended ──
+  // ── Extended Fields ──
   images: string[];
+  videoUrl: string;
   tags: string[];
-  deliveryTime: number;
-  revisionCount: number;
-  responseTime: string;
+  technologies: string[];
+  whatYouGet: string[];
   faqs: GigFaq[];
   reviews: GigReview[];
-  technologiesUsed: string[];
-  whatClientGets: string[];
   queueCount: number;
+  responseTime: string;
+  languages: string[];
   isFeatured: boolean;
-  viewCount: number;
-  completionRate: number;
+  totalRevenue: number;
+  repeatClientPercent: number;
   communicationRating: number;
   deliveryRating: number;
+  valueRating: number;
+  viewCount: number;
   savedCount: number;
+  publishedDate: string;
 }
