@@ -61,6 +61,55 @@
                     <input type="number" class="form-control form-control-sm" placeholder="Max salary"
                         [(ngModel)]="salaryMax" (change)="applyFilters()">
                 </div>
+                <!-- Workplace Type -->
+                <div class="mb-3">
+                    <label class="filter-label">Workplace</label>
+                    <div *ngFor="let wt of workplaceTypes" class="form-check">
+                        <input class="form-check-input" type="radio" [value]="wt" [(ngModel)]="selectedWorkplace"
+                            (change)="applyFilters()" [id]="'wp-' + wt">
+                        <label class="form-check-label small" [for]="'wp-' + wt">{{ wt }}</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="" [(ngModel)]="selectedWorkplace"
+                            (change)="applyFilters()" id="wp-all">
+                        <label class="form-check-label small" for="wp-all">All</label>
+                    </div>
+                </div>
+
+                <!-- Industry -->
+                <div class="mb-3">
+                    <label class="filter-label">Industry</label>
+                    <select class="form-select form-select-sm" [(ngModel)]="selectedIndustry" (change)="applyFilters()">
+                        <option value="">All Industries</option>
+                        <option *ngFor="let ind of industries" [value]="ind">{{ ind }}</option>
+                    </select>
+                </div>
+
+                <!-- Quick Filters -->
+                <div class="mb-3">
+                    <label class="filter-label">Quick Filters</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="showUrgentOnly"
+                            (change)="applyFilters()" id="urgent">
+                        <label class="form-check-label small" for="urgent">
+                            <i class="bi bi-lightning-fill text-danger me-1"></i>Urgent Jobs
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="showFeaturedOnly"
+                            (change)="applyFilters()" id="featured">
+                        <label class="form-check-label small" for="featured">
+                            <i class="bi bi-star-fill text-warning me-1"></i>Featured Only
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="showVerifiedOnly"
+                            (change)="applyFilters()" id="verified">
+                        <label class="form-check-label small" for="verified">
+                            <i class="bi bi-patch-check-fill text-primary me-1"></i>Verified Companies
+                        </label>
+                    </div>
+                </div>
 
             </div>
         </div>

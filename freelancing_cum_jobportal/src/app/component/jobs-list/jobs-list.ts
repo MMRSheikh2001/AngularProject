@@ -21,6 +21,7 @@ export class JobsList implements OnInit {
   loading = true;
   error = '';
 
+
   // Filters
   searchKeyword = '';
   selectedCity = '';
@@ -34,6 +35,18 @@ export class JobsList implements OnInit {
 
   currentPage = 1;
   itemsPerPage = 6;
+  selectedWorkplace = '';
+  selectedIndustry = '';
+  showUrgentOnly = false;
+  showFeaturedOnly = false;
+  showVerifiedOnly = false;
+  viewMode: 'list' | 'grid' = 'list';
+
+  workplaceTypes = ['Onsite', 'Remote', 'Hybrid'];
+  industries = [
+    'Information Technology', 'Banking', 'Telecom',
+    'Healthcare', 'Education', 'Manufacturing', 'Retail'
+  ];
 
   constructor(
     private jobService: JobService,
@@ -96,6 +109,21 @@ export class JobsList implements OnInit {
       result.sort((a, b) => b.salaryMax - a.salaryMax);
     } else if (this.sortBy === 'salary-low') {
       result.sort((a, b) => a.salaryMin - b.salaryMin);
+    }
+    if (this.selectedWorkplace) {
+      result = result.filter(j => j.workplaceType === this.selectedWorkplace);
+    }
+    if (this.selectedIndustry) {
+      result = result.filter(j => j.industry === this.selectedIndustry);
+    }
+    if (this.showUrgentOnly) {
+      result = result.filter(j => j.isUrgent);
+    }
+    if (this.showFeaturedOnly) {
+      result = result.filter(j => j.isFeatured);
+    }
+    if (this.showVerifiedOnly) {
+      result = result.filter(j => j.companyVerified);
     }
 
     this.filteredJobs = result;

@@ -5,4 +5,5 @@ export interface GigPackage {
   price: number;
   deliveryDays: number;
   features: string;
+   revisions?: number;
 }

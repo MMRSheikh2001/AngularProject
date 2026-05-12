@@ -91,124 +91,271 @@
     ],
     "resumes": [
         {
-            "id": 1,
-            "userId": 1,
+            "id": "r1",
+            "userId": "u1",
             "summary": "Experienced Angular developer with 3 years of experience.",
             "education": "BSc Computer Science, BUET 2022",
             "experience": "2 years at TechCorp BD as Frontend Developer",
             "certifications": "Angular Certified Developer",
             "githubLink": "https://github.com/ahmed",
-            "portfolioLink": "https://ahmed.dev"
+            "portfolioLink": "https://ahmed.dev",
+            "fatherName": "Mohammad Rahman",
+            "motherName": "Fatema Begum",
+            "gender": "Male",
+            "dateOfBirth": "1998-05-15",
+            "nationality": "Bangladeshi",
+            "religion": "Islam",
+            "maritalStatus": "Single",
+            "bloodGroup": "B+",
+            "division": "Dhaka",
+            "district": "Dhaka",
+            "upazila": "Gulshan",
+            "postCode": "1212",
+            "presentAddress": "House 12, Road 4, Gulshan-2, Dhaka",
+            "permanentAddress": "Village: Rampur, Thana: Savar, Dhaka",
+            "careerObjective": "To build a successful career as a Software Engineer leveraging modern web technologies.",
+            "careerSummary": "3 years of hands-on experience in Angular, TypeScript, and Spring Boot. Delivered 10+ production projects.",
+            "resumeHeadline": "Angular Developer | 3 Years Experience | Spring Boot",
+            "presentSalary": 45000,
+            "expectedSalary": 60000,
+            "availableFor": "Full-time",
+            "preferredJobCategories": [
+                "Software Development",
+                "Web Development",
+                "Mobile Development"
+            ],
+            "preferredLocations": [
+                "Dhaka",
+                "Chittagong",
+                "Remote"
+            ],
+            "careerLevel": "Mid Level",
+            "linkedinUrl": "https://linkedin.com/in/ahmed-rahman",
+            "behanceUrl": "",
+            "dribbbleUrl": "",
+            "languagesKnown": [
+                "Bangla",
+                "English",
+                "Hindi"
+            ],
+            "englishProficiency": "Proficient",
+            "nidNumber": "1234567890",
+            "nidVerified": false,
+            "profileCompletion": 78,
+            "cvVisibility": "Public",
+            "educations": [
+                {
+                    "id": "ed1",
+                    "degree": "BSc in Computer Science & Engineering",
+                    "groupMajor": "Computer Science",
+                    "institute": "Bangladesh University of Engineering and Technology (BUET)",
+                    "board": "University",
+                    "result": "CGPA 3.75 out of 4.00",
+                    "passingYear": 2022,
+                    "duration": "4 years",
+                    "achievements": "Dean's List Award 2020, 2021"
+                },
+                {
+                    "id": "ed2",
+                    "degree": "Higher Secondary Certificate (HSC)",
+                    "groupMajor": "Science",
+                    "institute": "Dhaka College",
+                    "board": "Dhaka Board",
+                    "result": "GPA 5.00 out of 5.00",
+                    "passingYear": 2018,
+                    "duration": "2 years",
+                    "achievements": "Board Scholarship"
+                }
+            ],
+            "experiences": [
+                {
+                    "id": "ex1",
+                    "companyName": "TechCorp BD",
+                    "designation": "Frontend Developer",
+                    "department": "Engineering",
+                    "employmentPeriod": "Jan 2023 - Present",
+                    "currentlyWorking": true,
+                    "responsibilities": "Developed responsive Angular applications, integrated REST APIs, collaborated with backend team.",
+                    "achievements": "Reduced page load time by 40%, delivered 5 major features on schedule"
+                }
+            ],
+            "skillEntries": [
+                {
+                    "id": "sk1",
+                    "skillName": "Angular",
+                    "skillLevel": "Advanced",
+                    "yearsOfExperience": 3
+                },
+                {
+                    "id": "sk2",
+                    "skillName": "TypeScript",
+                    "skillLevel": "Advanced",
+                    "yearsOfExperience": 3
+                },
+                {
+                    "id": "sk3",
+                    "skillName": "Bootstrap 5",
+                    "skillLevel": "Expert",
+                    "yearsOfExperience": 3
+                },
+                {
+                    "id": "sk4",
+                    "skillName": "Spring Boot",
+                    "skillLevel": "Intermediate",
+                    "yearsOfExperience": 1
+                },
+                {
+                    "id": "sk5",
+                    "skillName": "MySQL",
+                    "skillLevel": "Intermediate",
+                    "yearsOfExperience": 2
+                }
+            ],
+            "certificationList": [
+                {
+                    "id": "ce1",
+                    "courseName": "Angular Developer Certification",
+                    "institute": "Google Developers",
+                    "completionYear": 2023,
+                    "credentialId": "GD-ANG-2023-12345"
+                }
+            ],
+            "trainings": [
+                {
+                    "id": "tr1",
+                    "title": "Full Stack Web Development",
+                    "institute": "Creative IT Institute",
+                    "duration": "6 months",
+                    "year": 2021
+                }
+            ],
+            "projects": [
+                {
+                    "id": "pr1",
+                    "projectName": "WorkBridge Platform",
+                    "technologies": "Angular 19, Spring Boot, MySQL, Bootstrap 5",
+                    "description": "A full-stack job portal and freelance marketplace combining Indeed and Fiverr features.",
+                    "githubLink": "https://github.com/ahmed/workbridge",
+                    "liveLink": "https://workbridge.vercel.app"
+                }
+            ]
         }
     ],
     "jobs": [
         {
-            "id": 1,
-            "employerId": 2,
-            "title": "Frontend Developer",
-            "description": "Build modern web UIs using Angular and Bootstrap.",
+            "id": "j1",
+            "employerId": "u2",
+            "title": "Senior Angular Developer",
+            "description": "We are looking for an experienced Angular developer to join our growing team.",
             "companyName": "TechCorp BD",
-            "companyLogo": "https://i.pravatar.cc/40?img=10",
+            "companyLogo": "https://i.pravatar.cc/64?img=10",
             "city": "Dhaka",
             "area": "Banani",
-            "salaryMin": 30000,
-            "salaryMax": 60000,
-            "jobType": "full-time",
-            "experienceRequired": "2 years",
-            "deadline": "2025-06-30",
-            "status": "open",
-            "isDeleted": false,
-            "createdAt": "2025-05-01"
-        },
-        {
-            "id": 2,
-            "employerId": 3,
-            "title": "Backend Developer",
-            "description": "Develop REST APIs using Spring Boot and MySQL.",
-            "companyName": "SoftNest",
-            "companyLogo": "https://i.pravatar.cc/40?img=11",
-            "city": "Chittagong",
-            "area": "Agrabad",
-            "salaryMin": 40000,
-            "salaryMax": 80000,
-            "jobType": "full-time",
-            "experienceRequired": "3 years",
-            "deadline": "2025-07-15",
-            "status": "open",
-            "isDeleted": false,
-            "createdAt": "2025-05-02"
-        },
-        {
-            "id": 3,
-            "employerId": 4,
-            "title": "UI/UX Designer",
-            "description": "Design beautiful user interfaces.",
-            "companyName": "PixelStudio",
-            "companyLogo": "https://i.pravatar.cc/40?img=12",
-            "city": "Dhaka",
-            "area": "Dhanmondi",
-            "salaryMin": 25000,
-            "salaryMax": 50000,
-            "jobType": "remote",
-            "experienceRequired": "1 year",
-            "deadline": "2025-06-20",
-            "status": "open",
-            "isDeleted": false,
-            "createdAt": "2025-05-03"
-        },
-        {
-            "id": 4,
-            "employerId": 5,
-            "title": "Mobile App Developer",
-            "description": "Build cross-platform apps using Flutter.",
-            "companyName": "AppLab BD",
-            "companyLogo": "https://i.pravatar.cc/40?img=13",
-            "city": "Sylhet",
-            "area": "Zindabazar",
-            "salaryMin": 35000,
-            "salaryMax": 70000,
-            "jobType": "full-time",
-            "experienceRequired": "2 years",
-            "deadline": "2025-07-01",
-            "status": "open",
-            "isDeleted": false,
-            "createdAt": "2025-05-04"
-        },
-        {
-            "id": 5,
-            "employerId": 6,
-            "title": "DevOps Engineer",
-            "description": "Manage CI/CD pipelines and cloud infrastructure.",
-            "companyName": "CloudBase",
-            "companyLogo": "https://i.pravatar.cc/40?img=14",
-            "city": "Dhaka",
-            "area": "Tejgaon",
-            "salaryMin": 50000,
+            "salaryMin": 60000,
             "salaryMax": 100000,
             "jobType": "full-time",
-            "experienceRequired": "4 years",
-            "deadline": "2025-08-01",
+            "experienceRequired": "3-5 years",
+            "deadline": "2025-07-30",
             "status": "open",
             "isDeleted": false,
-            "createdAt": "2025-05-05"
-        },
-        {
-            "id": 6,
-            "employerId": 7,
-            "title": "Data Analyst",
-            "description": "Analyze business data and create reports.",
-            "companyName": "DataMind",
-            "companyLogo": "https://i.pravatar.cc/40?img=15",
-            "city": "Dhaka",
-            "area": "Uttara",
-            "salaryMin": 30000,
-            "salaryMax": 55000,
-            "jobType": "part-time",
-            "experienceRequired": "1 year",
-            "deadline": "2025-06-25",
-            "status": "open",
-            "isDeleted": false,
-            "createdAt": "2025-05-06"
+            "createdAt": "2025-05-01",
+            "publishedAt": "2025-05-01",
+            "vacancyCount": 3,
+            "gender": "Any",
+            "ageRange": "25-40",
+            "workplaceType": "Hybrid",
+            "industry": "Information Technology",
+            "department": "Engineering",
+            "companySize": "201-500",
+            "companyWebsite": "https://techcorpbd.com",
+            "companyOverview": "TechCorp BD is a leading software company building next-gen digital solutions for enterprises across Bangladesh and beyond.",
+            "companyFounded": "2015",
+            "companyVerified": true,
+            "officeAddress": "House 45, Road 11, Banani, Dhaka 1213",
+            "officeImages": [
+                "https://picsum.photos/seed/office1/400/250",
+                "https://picsum.photos/seed/office2/400/250"
+            ],
+            "educationRequirements": "BSc/MSc in Computer Science, Software Engineering or related field",
+            "preferredUniversities": [
+                "BUET",
+                "DU",
+                "BRAC University",
+                "NSU"
+            ],
+            "responsibilities": [
+                "Develop and maintain Angular-based web applications",
+                "Collaborate with backend developers on REST API integration",
+                "Write clean, maintainable, and well-tested code",
+                "Participate in code reviews and architectural decisions",
+                "Mentor junior developers"
+            ],
+            "additionalRequirements": [
+                "Strong communication skills in English",
+                "Ability to work in Agile/Scrum environment",
+                "Problem-solving mindset",
+                "Team player attitude"
+            ],
+            "requiredSkills": [
+                "Angular",
+                "TypeScript",
+                "Bootstrap",
+                "REST APIs",
+                "Git"
+            ],
+            "preferredSkills": [
+                "Spring Boot",
+                "Docker",
+                "AWS",
+                "RxJS",
+                "NgRx"
+            ],
+            "certifications": [],
+            "salaryNegotiable": true,
+            "benefits": [
+                {
+                    "name": "Health Insurance",
+                    "icon": "bi-heart-pulse"
+                },
+                {
+                    "name": "Lunch",
+                    "icon": "bi-cup-hot"
+                },
+                {
+                    "name": "Festival Bonus",
+                    "icon": "bi-gift"
+                },
+                {
+                    "name": "Flexible Hours",
+                    "icon": "bi-clock"
+                },
+                {
+                    "name": "Remote Support",
+                    "icon": "bi-house"
+                },
+                {
+                    "name": "Performance Bonus",
+                    "icon": "bi-trophy"
+                }
+            ],
+            "festivalBonus": true,
+            "insurance": true,
+            "lunchProvided": true,
+            "remoteSupport": true,
+            "performanceBonus": true,
+            "flexibleHours": true,
+            "viewCount": 342,
+            "applicantCount": 28,
+            "isUrgent": true,
+            "isFeatured": true,
+            "tags": [
+                "Angular",
+                "Frontend",
+                "Hybrid",
+                "Senior"
+            ],
+            "linkedinUrl": "https://linkedin.com/company/techcorpbd",
+            "facebookUrl": "https://facebook.com/techcorpbd"
         }
     ],
     "jobSkills": [
@@ -409,76 +556,87 @@
     ],
     "gigs": [
         {
-            "id": 1,
-            "freelancerId": 1,
-            "categoryId": 1,
-            "title": "I will build your Angular website",
-            "description": "Professional Angular website with Bootstrap.",
+            "id": "g1",
+            "freelancerId": "u1",
+            "categoryId": "c1",
+            "title": "I will build your Angular web application with Bootstrap",
+            "description": "I will develop a fully responsive, professional Angular 19 web application for your business. Using Bootstrap 5, modern UI/UX principles, and clean code architecture.",
             "status": "active",
             "isDeleted": false,
-            "coverImage": "https://picsum.photos/seed/gig1/300/200",
+            "coverImage": "https://picsum.photos/seed/gig1/600/400",
             "rating": 4.9,
-            "totalOrders": 120
-        },
-        {
-            "id": 2,
-            "freelancerId": 2,
-            "categoryId": 2,
-            "title": "I will design a modern logo",
-            "description": "Unique logo design for your brand.",
-            "status": "active",
-            "isDeleted": false,
-            "coverImage": "https://picsum.photos/seed/gig2/300/200",
-            "rating": 4.7,
-            "totalOrders": 85
-        },
-        {
-            "id": 3,
-            "freelancerId": 3,
-            "categoryId": 3,
-            "title": "I will run your Facebook ad campaign",
-            "description": "Target the right audience.",
-            "status": "active",
-            "isDeleted": false,
-            "coverImage": "https://picsum.photos/seed/gig3/300/200",
-            "rating": 4.5,
-            "totalOrders": 60
-        },
-        {
-            "id": 4,
-            "freelancerId": 4,
-            "categoryId": 4,
-            "title": "I will write SEO blog articles",
-            "description": "High quality blog posts.",
-            "status": "active",
-            "isDeleted": false,
-            "coverImage": "https://picsum.photos/seed/gig4/300/200",
-            "rating": 4.8,
-            "totalOrders": 95
-        },
-        {
-            "id": 5,
-            "freelancerId": 5,
-            "categoryId": 5,
-            "title": "I will create a promo video",
-            "description": "Eye-catching promo videos.",
-            "status": "active",
-            "isDeleted": false,
-            "coverImage": "https://picsum.photos/seed/gig5/300/200",
-            "rating": 4.6,
-            "totalOrders": 45
-        },
-        {
-            "id": 6,
-            "freelancerId": 6,
-            "categoryId": 6,
-            "title": "I will develop your Flutter app",
-            "description": "Cross-platform mobile app.",
-            "status": "active",
-            "isDeleted": false,
-            "coverImage": "https://picsum.photos/seed/gig6/300/200",
-            "rating": 4.9,
-            "totalOrders": 70
+            "totalOrders": 127,
+            "images": [
+                "https://picsum.photos/seed/gig1a/600/400",
+                "https://picsum.photos/seed/gig1b/600/400",
+                "https://picsum.photos/seed/gig1c/600/400"
+            ],
+            "tags": [
+                "Angular",
+                "Bootstrap",
+                "TypeScript",
+                "Responsive"
+            ],
+            "deliveryTime": 7,
+            "revisionCount": 3,
+            "responseTime": "1 hour",
+            "technologiesUsed": [
+                "Angular 19",
+                "Bootstrap 5",
+                "TypeScript",
+                "RxJS"
+            ],
+            "whatClientGets": [
+                "Fully responsive Angular application",
+                "Source code with documentation",
+                "30 days post-delivery support",
+                "Free minor revisions"
+            ],
+            "queueCount": 3,
+            "isFeatured": true,
+            "viewCount": 1240,
+            "completionRate": 98,
+            "communicationRating": 4.9,
+            "deliveryRating": 4.8,
+            "savedCount": 87,
+            "faqs": [
+                {
+                    "question": "What information do you need to start?",
+                    "answer": "I need your design mockups or reference sites, required features list, and any backend API documentation if available."
+                },
+                {
+                    "question": "Can you integrate with my existing backend?",
+                    "answer": "Yes, I can integrate with any REST API backend including Spring Boot, Node.js, Django, etc."
+                },
+                {
+                    "question": "Do you provide source code?",
+                    "answer": "Absolutely! Full source code is delivered with proper documentation and setup instructions."
+                }
+            ],
+            "reviews": [
+                {
+                    "id": "rv1",
+                    "reviewerId": "u3",
+                    "reviewerName": "Sara Khan",
+                    "reviewerAvatar": "https://i.pravatar.cc/40?img=5",
+                    "rating": 5,
+                    "comment": "Exceptional work! Delivered a flawless Angular app ahead of schedule. Will definitely hire again.",
+                    "communicationRating": 5,
+                    "deliveryRating": 5,
+                    "date": "2025-04-20"
+                },
+                {
+                    "id": "rv2",
+                    "reviewerId": "u4",
+                    "reviewerName": "Rahim Mia",
+                    "reviewerAvatar": "https://i.pravatar.cc/40?img=7",
+                    "rating": 5,
+                    "comment": "Professional, responsive and delivers quality. The app looks amazing!",
+                    "communicationRating": 5,
+                    "deliveryRating": 5,
+                    "date": "2025-04-10"
+                }
+            ]
         }
     ],
     "gigPackages": [
@@ -488,7 +646,8 @@
             "name": "basic",
             "price": 50,
             "deliveryDays": 3,
-            "features": "1 page, responsive, Bootstrap"
+            "features": "1 page, responsive, Bootstrap",
+            "revisions": 2
         },
         {
             "id": 2,
@@ -496,7 +655,8 @@
             "name": "standard",
             "price": 100,
             "deliveryDays": 5,
-            "features": "5 pages, responsive, animations"
+            "features": "5 pages, responsive, animations",
+            "revisions": 2
         },
         {
             "id": 3,
@@ -504,7 +664,8 @@
             "name": "premium",
             "price": 200,
             "deliveryDays": 10,
-            "features": "Unlimited pages, full stack, deployment"
+            "features": "Unlimited pages, full stack, deployment",
+            "revisions": 2
         },
         {
             "id": 4,
@@ -512,7 +673,8 @@
             "name": "basic",
             "price": 30,
             "deliveryDays": 2,
-            "features": "2 logo concepts, PNG files"
+            "features": "2 logo concepts, PNG files",
+            "revisions": 2
         },
         {
             "id": 5,
@@ -520,7 +682,8 @@
             "name": "standard",
             "price": 60,
             "deliveryDays": 3,
-            "features": "5 concepts, all formats"
+            "features": "5 concepts, all formats",
+            "revisions": 2
         },
         {
             "id": 6,
@@ -528,7 +691,8 @@
             "name": "premium",
             "price": 120,
             "deliveryDays": 5,
-            "features": "Unlimited revisions, brand kit"
+            "features": "Unlimited revisions, brand kit",
+            "revisions": 2
         }
     ],
     "orders": [
@@ -1099,6 +1263,145 @@
             "totalOrders": 60,
             "revenue": 30000,
             "commission": 3000
+        }
+    ],
+    "freelancerStats": [
+        {
+            "id": "fs1",
+            "userId": "u1",
+            "totalEarnings": 185000,
+            "monthlyEarnings": 28000,
+            "ordersCompleted": 127,
+            "ordersInProgress": 3,
+            "responseRate": 98,
+            "completionRate": 97,
+            "repeatClientRate": 34,
+            "averageRating": 4.9,
+            "totalReviews": 89,
+            "onlineStatus": true,
+            "lastSeen": "2025-05-11T10:30:00",
+            "memberSince": "2023-01-15",
+            "weeklyEarnings": [
+                4200,
+                5800,
+                3900,
+                6100,
+                7200,
+                5500,
+                6800
+            ],
+            "monthlyOrderData": [
+                8,
+                12,
+                9,
+                14,
+                11,
+                15,
+                10,
+                13,
+                16,
+                12,
+                14,
+                18
+            ],
+            "portfolioItems": [
+                {
+                    "id": "p1",
+                    "title": "E-commerce Platform",
+                    "description": "Full-stack Angular + Spring Boot e-commerce solution",
+                    "imageUrl": "https://picsum.photos/seed/port1/400/300",
+                    "liveLink": "https://demo.workbridge.com",
+                    "technologies": [
+                        "Angular",
+                        "Spring Boot",
+                        "MySQL"
+                    ]
+                }
+            ],
+            "employmentHistory": [
+                {
+                    "companyName": "TechCorp BD",
+                    "designation": "Frontend Developer",
+                    "period": "2022-2024",
+                    "description": "Developed Angular applications for enterprise clients"
+                }
+            ]
+        }
+    ],
+    "employerStats": [
+        {
+            "id": "es1",
+            "userId": "u2",
+            "companyName": "TechCorp BD",
+            "companyLogo": "https://i.pravatar.cc/64?img=10",
+            "coverImage": "https://picsum.photos/seed/cover1/1200/300",
+            "isVerified": true,
+            "industry": "Information Technology",
+            "companySize": "201-500",
+            "founded": "2015",
+            "website": "https://techcorpbd.com",
+            "overview": "Leading software company building next-gen solutions",
+            "culture": "We foster innovation, collaboration and continuous learning",
+            "officeImages": [
+                "https://picsum.photos/seed/off1/400/250",
+                "https://picsum.photos/seed/off2/400/250"
+            ],
+            "benefits": [
+                "Health Insurance",
+                "Festival Bonus",
+                "Lunch",
+                "Remote Work",
+                "Training Budget"
+            ],
+            "socialLinks": {
+                "linkedin": "https://linkedin.com/company/techcorpbd",
+                "facebook": "https://facebook.com/techcorpbd",
+                "twitter": ""
+            },
+            "activeJobs": 5,
+            "totalHires": 45,
+            "employeeCount": 320,
+            "hiringFunnel": {
+                "applied": 280,
+                "reviewed": 180,
+                "shortlisted": 45,
+                "interviewed": 20,
+                "hired": 8
+            }
+        }
+    ],
+    "jobseekerDashboardStats": [
+        {
+            "id": "jds1",
+            "userId": "u1",
+            "profileCompletion": 78,
+            "resumeScore": 72,
+            "appliedJobs": 12,
+            "savedJobs": 8,
+            "profileViews": 34,
+            "interviewInvitations": 2,
+            "shortlisted": 4,
+            "rejected": 3,
+            "applicationsByStatus": [
+                {
+                    "status": "pending",
+                    "count": 5
+                },
+                {
+                    "status": "shortlisted",
+                    "count": 4
+                },
+                {
+                    "status": "rejected",
+                    "count": 3
+                }
+            ],
+            "recentlyViewedJobs": [
+                "j1",
+                "j2",
+                "j3"
+            ],
+            "recommendedJobsCount": 15
         }
     ]
 }

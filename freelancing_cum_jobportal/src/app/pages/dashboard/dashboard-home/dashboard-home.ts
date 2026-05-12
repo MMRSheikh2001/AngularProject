@@ -13,6 +13,11 @@ import { JobApplication } from '../../../models/job-application';
 import { Order } from '../../../models/order';
 import { Notification } from '../../../models/notification';
 import { User } from '../../../models/user';
+import { JobseekerDashboardStats } from '../../../models/dashboard-stats';
+import { FreelancerStats } from '../../../models/freelancer-stats';
+import { DashboardStatsService } from '../../../services/dashboard-stats.services';
+import { FreelancerStatsService } from '../../../services/freelancer-stats.services';
+
 
 @Component({
   selector: 'app-dashboard-home',
@@ -24,6 +29,9 @@ import { User } from '../../../models/user';
 export class DashboardHome implements OnInit {
 
   loading = true;
+  jsStats: JobseekerDashboardStats | null = null;
+  freelancerStats: FreelancerStats | null = null;
+  weeklyBarMax = 0;
 
 
   // currentUser = this.auth.getCurrentUser();
@@ -56,7 +64,9 @@ export class DashboardHome implements OnInit {
     private jobAppService: JobApplicationService,
     private orderService: OrderService,
     private walletService: WalletService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private dashboardStatsService: DashboardStatsService,
+    private freelancerStatsService: FreelancerStatsService
   ) { }
 
   ngOnInit() {
@@ -66,6 +76,8 @@ export class DashboardHome implements OnInit {
     this.loadWallet(userId);
     this.loadNotifications(userId);
     this.currentUser = this.auth.getCurrentUser();
+    this.loadDashboardStats(userId);
+    this.loadFreelancerStats(userId);
   }
 
 
@@ -141,5 +153,26 @@ export class DashboardHome implements OnInit {
       'system': 'bi-bell text-secondary'
     };
     return map[type] || 'bi-bell text-secondary';
+  }
+  loadDashboardStats(userId: string) {
+    this.dashboardStatsService.getJobseekerStats(userId).subscribe({
+      next: (stats) => { if (stats.length > 0) this.jsStats = stats[0]; }
+    });
+  }
+
+  loadFreelancerStats(userId: string) {
+    this.freelancerStatsService.findByUserId(userId).subscribe({
+      next: (stats) => {
+        if (stats.length > 0) {
+          this.freelancerStats = stats[0];
+          this.weeklyBarMax = Math.max(...(stats[0].weeklyEarnings || [1]));
+        }
+      }
+    });
+  }
+
+  getBarHeight(value: number): string {
+    const pct = this.weeklyBarMax ? (value / this.weeklyBarMax) * 100 : 0;
+    return pct + '%';
   }
 }
