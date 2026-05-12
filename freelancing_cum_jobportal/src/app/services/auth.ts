@@ -61,7 +61,6 @@ export class AuthService {
 
   // ─── Register ─────────────────────────────────────────────────
   // Role is ALWAYS forced to 'user' — admin cannot be registered
-
   register(data: {
     name: string;
     email: string;
@@ -70,21 +69,8 @@ export class AuthService {
     city: string;
     area: string;
   }): Observable<{ success: boolean; message: string; user?: User }> {
-
-    // Step 1 — Check if email already exists
-    return this.findByEmail(data.email).pipe(
-      map(existingUsers => {
-        if (existingUsers.length > 0) {
-          return { success: false, message: 'Email already registered.' };
-        }
-        return null;
-      }),
-      // We can't chain easily with map alone — use switchMap pattern below
-    ) as any;
-
-    // NOTE: See registerUser() below for the full implementation
+    return this.registerUser(data);
   }
-
   registerUser(data: {
     name: string;
     email: string;

@@ -70,7 +70,9 @@ export class DashboardHome implements OnInit {
   ) { }
 
   ngOnInit() {
-    const userId = this.auth.getCurrentUserId()!;
+    const userId = this.auth.getCurrentUserId();
+
+    if (!userId) return;
     this.loadApplications(userId);
     this.loadOrders(userId);
     this.loadWallet(userId);

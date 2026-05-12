@@ -90,6 +90,18 @@ export class GigsList implements OnInit {
     if (this.selectedRating > 0) {
       result = result.filter(g => (g.rating || 0) >= this.selectedRating);
     }
+    if (this.selectedPrice) {
+      result = result.filter(g => {
+        // price here is the gig's starting price — use packages if available,
+        // or fall back to a default. Adjust field name to match your data.
+        const p = (g as any).startingPrice ?? 50;
+        if (this.selectedPrice === 'under50') return p < 50;
+        if (this.selectedPrice === '50to100') return p >= 50 && p <= 100;
+        if (this.selectedPrice === '100to200') return p >= 100 && p <= 200;
+        if (this.selectedPrice === 'over200') return p > 200;
+        return true;
+      });
+    }
 
     if (this.sortBy === 'popular') {
       result.sort((a, b) => (b.totalOrders || 0) - (a.totalOrders || 0));
@@ -106,6 +118,7 @@ export class GigsList implements OnInit {
     this.selectedCategory = '';
     this.selectedRating = 0;
     this.selectedPrice = '';
+
     this.sortBy = 'popular';
     this.applyFilters();
   }

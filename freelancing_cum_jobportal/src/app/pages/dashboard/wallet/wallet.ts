@@ -45,7 +45,9 @@ export class WalletComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const userId = this.auth.getCurrentUserId()!;
+    const userId = this.auth.getCurrentUserId();
+
+    if (!userId) return;
     this.loadWallet(userId);
     this.loadTransactions(userId);
     this.loadWithdrawals(userId);
@@ -111,6 +113,9 @@ export class WalletComponent implements OnInit {
           this.withdrawSuccess = false;
           this.withdrawAmount = 0;
         }, 2000);
+      },
+      error: () => {
+        this.withdrawing = false;
       }
     });
   }

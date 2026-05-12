@@ -26,6 +26,9 @@ export class UserSessionService {
   }
   findActiveByUserId(userId: string): Observable<UserSession[]> {
     const now = new Date().toISOString();
-    return this.http.get<UserSession[]>(`${this.url}?userId=${userId}`);
+    // JSON Server supports _gte filters for dates:
+    return this.http.get<UserSession[]>(
+      `${this.url}?userId=${userId}&expiresAt_gte=${now}`
+    );
   }
 }

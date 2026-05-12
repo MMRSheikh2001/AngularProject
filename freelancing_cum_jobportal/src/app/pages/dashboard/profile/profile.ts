@@ -73,10 +73,13 @@ export class Profile implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    const userId = this.auth.getCurrentUserId();
+
+    if (!userId) return;
     this.divisions = this.locationService.getDivisions();
     this.buildForm();
     this.loadData();
-    this.currentUser = this.auth.getCurrentUser();
+
   }
 
 

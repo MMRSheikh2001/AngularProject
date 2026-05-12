@@ -41,7 +41,9 @@ export class Orders implements OnInit {
   ) { }
 
   ngOnInit() {
-    const userId = this.auth.getCurrentUserId()!;
+    const userId = this.auth.getCurrentUserId();
+
+    if (!userId) return;
     this.orderService.findByClientId(userId).subscribe({
       next: (orders) => {
         this.orders = orders;

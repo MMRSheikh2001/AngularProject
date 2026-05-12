@@ -34,7 +34,9 @@ export class Notifications implements OnInit {
   ) { }
 
   ngOnInit() {
-    const userId = this.auth.getCurrentUserId()!;
+    const userId = this.auth.getCurrentUserId();
+
+    if (!userId) return;
     this.notifService.findByUserId(userId).subscribe({
       next: (notifs) => {
         this.allNotifications = notifs;
