@@ -1,4 +1,4 @@
-export interface Chat {
+export interface ChatModel {
   id?: string;
   orderId: string;
   isActive: boolean;
