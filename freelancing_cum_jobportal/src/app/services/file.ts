@@ -1,26 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { File } from '../models/file';
+import { UploadedFile } from '../models/file';
 
 @Injectable({ providedIn: 'root' })
 export class FileService {
   private url = 'http://localhost:3000/files';
   constructor(private http: HttpClient) { }
 
-  findAll(): Observable<File[]> { return this.http.get<File[]>(this.url); }
-  getById(id: string): Observable<File> { return this.http.get<File>(`${this.url}/${id}`); }
-  save(file: File): Observable<File> { return this.http.post<File>(this.url, file); }
-  update(id: string, file: File): Observable<File> { return this.http.put<File>(`${this.url}/${id}`, file); }
+  findAll(): Observable<UploadedFile[]> { return this.http.get<UploadedFile[]>(this.url); }
+  getById(id: string): Observable<UploadedFile> { return this.http.get<UploadedFile>(`${this.url}/${id}`); }
+  save(file: UploadedFile): Observable<UploadedFile> { return this.http.post<UploadedFile>(this.url, file); }
+  update(id: string, file: UploadedFile): Observable<UploadedFile> { return this.http.put<UploadedFile>(`${this.url}/${id}`, file); }
   delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
 
-  findByMessageId(messageId: string): Observable<File[]> {
-    return this.http.get<File[]>(`${this.url}?messageId=${messageId}`);
+  findByMessageId(messageId: string): Observable<UploadedFile[]> {
+    return this.http.get<UploadedFile[]>(`${this.url}?messageId=${messageId}`);
   }
-  findByFileType(fileType: string): Observable<File[]> {
-    return this.http.get<File[]>(`${this.url}?fileType=${fileType}`);
+  findByFileType(fileType: string): Observable<UploadedFile[]> {
+    return this.http.get<UploadedFile[]>(`${this.url}?fileType=${fileType}`);
   }
-  findByMessageIdAndFileType(messageId: string, fileType: string): Observable<File[]> {
-    return this.http.get<File[]>(`${this.url}?messageId=${messageId}&fileType=${fileType}`);
+  findByMessageIdAndFileType(messageId: string, fileType: string): Observable<UploadedFile[]> {
+    return this.http.get<UploadedFile[]>(`${this.url}?messageId=${messageId}&fileType=${fileType}`);
   }
 }

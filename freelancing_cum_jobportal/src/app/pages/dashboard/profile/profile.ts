@@ -76,6 +76,7 @@ export class Profile implements OnInit {
     const userId = this.auth.getCurrentUserId();
 
     if (!userId) return;
+    this.currentUser = this.auth.getCurrentUser();
     this.divisions = this.locationService.getDivisions();
     this.buildForm();
     this.loadData();

@@ -1,4 +1,6 @@
 export interface JobseekerDashboardStats {
+    id?: string;           // ← add
+    userId?: string;
     profileCompletion: number;
     resumeScore: number;
     appliedJobs: number;

@@ -1,4 +1,4 @@
-export interface File {
+export interface UploadedFile {
   id?: string;
   messageId: string;
   fileUrl: string;

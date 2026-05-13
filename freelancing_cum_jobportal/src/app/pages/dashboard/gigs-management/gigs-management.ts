@@ -67,7 +67,9 @@ export class GigsManagement implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userId = this.auth.getCurrentUserId()!;
+    const userId = this.auth.getCurrentUserId();
+    if (!userId) return;
+    this.userId = userId;
     this.loadData();
   }
 

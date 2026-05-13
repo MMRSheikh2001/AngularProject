@@ -1,3 +1,5 @@
+import { GigPackageFeature } from './gig-package';
+
 export interface GigFaq {
   question: string;
   answer: string;
@@ -16,10 +18,7 @@ export interface GigReview {
   createdAt: string;
 }
 
-export interface GigPackageFeature {
-  label: string;
-  included: boolean;
-}
+
 
 export interface Gig {
   id?: string;
