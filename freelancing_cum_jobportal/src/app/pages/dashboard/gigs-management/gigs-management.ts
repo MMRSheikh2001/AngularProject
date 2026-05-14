@@ -108,6 +108,7 @@ export class GigsManagement implements OnInit {
       categoryId: v.categoryId,
       title: v.title,
       description: v.description,
+        startingPrice: v.basicPrice,
       status: 'active',
       isDeleted: false,
       coverImage: v.coverImage || 'https://picsum.photos/seed/gig/600/400',

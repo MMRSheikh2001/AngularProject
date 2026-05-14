@@ -25,6 +25,8 @@ export interface Gig {
   freelancerId: string;
   categoryId: string;
 
+  startingPrice?: number;
+
   // ── Basic (existing) ──
   title: string;
   description: string;

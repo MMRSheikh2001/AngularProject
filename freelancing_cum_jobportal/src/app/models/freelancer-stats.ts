@@ -17,6 +17,9 @@ export interface FreelancerStats {
     employmentHistory: EmploymentHistory[];
     weeklyEarnings: number[];
     monthlyOrderData: number[];
+    isOnline?: boolean;
+    responseTime?: string;
+    ongoingOrders?: number;
 }
 
 export interface PortfolioItem {

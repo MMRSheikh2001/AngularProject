@@ -28,4 +28,7 @@ export interface EmployerStats {
         interviewed: number;
         hired: number;
     };
+    totalJobsPosted?: number;
+    memberSince?: string;
+    avgResponseTime?: string;
 }

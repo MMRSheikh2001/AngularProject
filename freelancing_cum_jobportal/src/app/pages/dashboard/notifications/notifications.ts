@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Sidebar } from '../../../shared/sidebar/sidebar';
 import { AuthService } from '../../../services/auth';
 import { NotificationService } from '../../../services/notification';
-import { Notification } from '../../../models/notification';
+import { AppNotification } from '../../../models/notification';
+
 
 @Component({
   selector: 'app-notifications',
@@ -15,8 +16,8 @@ import { Notification } from '../../../models/notification';
 export class Notifications implements OnInit {
 
   loading = true;
-  allNotifications: Notification[] = [];
-  filtered: Notification[] = [];
+  allNotifications: AppNotification[] = [];
+  filtered: AppNotification[] = [];
   activeTab = 'all';
 
   tabs = [
@@ -54,7 +55,7 @@ export class Notifications implements OnInit {
       : this.allNotifications.filter(n => n.type === tab);
   }
 
-  markAsRead(notif: Notification) {
+  markAsRead(notif: AppNotification) {
     if (notif.isRead || !notif.id) return;
     this.notifService.update(notif.id, { ...notif, isRead: true }).subscribe({
       next: () => { notif.isRead = true; }

@@ -1,28 +1,7 @@
-export interface FreelancerStats {
-  totalEarnings: number;
-  completedOrders: number;
-  ongoingOrders: number;
-  responseRate: number;
-  responseTime: string;
-  completionRate: number;
-  repeatClientPercent: number;
-  memberSince: string;
-  lastActive: string;
-  isOnline: boolean;
-  totalReviews: number;
-  averageRating: number;
-}
+import { FreelancerStats } from './freelancer-stats';
+import { EmployerStats } from './employer-stats';
 
-export interface EmployerStats {
-  totalJobsPosted: number;
-  totalHires: number;
-  activeJobs: number;
-  totalApplicants: number;
-  avgResponseTime: string;
-  isVerified: boolean;
-  totalSpent: number;
-  memberSince: string;
-}
+
 
 export interface User {
   id?: string;

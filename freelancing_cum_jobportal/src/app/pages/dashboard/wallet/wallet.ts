@@ -35,6 +35,7 @@ export class WalletComponent implements OnInit {
   withdrawSuccess = false;
 
   activeTab = 'transactions';
+  userId = '';
 
   constructor(
     private auth: AuthService,
@@ -48,6 +49,7 @@ export class WalletComponent implements OnInit {
     const userId = this.auth.getCurrentUserId();
 
     if (!userId) return;
+    this.userId = userId;
     this.loadWallet(userId);
     this.loadTransactions(userId);
     this.loadWithdrawals(userId);
@@ -92,7 +94,7 @@ export class WalletComponent implements OnInit {
     this.withdrawing = true;
 
     const withdrawal: Withdrawal = {
-      userId: this.auth.getCurrentUserId()!,
+      userId: this.userId,
       amount: this.withdrawAmount,
       method: this.withdrawMethod as 'bank' | 'mobile',
       status: 'pending'

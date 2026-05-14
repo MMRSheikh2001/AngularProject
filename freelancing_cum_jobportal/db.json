@@ -769,6 +769,7 @@
     ],
     "userReputations": [
         {
+            "id": "1",
             "userId": 1,
             "score": 4.8,
             "completedJobs": 5,
@@ -776,6 +777,7 @@
             "disputes": 0
         },
         {
+            "id": "2",
             "userId": 2,
             "score": 4.5,
             "completedJobs": 8,
@@ -785,11 +787,13 @@
     ],
     "userLevels": [
         {
+            "id": "1",
             "userId": 1,
             "freelancerLevel": "level2",
             "employerLevel": "trusted"
         },
         {
+            "id": "1",
             "userId": 2,
             "freelancerLevel": "topseller",
             "employerLevel": "premium"
@@ -1372,6 +1376,7 @@
             "valueRating": 4.9,
             "viewCount": 3420,
             "savedCount": 89,
+            "startingPrice": 30,
             "publishedDate": "2025-01-15"
         }
     ],

@@ -1,35 +1,36 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Notification } from '../models/notification';
+import { AppNotification } from '../models/notification';
+
 
 @Injectable({ providedIn: 'root' })
 export class NotificationService {
   private url = 'http://localhost:3000/notifications';
   constructor(private http: HttpClient) { }
 
-  findAll(): Observable<Notification[]> { return this.http.get<Notification[]>(this.url); }
-  getById(id: string): Observable<Notification> { return this.http.get<Notification>(`${this.url}/${id}`); }
-  save(n: Notification): Observable<Notification> { return this.http.post<Notification>(this.url, n); }
-  update(id: string, n: Notification): Observable<Notification> { return this.http.put<Notification>(`${this.url}/${id}`, n); }
+  findAll(): Observable<AppNotification[]> { return this.http.get<AppNotification[]>(this.url); }
+  getById(id: string): Observable<AppNotification> { return this.http.get<AppNotification>(`${this.url}/${id}`); }
+  save(n: AppNotification): Observable<AppNotification> { return this.http.post<AppNotification>(this.url, n); }
+  update(id: string, n: AppNotification): Observable<AppNotification> { return this.http.put<AppNotification>(`${this.url}/${id}`, n); }
   delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
 
-  findByUserId(userId: string): Observable<Notification[]> {
-    return this.http.get<Notification[]>(`${this.url}?userId=${userId}&_sort=id&_order=desc`);
+  findByUserId(userId: string): Observable<AppNotification[]> {
+    return this.http.get<AppNotification[]>(`${this.url}?userId=${userId}&_sort=id&_order=desc`);
   }
-  findUnreadByUserId(userId: string): Observable<Notification[]> {
-    return this.http.get<Notification[]>(`${this.url}?userId=${userId}&isRead=false`);
+  findUnreadByUserId(userId: string): Observable<AppNotification[]> {
+    return this.http.get<AppNotification[]>(`${this.url}?userId=${userId}&isRead=false`);
   }
-  findByType(type: string): Observable<Notification[]> {
-    return this.http.get<Notification[]>(`${this.url}?type=${type}`);
+  findByType(type: string): Observable<AppNotification[]> {
+    return this.http.get<AppNotification[]>(`${this.url}?type=${type}`);
   }
-  findByUserIdAndType(userId: string, type: string): Observable<Notification[]> {
-    return this.http.get<Notification[]>(`${this.url}?userId=${userId}&type=${type}`);
+  findByUserIdAndType(userId: string, type: string): Observable<AppNotification[]> {
+    return this.http.get<AppNotification[]>(`${this.url}?userId=${userId}&type=${type}`);
   }
-  findReadByUserId(userId: string): Observable<Notification[]> {
-    return this.http.get<Notification[]>(`${this.url}?userId=${userId}&isRead=true`);
+  findReadByUserId(userId: string): Observable<AppNotification[]> {
+    return this.http.get<AppNotification[]>(`${this.url}?userId=${userId}&isRead=true`);
   }
-  findByReferenceId(referenceId: string): Observable<Notification[]> {
-    return this.http.get<Notification[]>(`${this.url}?referenceId=${referenceId}`);
+  findByReferenceId(referenceId: string): Observable<AppNotification[]> {
+    return this.http.get<AppNotification[]>(`${this.url}?referenceId=${referenceId}`);
   }
 }

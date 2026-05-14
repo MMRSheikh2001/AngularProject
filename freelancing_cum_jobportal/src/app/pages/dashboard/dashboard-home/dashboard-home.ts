@@ -11,12 +11,13 @@ import { NotificationService } from '../../../services/notification';
 import { Job } from '../../../models/job';
 import { JobApplication } from '../../../models/job-application';
 import { Order } from '../../../models/order';
-import { Notification } from '../../../models/notification';
+
 import { User } from '../../../models/user';
 import { JobseekerDashboardStats } from '../../../models/dashboard-stats';
 import { FreelancerStats } from '../../../models/freelancer-stats';
 import { DashboardStatsService } from '../../../services/dashboard-stats.services';
 import { FreelancerStatsService } from '../../../services/freelancer-stats.services';
+import { AppNotification } from '../../../models/notification';
 
 
 @Component({
@@ -41,7 +42,7 @@ export class DashboardHome implements OnInit {
   applications: JobApplication[] = [];
   orders: Order[] = [];
   walletBalance = 0;
-  notifications: Notification[] = [];
+  notifications: AppNotification[] = [];
   unreadCount = 0;
 
   // Quick stats
