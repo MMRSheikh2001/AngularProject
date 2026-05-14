@@ -3,16 +3,16 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Sidebar } from '../../../shared/sidebar/sidebar';
 import { AuthService } from '../../../services/auth';
-import { JobService } from '../../../services/job';
+
 import { JobApplicationService } from '../../../services/job-application';
 import { OrderService } from '../../../services/order';
 import { WalletService } from '../../../services/wallet';
 import { NotificationService } from '../../../services/notification';
-import { Job } from '../../../models/job';
+
 import { JobApplication } from '../../../models/job-application';
 import { Order } from '../../../models/order';
 
-import { User } from '../../../models/user';
+
 import { JobseekerDashboardStats } from '../../../models/dashboard-stats';
 import { FreelancerStats } from '../../../models/freelancer-stats';
 import { DashboardStatsService } from '../../../services/dashboard-stats.services';

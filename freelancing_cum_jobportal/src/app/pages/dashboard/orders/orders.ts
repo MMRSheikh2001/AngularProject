@@ -29,6 +29,7 @@ export class Orders implements OnInit {
   revisions: OrderRevision[] = [];
   filterStatus = '';
   activeTab = 'list';
+  userId = '';
 
   statusOptions = ['', 'pending', 'active', 'delivered', 'revision', 'completed', 'cancelled', 'disputed'];
 
@@ -44,6 +45,7 @@ export class Orders implements OnInit {
     const userId = this.auth.getCurrentUserId();
 
     if (!userId) return;
+    this.userId = userId;
     this.orderService.findByClientId(userId).subscribe({
       next: (orders) => {
         this.orders = orders;
@@ -92,7 +94,7 @@ export class Orders implements OnInit {
     if (!this.selectedOrder?.id) return;
     const dispute = {
       orderId: this.selectedOrder.id,
-      raisedBy: this.auth.getCurrentUserId()!,
+      raisedBy: this.userId,
       reason: 'Work not delivered as described.',
       status: 'open' as const,
       adminAction: ''
