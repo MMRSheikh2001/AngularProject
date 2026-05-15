@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+
 import { Sidebar } from '../../../shared/sidebar/sidebar';
 import { AuthService } from '../../../services/auth';
 import { ResumeService } from '../../../services/resume';
@@ -288,7 +288,8 @@ export class Profile implements OnInit {
   // ── Load Data ─────────────────────────────────────────────────
 
   loadData(): void {
-    const userId = this.currentUser?.id!;
+    const userId = this.currentUser?.id;
+    if (!userId) return;
 
     this.resumeService.findByUserId(userId).subscribe({
       next: (resumes) => {
@@ -385,7 +386,7 @@ export class Profile implements OnInit {
 
     const resumeData: Resume = {
       ...(this.resume || {}),
-      userId: this.currentUser?.id!,
+      userId: this.currentUser?.id ?? '',
 
       // keep existing fields
       summary: this.resume?.summary || '',
