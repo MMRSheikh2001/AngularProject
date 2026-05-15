@@ -7,6 +7,6 @@ export interface Transaction {
   platformFee: number;
   freelancerAmount: number;
   previousHash: string;
-  currentHash: string;
+  currentHash?: string;
   createdAt: string;
 }

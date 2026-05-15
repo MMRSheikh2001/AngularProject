@@ -15,7 +15,7 @@ import { UserLevel } from '../../../models/user-level';
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterLink, Sidebar],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, Sidebar],
   templateUrl: './profile.html',
   styleUrl: './profile.css'
 })
