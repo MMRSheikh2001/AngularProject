@@ -320,10 +320,14 @@
                             <i class="bi bi-check-circle me-2"></i>Application submitted!
                         </div>
 
-                        <button *ngIf="!applied" class="btn btn-primary w-100 py-2 mb-2 fw-bold"
-                            (click)="openApplyModal()">
-                            <i class="bi bi-send me-2"></i>Apply Now
+                        <!-- AFTER — show Apply only if logged in, show Login link otherwise: -->
+                        <button *ngIf="auth.isLoggedIn()" class="btn btn-primary" (click)="openApplyModal()">
+                            Apply Now
                         </button>
+
+                        <a *ngIf="!auth.isLoggedIn()" routerLink="/login" class="btn btn-outline-primary">
+                            Login to Apply
+                        </a>
 
                         <div class="d-flex gap-2">
                             <button class="btn btn-sm flex-grow-1" [class.btn-warning]="saved"

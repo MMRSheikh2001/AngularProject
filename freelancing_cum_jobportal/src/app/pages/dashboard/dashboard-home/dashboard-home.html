@@ -34,28 +34,28 @@
                 <div class="col-6 col-lg-3">
                     <div class="stat-card stat-blue">
                         <div class="stat-icon"><i class="bi bi-briefcase"></i></div>
-                        <div class="stat-value">{{ stats.applied }}</div>
+                        <div class="stat-value">{{ stats?.applied }}</div>
                         <div class="stat-label">Jobs Applied</div>
                     </div>
                 </div>
                 <div class="col-6 col-lg-3">
                     <div class="stat-card stat-green">
                         <div class="stat-icon"><i class="bi bi-box"></i></div>
-                        <div class="stat-value">{{ stats.activeOrders }}</div>
+                        <div class="stat-value">{{ stats?.activeOrders }}</div>
                         <div class="stat-label">Active Orders</div>
                     </div>
                 </div>
                 <div class="col-6 col-lg-3">
                     <div class="stat-card stat-amber">
                         <div class="stat-icon"><i class="bi bi-wallet2"></i></div>
-                        <div class="stat-value">৳{{ stats.balance | number }}</div>
+                        <div class="stat-value">৳{{ stats?.balance | number }}</div>
                         <div class="stat-label">Wallet Balance</div>
                     </div>
                 </div>
                 <div class="col-6 col-lg-3">
                     <div class="stat-card stat-red">
                         <div class="stat-icon"><i class="bi bi-bell"></i></div>
-                        <div class="stat-value">{{ stats.unread }}</div>
+                        <div class="stat-value">{{ stats?.unread }}</div>
                         <div class="stat-label">Unread Alerts</div>
                     </div>
                 </div>
@@ -182,10 +182,10 @@
                 <div class="col-md-4">
                     <div class="perf-card">
                         <div class="perf-icon text-success"><i class="bi bi-check-circle-fill"></i></div>
-                        <div class="perf-value">{{ freelancerStats.completionRate }}%</div>
+                        <div class="perf-value">{{ freelancerStats?.completionRate }}%</div>
                         <div class="perf-label">Completion Rate</div>
                         <div class="progress mt-2" style="height: 4px;">
-                            <div class="progress-bar bg-success" [style.width]="freelancerStats.completionRate + '%'">
+                            <div class="progress-bar bg-success" [style.width]="freelancerStats?.completionRate + '%'">
                             </div>
                         </div>
                     </div>
@@ -193,10 +193,10 @@
                 <div class="col-md-4">
                     <div class="perf-card">
                         <div class="perf-icon text-primary"><i class="bi bi-chat-dots-fill"></i></div>
-                        <div class="perf-value">{{ freelancerStats.responseRate }}%</div>
+                        <div class="perf-value">{{ freelancerStats?.responseRate }}%</div>
                         <div class="perf-label">Response Rate</div>
                         <div class="progress mt-2" style="height: 4px;">
-                            <div class="progress-bar bg-primary" [style.width]="freelancerStats.responseRate + '%'">
+                            <div class="progress-bar bg-primary" [style.width]="freelancerStats?.responseRate + '%'">
                             </div>
                         </div>
                     </div>
@@ -204,11 +204,11 @@
                 <div class="col-md-4">
                     <div class="perf-card">
                         <div class="perf-icon text-warning"><i class="bi bi-star-fill"></i></div>
-                        <div class="perf-value">{{ freelancerStats.averageRating }}</div>
+                        <div class="perf-value">{{ freelancerStats?.averageRating }}</div>
                         <div class="perf-label">Average Rating</div>
                         <div class="progress mt-2" style="height: 4px;">
                             <div class="progress-bar bg-warning"
-                                [style.width]="(freelancerStats.averageRating / 5 * 100) + '%'"></div>
+                                [style.width]="(freelancerStats?.averageRating / 5 * 100) + '%'"></div>
                         </div>
                     </div>
                 </div>
@@ -283,7 +283,7 @@
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h6 class="fw-bold mb-0">
                                 Recent Notifications
-                                <span *ngIf="stats.unread > 0" class="badge bg-danger ms-2">{{ stats.unread }}</span>
+                                <span *ngIf="stats?.unread > 0" class="badge bg-danger ms-2">{{ stats?.unread }}</span>
                             </h6>
                             <a routerLink="/dashboard/notifications" class="btn btn-link btn-sm p-0">View all</a>
                         </div>

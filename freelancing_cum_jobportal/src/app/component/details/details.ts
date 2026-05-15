@@ -147,10 +147,14 @@ export class Details implements OnInit {
   submitApplication(): void {
     if (this.applyForm.invalid) return;
     this.applying = true;
+    const userId = this.auth.getCurrentUserId();
+    if (!userId) {
+      this.applying = false; return;
+    }
 
     this.jobAppService.save({
       jobId: this.id,
-      applicantId: this.auth.getCurrentUserId()!,
+      applicantId: userId,
       coverLetter: this.applyForm.get('coverLetter')?.value,
       status: 'pending',
       appliedAt: new Date().toISOString()
