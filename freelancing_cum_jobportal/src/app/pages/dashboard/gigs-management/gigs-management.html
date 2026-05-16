@@ -300,7 +300,7 @@
                         <tbody>
                             <tr *ngFor="let order of myOrders">
                                 <td class="fw-semibold text-primary small">
-                                    #{{ order.id?.slice(0,8) }}
+                                    #{{ (order.id + '').slice(0,8) }}
                                 </td>
                                 <td class="small">৳{{ order.totalAmount | number }}</td>
                                 <td class="text-muted small">-৳{{ order.commissionAmount | number }}</td>

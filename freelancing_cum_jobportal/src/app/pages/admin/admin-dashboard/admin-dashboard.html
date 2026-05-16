@@ -160,8 +160,8 @@
                         </div>
                         <div *ngFor="let report of recentReports" class="report-row">
                             <div class="flex-grow-1">
-                                <div class="small fw-semibold">Report #{{ report.id?.slice(0,8) }}</div>
-                                <div class="text-muted small">{{ report.reason?.slice(0,60) }}</div>
+                                <div class="small fw-semibold">Report #{{ (report.id + '').slice(0,8) }}</div>
+                                <div class="text-muted small">{{ (report.reason || '').slice(0,60) }}</div>
                             </div>
                             <span class="badge {{ getReportStatusClass(report.status) }}">
                                 {{ report.status | titlecase }}
@@ -187,8 +187,8 @@
                         </div>
                         <div *ngFor="let dispute of recentDisputes" class="report-row">
                             <div class="flex-grow-1">
-                                <div class="small fw-semibold">Order #{{ dispute.orderId?.slice(0,8) }}</div>
-                                <div class="text-muted small">{{ dispute.reason?.slice(0,60) }}</div>
+                                <div class="small fw-semibold">Order #{{ (dispute.orderId + '').slice(0,8) }}</div>
+                                <div class="text-muted small">{{ (dispute.reason || '').slice(0,60) }}</div>
                             </div>
                             <span class="badge {{ getDisputeStatusClass(dispute.status) }}">
                                 {{ dispute.status | titlecase }}

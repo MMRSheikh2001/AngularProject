@@ -99,7 +99,7 @@
                                 <td class="fw-semibold">৳{{ t.freelancerAmount | number }}</td>
                                 <td>
                                     <code class="text-muted" style="font-size: 10px;">
-                    {{ t.currentHash?.slice(0,10) }}...
+                    {{ (t.currentHash + '').slice(0,10) }}...
                   </code>
                                 </td>
                                 <td class="text-muted small">{{ t.createdAt | date:'dd MMM' }}</td>

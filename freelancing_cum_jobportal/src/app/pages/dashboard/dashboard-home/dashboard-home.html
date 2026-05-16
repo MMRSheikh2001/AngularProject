@@ -182,10 +182,10 @@
                 <div class="col-md-4">
                     <div class="perf-card">
                         <div class="perf-icon text-success"><i class="bi bi-check-circle-fill"></i></div>
-                        <div class="perf-value">{{ freelancerStats?.completionRate }}%</div>
+                        <div class="perf-value">{{ freelancerStats.completionRate }}%</div>
                         <div class="perf-label">Completion Rate</div>
                         <div class="progress mt-2" style="height: 4px;">
-                            <div class="progress-bar bg-success" [style.width]="freelancerStats?.completionRate + '%'">
+                            <div class="progress-bar bg-success" [style.width]="freelancerStats.completionRate + '%'">
                             </div>
                         </div>
                     </div>
@@ -193,10 +193,10 @@
                 <div class="col-md-4">
                     <div class="perf-card">
                         <div class="perf-icon text-primary"><i class="bi bi-chat-dots-fill"></i></div>
-                        <div class="perf-value">{{ freelancerStats?.responseRate }}%</div>
+                        <div class="perf-value">{{ freelancerStats.responseRate }}%</div>
                         <div class="perf-label">Response Rate</div>
                         <div class="progress mt-2" style="height: 4px;">
-                            <div class="progress-bar bg-primary" [style.width]="freelancerStats?.responseRate + '%'">
+                            <div class="progress-bar bg-primary" [style.width]="freelancerStats.responseRate + '%'">
                             </div>
                         </div>
                     </div>
@@ -204,11 +204,11 @@
                 <div class="col-md-4">
                     <div class="perf-card">
                         <div class="perf-icon text-warning"><i class="bi bi-star-fill"></i></div>
-                        <div class="perf-value">{{ freelancerStats?.averageRating }}</div>
+                        <div class="perf-value">{{ freelancerStats.averageRating }}</div>
                         <div class="perf-label">Average Rating</div>
                         <div class="progress mt-2" style="height: 4px;">
                             <div class="progress-bar bg-warning"
-                                [style.width]="((freelancerStats?.averageRating ?? 0) / 5 * 100) + '%'"></div>
+                                [style.width]="((freelancerStats.averageRating ?? 0) / 5 * 100) + '%'"></div>
                         </div>
                     </div>
                 </div>
@@ -263,7 +263,7 @@
                         <div *ngFor="let order of orders" class="app-item">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <div class="fw-semibold small">Order #{{ order.id?.slice(0,8) }}</div>
+                                    <div class="fw-semibold small">Order #{{ (order.id + '').slice(0,8) }}</div>
                                     <div class="text-muted" style="font-size: 11px;">
                                         ৳{{ order.totalAmount | number }} •
                                         {{ order.createdAt | date:'dd MMM' }}
@@ -283,7 +283,7 @@
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h6 class="fw-bold mb-0">
                                 Recent Notifications
-                                <span *ngIf="(stats?.unread ?? 0) > 0" class="badge bg-danger">{{ stats?.unread
+                                <span *ngIf="(stats.unread ?? 0) > 0" class="badge bg-danger">{{ stats.unread
                                     }}</span>
                             </h6>
                             <a routerLink="/dashboard/notifications" class="btn btn-link btn-sm p-0">View all</a>

@@ -139,7 +139,7 @@ export class Chat implements OnInit, AfterViewChecked {
 
   getChatLabel(chat: ChatModel): string {
     const order = this.getOrderForChat(chat);
-    return order ? `Order #${order.id?.slice(0, 8)}` : `ChatModel #${chat.id?.slice(0, 8)}`;
+    return order ? `Order #${(order.id + '').slice(0, 8)}` : `ChatModel #${(chat.id + '').slice(0, 8)}`;
   }
 
   getTimeLabel(dateStr: string): string {

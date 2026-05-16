@@ -51,7 +51,7 @@
                                 <tr *ngFor="let order of filteredOrders">
                                     <td>
                                         <span class="fw-semibold text-primary">
-                                            #{{ order.id?.slice(0,8) }}
+                                            #{{ (order.id + '').slice(0,8) }}
                                         </span>
                                     </td>
                                     <td class="fw-semibold">৳{{ order.totalAmount | number }}</td>
@@ -92,7 +92,7 @@
                             <div class="d-flex justify-content-between align-items-start mb-3">
                                 <div>
                                     <h5 class="fw-bold mb-1">
-                                        Order #{{ selectedOrder.id?.slice(0,8) }}
+                                        Order #{{ (selectedOrder.id + '').slice(0,8) }}
                                     </h5>
                                     <span class="badge {{ getStatusClass(selectedOrder.status) }}">
                                         {{ selectedOrder.status }}

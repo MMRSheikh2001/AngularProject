@@ -133,12 +133,12 @@
                                 <td>
                                     <a [routerLink]="['/details', 'job', app.jobId]"
                                         class="text-primary fw-semibold small text-decoration-none">
-                                        #{{ app.jobId?.slice(0,8) }}
+                                        #{{ (app.jobId + '').slice(0,8) }}
                                     </a>
                                 </td>
                                 <td>
                                     <span class="text-muted small">
-                                        {{ app.coverLetter?.slice(0,60) }}...
+                                        {{ app.coverLetter.slice(0,60) }}...
                                     </span>
                                 </td>
                                 <td>
@@ -244,7 +244,7 @@
                     </div>
                     <div class="pipeline-cards">
                         <div *ngFor="let item of getJobsByStage(stage)" class="pipeline-card">
-                            <div class="small fw-semibold mb-1">#{{ item.jobId?.slice(0,8) }}</div>
+                            <div class="small fw-semibold mb-1">#{{ (item.jobId + '').slice(0,8) }}</div>
                             <div class="text-muted" style="font-size:11px">
                                 Updated: {{ item.updatedAt | date:'dd MMM' }}
                             </div>
@@ -277,7 +277,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let round of interviews">
-                                <td class="small fw-semibold">#{{ round.jobId?.slice(0,8) }}</td>
+                                <td class="small fw-semibold">#{{ (round.jobId + '').slice(0,8) }}</td>
                                 <td class="small">Round {{ round.roundNo }}</td>
                                 <td>
                                     <span class="badge bg-primary small">

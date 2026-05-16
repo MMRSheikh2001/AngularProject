@@ -168,9 +168,9 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let report of reports">
-                                    <td class="small fw-semibold">#{{ report.id?.slice(0,8) }}</td>
-                                    <td class="text-muted small">#{{ report.reportedBy?.slice(0,8) }}</td>
-                                    <td class="small">{{ report.reason?.slice(0, 80) }}</td>
+                                    <td class="small fw-semibold">#{{ (report.id + '').slice(0,8) }}</td>
+                                    <td class="text-muted small">#{{ (report.reportedBy + '').slice(0,8) }}</td>
+                                    <td class="small">{{ (report.reason || '').slice(0, 80) }}</td>
                                     <td>
                                         <span class="badge {{ getStatusClass(report.status) }}">
                                             {{ report.status | titlecase }}
@@ -225,10 +225,10 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let dispute of disputes">
-                                    <td class="small fw-semibold">#{{ dispute.id?.slice(0,8) }}</td>
-                                    <td class="text-primary small">#{{ dispute.orderId?.slice(0,8) }}</td>
-                                    <td class="text-muted small">#{{ dispute.raisedBy?.slice(0,8) }}</td>
-                                    <td class="small">{{ dispute.reason?.slice(0, 80) }}</td>
+                                    <td class="small fw-semibold">#{{ (dispute.id + '').slice(0,8) }}</td>
+                                    <td class="text-primary small">#{{ (dispute.orderId + '').slice(0,8) }}</td>
+                                    <td class="text-muted small">#{{ (dispute.raisedBy + '').slice(0,8) }}</td>
+                                    <td class="small">{{ (dispute.reason || '').slice(0, 80) }}</td>
                                     <td>
                                         <span class="badge {{ getStatusClass(dispute.status) }}">
                                             {{ dispute.status | titlecase }}
