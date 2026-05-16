@@ -71,6 +71,7 @@ export class AuthService {
     phone: string;
     city: string;
     area: string;
+    role: 'user' | 'company';
   }): Observable<{ success: boolean; message: string; user?: User }> {
     return this.registerUser(data);
   }
@@ -81,6 +82,7 @@ export class AuthService {
     phone: string;
     city: string;
     area: string;
+    role: 'user' | 'company';
   }): Observable<{ success: boolean; message: string; user?: User }> {
 
     return new Observable(observer => {
@@ -108,7 +110,7 @@ export class AuthService {
             status: 'active',
             isDeleted: false,
             createdAt: new Date().toISOString(),
-            role: 'user',
+            role: data.role,
             isSuperAdmin: false,
           };
 
@@ -117,50 +119,67 @@ export class AuthService {
             next: (savedUser) => {
               const uid = String(savedUser.id);
 
-              // Auto-provision: Wallet
+              // Auto-provision: Wallet (Always)
               this.http.post('http://localhost:3000/wallets', {
                 userId: uid, balance: 0
               }).subscribe();
 
-              // Auto-provision: Empty Resume/Profile
-              this.http.post('http://localhost:3000/resumes', {
-                userId: uid,
-                resumeHeadline: '',
-                careerObjective: '',
-                cvVisibility: 'Public',
-                profileCompletion: 0,
-                educations: [],
-                experiences: [],
-                skillEntries: [],
-                certificationList: [],
-                projects: [],
-                trainings: [],
-                languagesKnown: []
-              }).subscribe();
+              if (savedUser.role === 'user') {
+                // Auto-provision: Empty Resume/Profile
+                this.http.post('http://localhost:3000/resumes', {
+                  userId: uid,
+                  resumeHeadline: '',
+                  careerObjective: '',
+                  cvVisibility: 'Public',
+                  profileCompletion: 0,
+                  educations: [],
+                  experiences: [],
+                  skillEntries: [],
+                  certificationList: [],
+                  projects: [],
+                  trainings: [],
+                  languagesKnown: []
+                }).subscribe();
 
-              // Auto-provision: Jobseeker Dashboard Stats
-              this.http.post('http://localhost:3000/jobseekerDashboardStats', {
-                userId: uid,
-                profileCompletion: 0,
-                appliedJobs: 0,
-                profileViews: 0,
-                interviewInvitations: 0,
-                savedJobs: 0,
-                recommendedJobsCount: 0,
-                applicationsByStatus: []
-              }).subscribe();
+                // Auto-provision: Jobseeker Dashboard Stats
+                this.http.post('http://localhost:3000/jobseekerDashboardStats', {
+                  userId: uid,
+                  profileCompletion: 0,
+                  appliedJobs: 0,
+                  profileViews: 0,
+                  interviewInvitations: 0,
+                  savedJobs: 0,
+                  recommendedJobsCount: 0,
+                  applicationsByStatus: []
+                }).subscribe();
 
-              // Auto-provision: Freelancer Stats
-              this.http.post('http://localhost:3000/freelancerStats', {
-                userId: uid,
-                totalEarnings: 0,
-                monthlyEarnings: 0,
-                ordersCompleted: 0,
-                responseRate: 100,
-                completionRate: 100,
-                averageRating: 0,
-                weeklyEarnings: [0, 0, 0, 0, 0, 0, 0]
-              }).subscribe();
+                // Auto-provision: Freelancer Stats
+                this.http.post('http://localhost:3000/freelancerStats', {
+                  userId: uid,
+                  totalEarnings: 0,
+                  monthlyEarnings: 0,
+                  ordersCompleted: 0,
+                  responseRate: 100,
+                  completionRate: 100,
+                  averageRating: 0,
+                  weeklyEarnings: [0, 0, 0, 0, 0, 0, 0]
+                }).subscribe();
+              } else if (savedUser.role === 'company') {
+                // Auto-provision: Employer Stats
+                this.http.post('http://localhost:3000/employerDashboardStats', {
+                  userId: uid,
+                  activeJobs: 0,
+                  totalApplicants: 0,
+                  hired: 0,
+                  shortlisted: 0,
+                  interviewsScheduled: 0,
+                  jobViews: 0,
+                  topJobTitle: '',
+                  topJobApplicants: 0,
+                  totalSpent: 0,
+                  orderedGigsCount: 0
+                }).subscribe();
+              }
 
               // Welcome notification
               this.http.post('http://localhost:3000/notifications', {
@@ -290,6 +309,10 @@ export class AuthService {
 
   isAdmin(): boolean {
     return this.getCurrentUser()?.role === 'admin';
+  }
+
+  isCompany(): boolean {
+    return this.getCurrentUser()?.role === 'company';
   }
 
   isSuperAdmin(): boolean {

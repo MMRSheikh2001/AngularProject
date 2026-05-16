@@ -149,6 +149,30 @@ export class Profile implements OnInit {
       this.districts = this.locationService.getDistricts(div);
       this.form.get('district')?.setValue('');
     });
+
+    // Real-time profile strength calculation
+    this.form.valueChanges.subscribe(val => {
+      this.calculateRealTimeCompletion(val);
+    });
+  }
+
+  calculateRealTimeCompletion(val: any): void {
+    // Construct a temporary resume object to pass to the service
+    const tempResume: Resume = {
+      ...this.resume,
+      ...val,
+      // Handle the specialized arrays from form value
+      educations: val.educations || [],
+      experiences: val.experiences || [],
+      skillEntries: val.skillEntries || [],
+      certificationList: val.certificationList || [],
+      projects: val.projects || [],
+      languagesKnown: val.languagesKnown || []
+    } as Resume;
+
+    this.profileCompletion = this.resumeService.calculateProfileCompletion(tempResume);
+    this.missingFields = this.resumeService.getMissingFields(tempResume);
+    this.cdr.markForCheck();
   }
 
   // ── FormArray Getters ─────────────────────────────────────────
@@ -463,6 +487,10 @@ export class Profile implements OnInit {
         this.resume = saved;
         this.profileCompletion = saved.profileCompletion;
         this.missingFields = this.resumeService.getMissingFields(saved);
+        
+        // Sync with dashboard stats
+        this.syncDashboardStats(saved.profileCompletion);
+        
         this.saving = false;
         this.saved = true;
         setTimeout(() => this.saved = false, 3000);
@@ -472,6 +500,17 @@ export class Profile implements OnInit {
         this.saveError = 'Failed to save. Please try again.';
       }
     });
+  }
+
+  syncDashboardStats(completion: number): void {
+    const userId = this.currentUser?.id;
+    if (!userId) return;
+
+    // Update jobseeker stats
+    this.resumeService.updateDashboardCompletion(userId, completion).subscribe();
+    
+    // Update freelancer stats
+    this.resumeService.updateFreelancerCompletion(userId, completion).subscribe();
   }
 
   // ── CV Actions ──────────────────────────────────────────────

@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth-guard';
 import { adminGuard } from './guards/admin-guard';
+import { companyGuard } from './guards/company-guard';
+import { userGuard } from './guards/user-guard';
 
 export const routes: Routes = [
 
@@ -19,9 +21,9 @@ export const routes: Routes = [
 
     // Dashboard — authGuard applied ✅
     { path: 'dashboard', canActivate: [authGuard], loadComponent: () => import('./pages/dashboard/dashboard-home/dashboard-home').then(m => m.DashboardHome) },
-    { path: 'dashboard/profile', canActivate: [authGuard], loadComponent: () => import('./pages/dashboard/profile/profile').then(m => m.Profile) },
-    { path: 'dashboard/jobs', canActivate: [authGuard], loadComponent: () => import('./pages/dashboard/jobs-management/jobs-management').then(m => m.JobsManagement) },
-    { path: 'dashboard/gigs', canActivate: [authGuard], loadComponent: () => import('./pages/dashboard/gigs-management/gigs-management').then(m => m.GigsManagement) },
+    { path: 'dashboard/profile', canActivate: [authGuard, userGuard], loadComponent: () => import('./pages/dashboard/profile/profile').then(m => m.Profile) },
+    { path: 'dashboard/jobs', canActivate: [authGuard, companyGuard], loadComponent: () => import('./pages/dashboard/jobs-management/jobs-management').then(m => m.JobsManagement) },
+    { path: 'dashboard/gigs', canActivate: [authGuard, userGuard], loadComponent: () => import('./pages/dashboard/gigs-management/gigs-management').then(m => m.GigsManagement) },
     { path: 'dashboard/orders', canActivate: [authGuard], loadComponent: () => import('./pages/dashboard/orders/orders').then(m => m.Orders) },
     { path: 'dashboard/chat', canActivate: [authGuard], loadComponent: () => import('./pages/dashboard/chat/chat').then(m => m.Chat) },
     { path: 'dashboard/wallet', canActivate: [authGuard], loadComponent: () => import('./pages/dashboard/wallet/wallet').then(m => m.WalletComponent) },

@@ -18,12 +18,41 @@
                     <a class="nav-link" routerLink="/" routerLinkActive="active"
                         [routerLinkActiveOptions]="{exact:true}">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/jobs" routerLinkActive="active">Jobs</a>
+                
+                <!-- Shared -->
+                <li class="nav-item" *ngIf="!isCompany">
+                    <a class="nav-link" routerLink="/jobs" routerLinkActive="active">Browse Jobs</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/gigs" routerLinkActive="active">Gigs</a>
+                <li class="nav-item" *ngIf="!isUser">
+                    <a class="nav-link" routerLink="/gigs" routerLinkActive="active">Browse Gigs</a>
                 </li>
+
+                <!-- User/Freelancer specific -->
+                <ng-container *ngIf="isUser">
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/dashboard/profile" routerLinkActive="active">My CV</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/dashboard/gigs" routerLinkActive="active">My Gigs</a>
+                    </li>
+                </ng-container>
+
+                <!-- Company/Employer specific -->
+                <ng-container *ngIf="isCompany">
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/dashboard/jobs" routerLinkActive="active">Manage Jobs</a>
+                    </li>
+                </ng-container>
+
+                <!-- Shared logged in links -->
+                <ng-container *ngIf="isLoggedIn">
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/dashboard/orders" routerLinkActive="active">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/dashboard/wallet" routerLinkActive="active">Wallet</a>
+                    </li>
+                </ng-container>
             </ul>
 
             <!-- Auth buttons -->

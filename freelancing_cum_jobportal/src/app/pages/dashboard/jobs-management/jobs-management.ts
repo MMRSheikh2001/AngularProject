@@ -22,8 +22,10 @@ import { InterviewRound } from '../../../models/interview-round';
 })
 export class JobsManagement implements OnInit {
 
-  activeTab = 'applied';
+  activeTab = '';
   loading = true;
+  isCompany = false;
+  isUser = false;
 
   // Applied jobs (job seeker view)
   appliedJobs: JobApplication[] = [];
@@ -34,6 +36,7 @@ export class JobsManagement implements OnInit {
   postForm: FormGroup;
   posting = false;
   postSuccess = false;
+  postError: string | null = null;
 
   // Pipeline
   pipeline: HiringPipeline[] = [];
@@ -77,13 +80,31 @@ export class JobsManagement implements OnInit {
       return;
     }
     this.userId = userId;
+    console.log('Current User ID:', this.userId);
+    this.isCompany = this.auth.isCompany();
+    this.isUser = this.auth.isUser();
+
+    const currentUser = this.auth.getCurrentUser();
+    if (this.isCompany && currentUser) {
+      this.postForm.patchValue({ companyName: currentUser.name });
+    }
+
+    // Set default tab based on role
+    if (this.isCompany) {
+      this.activeTab = 'posted';
+    } else {
+      this.activeTab = 'applied';
+    }
+
     this.loadAll();
   }
 
   loadAll(): void {
     this.loadApplied();
     this.loadPosted();
-    this.loadPipeline();
+    if (this.isUser) {
+      this.loadPipeline();
+    }
     this.loadInterviews();
     this.cdr.markForCheck();
   }
@@ -97,21 +118,60 @@ export class JobsManagement implements OnInit {
   }
 
   loadPosted(): void {
-    this.jobService.findByEmployerId(this.userId).subscribe({
-      next: (jobs) => this.postedJobs = jobs
+    if (!this.userId) {
+      console.warn('Cannot load posted jobs: No userId found');
+      return;
+    }
+    const eid = String(this.userId);
+    console.log('Loading posted jobs for employerId:', eid);
+    
+    this.jobService.findAll().subscribe({
+      next: (jobs) => {
+        // Robust filtering: compare as strings to avoid type issues
+        this.postedJobs = jobs.filter(j => 
+          (String(j.employerId) === eid) && !j.isDeleted
+        );
+        console.log('Filtered Jobs for User:', eid, 'Count:', this.postedJobs.length);
+        this.cdr.detectChanges();
+        // Load pipeline after jobs are loaded so we can filter
+        if (this.isCompany) {
+          this.loadPipeline();
+        }
+      },
+      error: (err) => {
+        console.error('Error loading posted jobs:', err);
+      }
     });
   }
 
   loadPipeline(): void {
-    this.pipelineService.findByApplicantId(this.userId).subscribe({
-      next: (p) => this.pipeline = p
-    });
+    if (this.isUser) {
+      this.pipelineService.findByApplicantId(this.userId).subscribe({
+        next: (p) => { this.pipeline = p; this.cdr.markForCheck(); }
+      });
+    } else if (this.isCompany) {
+      const jobIds = this.postedJobs.map(j => String(j.id));
+      this.pipelineService.findAll().subscribe({
+        next: (all) => {
+          this.pipeline = all.filter(p => jobIds.includes(String(p.jobId)));
+          this.cdr.detectChanges();
+        }
+      });
+    }
   }
 
   loadInterviews(): void {
-    this.interviewService.findByApplicantId(this.userId).subscribe({
-      next: (r) => this.interviews = r
-    });
+    if (this.isUser) {
+      this.interviewService.findByApplicantId(this.userId).subscribe({
+        next: (r) => this.interviews = r
+      });
+    } else if (this.isCompany) {
+      // In a real app, you'd fetch interviews for all your jobs
+      // For now, we'll keep it empty or fetch all for simplicity in mock
+      this.interviewService.findAll().subscribe({
+        next: (r) => this.interviews = r
+      });
+    }
   }
 
   getJobsByStage(stage: string): HiringPipeline[] {
@@ -122,11 +182,13 @@ export class JobsManagement implements OnInit {
     if (this.postForm.invalid) return;
     this.posting = true;
     const v = this.postForm.value;
+    console.log('Submitting Job:', v);
 
+    const currentUser = this.auth.getCurrentUser();
     const job: Job = {
       ...v,
-      employerId: this.userId,
-      companyLogo: '',
+      employerId: String(this.userId),
+      companyLogo: currentUser?.profileImage || '',
       status: 'open',
       isDeleted: false,
       createdAt: new Date().toISOString(),
@@ -135,16 +197,16 @@ export class JobsManagement implements OnInit {
       workplaceType: 'onsite',
       division: v.city,
       district: v.city,
-      fullAddress: v.area,
-      industry: '',
-      educationLevel: '',
+      fullAddress: v.area || '',
+      industry: (currentUser as any)?.industry || '',
+      educationLevel: 'Any',
       preferredUniversities: [],
       experienceYearsMin: 0,
       experienceYearsMax: 5,
       preferredIndustries: [],
       requiredSkills: [],
       softSkills: [],
-      languageRequirements: '',
+      languageRequirements: 'Bengali, English',
       responsibilities: [],
       dailyTasks: [],
       kpis: [],
@@ -164,9 +226,15 @@ export class JobsManagement implements OnInit {
       viewCount: 0,
       applicantsCount: 0,
       companyInfo: {
-        website: '', industry: '', companySize: '',
-        foundedYear: 0, overview: '', linkedinUrl: '',
-        facebookUrl: '', isVerified: false, officeImages: []
+        website: (currentUser as any)?.website || '',
+        industry: (currentUser as any)?.industry || '',
+        companySize: '',
+        foundedYear: 0,
+        overview: (currentUser as any)?.bio || '',
+        linkedinUrl: '',
+        facebookUrl: '',
+        isVerified: currentUser?.isVerified || false,
+        officeImages: []
       },
       teamEnvironment: '',
       growthOpportunity: '',
@@ -177,11 +245,21 @@ export class JobsManagement implements OnInit {
         this.postedJobs.unshift(saved);
         this.posting = false;
         this.postSuccess = true;
+        this.postError = null;
         this.showPostForm = false;
         this.postForm.reset({ jobType: 'full-time', salaryMin: 0, salaryMax: 0 });
+        if (this.isCompany) {
+          const user = this.auth.getCurrentUser();
+          if (user) this.postForm.patchValue({ companyName: user.name });
+        }
         setTimeout(() => this.postSuccess = false, 3000);
+        this.cdr.markForCheck();
       },
-      error: () => { this.posting = false; }
+      error: (err) => { 
+        this.posting = false;
+        this.postError = 'Failed to post job. Please try again.';
+        this.cdr.markForCheck();
+      }
     });
   }
 

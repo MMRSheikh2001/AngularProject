@@ -32,7 +32,7 @@ export class Analytics implements OnInit {
     private userService: UserService,
     private orderService: OrderService,
     private gigService: GigService,
-    private cdr:ChangeDetectorRef
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -43,6 +43,7 @@ export class Analytics implements OnInit {
         );
         this.applyRange();
         this.loading = false;
+        this.cdr.markForCheck();
       },
       error: () => { this.loading = false; }
     });

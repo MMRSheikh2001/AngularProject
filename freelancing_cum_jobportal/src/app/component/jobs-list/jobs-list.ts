@@ -53,7 +53,7 @@ export class JobsList implements OnInit {
   constructor(
     private jobService: JobService,
     private route: ActivatedRoute,
-    private cdr:ChangeDetectorRef
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -69,6 +69,7 @@ export class JobsList implements OnInit {
         this.allJobs = jobs;
         this.applyFilters();
         this.loading = false;
+        this.cdr.markForCheck();
       },
       error: () => {
         this.error = 'Failed to load jobs. Make sure JSON Server is running on port 3000.';

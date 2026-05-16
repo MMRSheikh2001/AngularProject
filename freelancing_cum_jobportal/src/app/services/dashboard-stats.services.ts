@@ -6,11 +6,16 @@ import { JobseekerDashboardStats, FreelancerDashboardStats, EmployerDashboardSta
 @Injectable({ providedIn: 'root' })
 export class DashboardStatsService {
   private jsUrl = 'http://localhost:3000/jobseekerDashboardStats';
+  private empUrl = 'http://localhost:3000/employerDashboardStats';
 
   constructor(private http: HttpClient) { }
 
   getJobseekerStats(userId: string | number): Observable<JobseekerDashboardStats[]> {
     return this.http.get<JobseekerDashboardStats[]>(`${this.jsUrl}?userId=${userId}`);
+  }
+
+  getEmployerStats(userId: string | number): Observable<EmployerDashboardStats[]> {
+    return this.http.get<EmployerDashboardStats[]>(`${this.empUrl}?userId=${userId}`);
   }
 
   calculateResumeScore(completedFields: string[]): number {

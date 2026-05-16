@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -44,7 +44,8 @@ export class GigsList implements OnInit {
   constructor(
     private gigService: GigService,
     private categoryService: CategoryService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -56,7 +57,10 @@ export class GigsList implements OnInit {
 
   loadData() {
     this.categoryService.findAll().subscribe({
-      next: (cats) => this.categories = cats
+      next: (cats) => {
+        this.categories = cats;
+        this.cdr.markForCheck();
+      }
     });
 
     this.gigService.findActiveGigs().subscribe({
@@ -64,6 +68,7 @@ export class GigsList implements OnInit {
         this.allGigs = gigs;
         this.applyFilters();
         this.loading = false;
+        this.cdr.markForCheck();
       },
       error: () => {
         this.error = 'Failed to load gigs. Make sure JSON Server is running.';

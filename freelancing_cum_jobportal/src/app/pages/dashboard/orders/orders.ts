@@ -53,13 +53,17 @@ export class Orders implements OnInit {
     // Safety timeout — always stop spinner after 3s
     const loadingTimeout = setTimeout(() => { this.loading = false; }, 3000);
 
-    this.orderService.findByClientId(userId).subscribe({
+    const obs = this.auth.isUser() 
+      ? this.orderService.findByFreelancerId(userId) 
+      : this.orderService.findByClientId(userId);
+
+    obs.subscribe({
       next: (orders) => {
         clearTimeout(loadingTimeout);
         this.orders = orders;
         this.filteredOrders = orders;
         this.loading = false;
-         this.cdr.markForCheck();
+        this.cdr.markForCheck();
       },
       error: () => {
         clearTimeout(loadingTimeout);

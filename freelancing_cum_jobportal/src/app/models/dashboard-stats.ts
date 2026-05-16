@@ -47,9 +47,13 @@ export interface EmployerDashboardStats {
     userId?: string;
 
     activeJobs: number;
+    activeJobsCount?: number;
+    postedJobsCount?: number;
     totalApplicants: number;
     shortlisted: number;
+    shortlistedCount?: number;
     hired: number;
+    hiredCount?: number;
     interviewsScheduled: number;
     jobViews: number;
 
@@ -59,6 +63,9 @@ export interface EmployerDashboardStats {
     topJobApplicants: number;
 
     monthlyHires?: number[];
+
+    totalSpent?: number;
+    orderedGigsCount?: number;
 }
 
 

@@ -35,7 +35,8 @@ export class ResumeService {
   // ── Filter Methods ────────────────────────────────────────────
 
   findByUserId(userId: string | number): Observable<Resume[]> {
-    return this.http.get<Resume[]>(`${this.url}?userId=${userId}`);
+    const uid = String(userId);
+    return this.http.get<Resume[]>(`${this.url}?userId=${uid}`);
   }
 
   // ── Extended Methods ──────────────────────────────────────────
@@ -94,10 +95,50 @@ export class ResumeService {
   }
 
   getPublicProfile(userId: string | number): Observable<Resume[]> {
+    const uid = String(userId);
     return this.http.get<Resume[]>(
-      `${this.url}?userId=${userId}&cvVisibility=Public`
+      `${this.url}?userId=${uid}&cvVisibility=Public`
     );
   }
+
+  // ── Stats Sync Methods ────────────────────────────────────────
+  
+  updateDashboardCompletion(userId: string | number, completion: number): Observable<any> {
+    const uid = String(userId);
+    const url = 'http://localhost:3000/jobseekerDashboardStats';
+    return new Observable(observer => {
+      this.http.get<any[]>(`${url}?userId=${uid}`).subscribe(stats => {
+        if (stats.length > 0) {
+          const s = stats[0];
+          this.http.patch(`${url}/${s.id}`, { profileCompletion: completion }).subscribe({
+            next: (res) => { observer.next(res); observer.complete(); },
+            error: (err) => observer.error(err)
+          });
+        } else {
+          observer.complete();
+        }
+      });
+    });
+  }
+
+  updateFreelancerCompletion(userId: string | number, completion: number): Observable<any> {
+    const uid = String(userId);
+    const url = 'http://localhost:3000/freelancerStats';
+    return new Observable(observer => {
+      this.http.get<any[]>(`${url}?userId=${uid}`).subscribe(stats => {
+        if (stats.length > 0) {
+          const s = stats[0];
+          this.http.patch(`${url}/${s.id}`, { completionRate: completion }).subscribe({
+            next: (res) => { observer.next(res); observer.complete(); },
+            error: (err) => observer.error(err)
+          });
+        } else {
+          observer.complete();
+        }
+      });
+    });
+  }
+
   findByGithubLink(githubLink: string): Observable<Resume[]> {
     return this.http.get<Resume[]>(`${this.url}?githubLink_like=${githubLink}`);
   }

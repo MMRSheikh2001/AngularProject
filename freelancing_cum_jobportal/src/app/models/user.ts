@@ -21,7 +21,7 @@ export interface User {
 
   createdAt: string;
 
-  role: 'user' | 'admin';
+  role: 'user' | 'company' | 'admin';
 
   isSuperAdmin?: boolean;
 

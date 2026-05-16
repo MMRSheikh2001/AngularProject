@@ -40,6 +40,7 @@ export class Register {
       area: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required],
+      role: ['user', Validators.required]
     });
   }
 
@@ -81,6 +82,7 @@ export class Register {
       phone: this.f['phone'].value,
       city: this.f['city'].value,
       area: this.f['area'].value,
+      role: this.f['role'].value,
     }).subscribe({
       next: (result) => {
         this.loading = false;

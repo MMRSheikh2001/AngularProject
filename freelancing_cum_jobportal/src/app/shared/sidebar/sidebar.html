@@ -29,15 +29,25 @@
             class="nav-link sidebar-link">
             <i class="bi bi-grid me-2"></i>Dashboard
         </a>
-        <a routerLink="/dashboard/profile" routerLinkActive="active" class="nav-link sidebar-link">
-            <i class="bi bi-person me-2"></i>Profile
-        </a>
-        <a routerLink="/dashboard/jobs" routerLinkActive="active" class="nav-link sidebar-link">
-            <i class="bi bi-briefcase me-2"></i>Jobs
-        </a>
-        <a routerLink="/dashboard/gigs" routerLinkActive="active" class="nav-link sidebar-link">
-            <i class="bi bi-grid-3x3-gap me-2"></i>Gigs
-        </a>
+
+        <!-- User/Freelancer specific -->
+        <ng-container *ngIf="auth.isUser()">
+            <a routerLink="/dashboard/profile" routerLinkActive="active" class="nav-link sidebar-link">
+                <i class="bi bi-person me-2"></i>My CV
+            </a>
+            <a routerLink="/dashboard/gigs" routerLinkActive="active" class="nav-link sidebar-link">
+                <i class="bi bi-grid-3x3-gap me-2"></i>My Gigs
+            </a>
+        </ng-container>
+
+        <!-- Company/Employer specific -->
+        <ng-container *ngIf="auth.isCompany()">
+            <a routerLink="/dashboard/jobs" routerLinkActive="active" class="nav-link sidebar-link">
+                <i class="bi bi-briefcase me-2"></i>Manage Jobs
+            </a>
+        </ng-container>
+
+        <!-- Shared links -->
         <a routerLink="/dashboard/orders" routerLinkActive="active" class="nav-link sidebar-link">
             <i class="bi bi-box me-2"></i>Orders
         </a>

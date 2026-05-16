@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -67,7 +67,8 @@ export class Details implements OnInit {
     private jobAppService: JobApplicationService,
     private orderService: OrderService,
     public auth: AuthService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private cdr: ChangeDetectorRef
   ) {
     this.applyForm = this.fb.group({
       coverLetter: ['', [Validators.required, Validators.minLength(50)]]
@@ -75,35 +76,80 @@ export class Details implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.type = params['type'];
-      this.id = params['id'];
+    this.route.paramMap.subscribe(params => {
+      this.type = params.get('type')?.toLowerCase() || '';
+      this.id = params.get('id') || '';
+      console.log('Details Loading:', this.type, this.id);
       this.loading = true;
+      this.error = '';
       this.loadData();
     });
   }
 
   loadData(): void {
+    if (!this.id || !this.type) {
+      this.error = 'Invalid URL parameters.';
+      this.loading = false;
+      this.cdr.markForCheck();
+      return;
+    }
+
     if (this.type === 'job') {
       this.jobService.getById(this.id).subscribe({
         next: (job) => {
-          this.job = job;
-          this.calculateDeadline();
-          this.loadRelatedJobs();
-          this.loading = false;
+          console.log('Job Loaded Successfully:', job);
+          if (!job || !job.id) {
+            this.error = 'Job not found in database.';
+            this.loading = false;
+            this.cdr.markForCheck();
+          } else {
+            this.job = job;
+            try {
+              this.calculateDeadline();
+              this.loadRelatedJobs();
+            } catch (e) {
+              console.error('Error processing job data:', e);
+            }
+            this.loading = false;
+            this.cdr.markForCheck();
+          }
         },
-        error: () => { this.error = 'Job not found.'; this.loading = false; }
+        error: (err) => {
+          console.error('Job Fetch Error:', err);
+          this.error = 'Failed to load job details. Please try again.';
+          this.loading = false;
+          this.cdr.markForCheck();
+        }
       });
-    } else {
+    } else if (this.type === 'gig') {
       this.gigService.getById(this.id).subscribe({
         next: (gig) => {
-          this.gig = gig;
-          this.loadPackages();
-          this.loadRelatedGigs();
+          console.log('Gig Loaded Successfully:', gig);
+          if (!gig || !gig.id) {
+            this.error = 'Gig not found in database.';
+          } else {
+            this.gig = gig;
+            try {
+              this.loadPackages();
+              this.loadRelatedGigs();
+            } catch (e) {
+              console.error('Error processing gig data:', e);
+            }
+          }
           this.loading = false;
+          this.cdr.markForCheck();
         },
-        error: () => { this.error = 'Gig not found.'; this.loading = false; }
+        error: (err) => {
+          console.error('Gig Fetch Error:', err);
+          this.error = 'Failed to load gig details.';
+          this.loading = false;
+          this.cdr.markForCheck();
+        }
       });
+    } else {
+      this.error = 'Unknown details type: ' + this.type;
+      this.loading = false;
+      this.cdr.markForCheck();
     }
   }
 
@@ -113,6 +159,7 @@ export class Details implements OnInit {
       next: (pkgs) => {
         this.packages = pkgs;
         this.selectedPackage = pkgs.find(p => p.popular) || pkgs[1] || pkgs[0] || null;
+        this.cdr.markForCheck();
       }
     });
   }
@@ -121,6 +168,7 @@ export class Details implements OnInit {
     this.jobService.findOpenJobs().subscribe({
       next: (jobs) => {
         this.relatedJobs = jobs.filter(j => j.id !== this.id).slice(0, 3);
+        this.cdr.markForCheck();
       }
     });
   }
@@ -129,6 +177,7 @@ export class Details implements OnInit {
     this.gigService.findActiveGigs().subscribe({
       next: (gigs) => {
         this.relatedGigs = gigs.filter(g => g.id !== this.id).slice(0, 3);
+        this.cdr.markForCheck();
       }
     });
   }

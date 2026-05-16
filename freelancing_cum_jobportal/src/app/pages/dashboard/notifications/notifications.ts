@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Sidebar } from '../../../shared/sidebar/sidebar';
 import { AuthService } from '../../../services/auth';
@@ -31,7 +31,8 @@ export class Notifications implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private notifService: NotificationService
+    private notifService: NotificationService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -47,6 +48,7 @@ export class Notifications implements OnInit {
         this.allNotifications = notifs;
         this.filtered = notifs;
         this.loading = false;
+        this.cdr.markForCheck();
       },
       error: () => {
         clearTimeout(loadingTimeout);

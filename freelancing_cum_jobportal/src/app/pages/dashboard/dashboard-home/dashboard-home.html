@@ -34,47 +34,56 @@
             </div>
 
             <!-- Summary Cards -->
-            <div class="row g-3 mb-4">
-                <div class="col-6 col-lg-3">
-                    <div class="stat-card stat-blue">
-                        <div class="stat-icon"><i class="bi bi-briefcase"></i></div>
-                        <div class="stat-value">{{ stats.applied }}</div>
-                        <div class="stat-label">Jobs Applied</div>
+            <div class="row g-4 mb-4">
+            <div class="col-md-3">
+                <div class="dash-card text-center p-4">
+                    <div class="stat-icon bg-light-primary text-primary mb-3 mx-auto">
+                        <i class="bi {{ isCompany ? 'bi-briefcase' : 'bi-send' }}"></i>
                     </div>
-                </div>
-                <div class="col-6 col-lg-3">
-                    <div class="stat-card stat-green">
-                        <div class="stat-icon"><i class="bi bi-box"></i></div>
-                        <div class="stat-value">{{ stats.activeOrders }}</div>
-                        <div class="stat-label">Active Orders</div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3">
-                    <div class="stat-card stat-amber">
-                        <div class="stat-icon"><i class="bi bi-wallet2"></i></div>
-                        <div class="stat-value">৳{{ stats.balance | number }}</div>
-                        <div class="stat-label">Wallet Balance</div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3">
-                    <div class="stat-card stat-red">
-                        <div class="stat-icon"><i class="bi bi-bell"></i></div>
-                        <div class="stat-value">{{ stats.unread }}</div>
-                        <div class="stat-label">Unread Alerts</div>
-                    </div>
+                    <h3 class="fw-bold mb-1">{{ isCompany ? (empStats?.activeJobs || 0) : stats.applied }}</h3>
+                    <div class="text-muted small">{{ isCompany ? 'Jobs Posted' : 'Applications' }}</div>
                 </div>
             </div>
+            <div class="col-md-3">
+                <div class="dash-card text-center p-4">
+                    <div class="stat-icon bg-light-success text-success mb-3 mx-auto">
+                        <i class="bi bi-box-seize"></i>
+                    </div>
+                    <h3 class="fw-bold mb-1">{{ stats.activeOrders }}</h3>
+                    <div class="text-muted small">Active Orders</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="dash-card text-center p-4">
+                    <div class="stat-icon bg-light-warning text-warning mb-3 mx-auto">
+                        <i class="bi bi-star"></i>
+                    </div>
+                    <h3 class="fw-bold mb-1">{{ isCompany ? (empStats?.hired || 0) : (freelancerStats?.averageRating || 0) }}</h3>
+                    <div class="text-muted small">{{ isCompany ? 'Total Hired' : 'Rating' }}</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="dash-card text-center p-4">
+                    <div class="stat-icon bg-light-info text-info mb-3 mx-auto">
+                        <i class="bi bi-bell"></i>
+                    </div>
+                    <h3 class="fw-bold mb-1">{{ stats.unread }}</h3>
+                    <div class="text-muted small">New Notifications</div>
+                </div>
+            </div>
+        </div>
 
-            <!-- Quick Actions -->
-            <div class="dash-card mb-4">
-                <h6 class="fw-bold mb-3">Quick Actions</h6>
-                <div class="d-flex gap-2 flex-wrap">
-                    <a *ngFor="let action of quickActions" [routerLink]="action.route"
-                        class="btn {{ action.color }} btn-sm">
-                        <i class="bi {{ action.icon }} me-2"></i>{{ action.label }}
-                    </a>
-                </div>
+        <!-- Quick Actions -->
+        <div class="mb-4">
+            <h6 class="fw-bold mb-3">Quick Actions</h6>
+            <div class="d-flex flex-wrap gap-3">
+                <a *ngFor="let action of filteredQuickActions" [routerLink]="action.route" 
+                   class="btn {{ action.color }} d-inline-flex align-items-center gap-2 px-4 py-2 rounded-3 shadow-sm">
+                    <i class="bi {{ action.icon }}"></i>
+                    {{ action.label }}
+                </a>
             </div>
+        </div>
 
 
             <!-- Profile Completion Banner -->

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth';
@@ -46,7 +46,8 @@ export class AdminDashboard implements OnInit {
     private orderService: OrderService,
     private reportService: ReportService,
     private disputeService: DisputeService,
-    private analyticsService: AnalyticsDailyService
+    private analyticsService: AnalyticsDailyService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -60,17 +61,24 @@ export class AdminDashboard implements OnInit {
         this.totalUsers = u.length;
         this.recentUsers = u.slice(-5).reverse();
         this.checkDone();
+        this.cdr.markForCheck();
       },
       error: () => this.checkDone()
     });
 
     this.jobService.findAll().subscribe({
-      next: (j) => { this.totalJobs = j.length; this.checkDone(); },
+      next: (j) => {
+        this.totalJobs = j.length; this.checkDone();
+        this.cdr.markForCheck();
+      },
       error: () => this.checkDone()
     });
 
     this.gigService.findAll().subscribe({
-      next: (g) => { this.totalGigs = g.length; this.checkDone(); },
+      next: (g) => {
+        this.totalGigs = g.length; this.checkDone();
+        this.cdr.markForCheck();
+      },
       error: () => this.checkDone()
     });
 
@@ -80,22 +88,32 @@ export class AdminDashboard implements OnInit {
         this.totalRevenue = o.reduce((s, x) => s + (x.totalAmount || 0), 0);
         this.totalCommission = o.reduce((s, x) => s + (x.commissionAmount || 0), 0);
         this.checkDone();
+        this.cdr.markForCheck();
       },
       error: () => this.checkDone()
     });
 
     this.reportService.findAll().subscribe({
-      next: (r) => { this.recentReports = r.slice(0, 5); this.checkDone(); },
+      next: (r) => {
+        this.recentReports = r.slice(0, 5); this.checkDone();
+        this.cdr.markForCheck();
+      },
       error: () => this.checkDone()
     });
 
     this.disputeService.findAll().subscribe({
-      next: (d) => { this.recentDisputes = d.slice(0, 5); this.checkDone(); },
+      next: (d) => {
+        this.recentDisputes = d.slice(0, 5); this.checkDone();
+        this.cdr.markForCheck();
+      },
       error: () => this.checkDone()
     });
 
     this.analyticsService.findAll().subscribe({
-      next: (a) => { this.analytics = a.slice(-7); this.checkDone(); },
+      next: (a) => {
+        this.analytics = a.slice(-7); this.checkDone();
+        this.cdr.markForCheck();
+      },
       error: () => this.checkDone()
     });
   }

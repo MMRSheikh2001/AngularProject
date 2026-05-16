@@ -7,16 +7,22 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <h4 class="fw-bold mb-0">Jobs Management</h4>
-                <small class="text-muted">Manage your applications and job postings</small>
+                <small class="text-muted">{{ isCompany ? 'Manage your job postings and applicants' : 'Manage your job applications' }}</small>
             </div>
-            <div class="d-flex gap-2">
+            <div class="d-flex gap-2" *ngIf="isCompany">
                 <span *ngIf="postSuccess" class="badge bg-success py-2 px-3">
                     <i class="bi bi-check-circle me-1"></i>Job Posted!
                 </span>
+                <button class="btn btn-light btn-sm me-1" (click)="loadAll()" [disabled]="loading">
+                    <i class="bi bi-arrow-clockwise" [class.spinner-border-sm]="loading"></i>
+                </button>
                 <button class="btn btn-primary btn-sm" (click)="showPostForm = !showPostForm">
                     <i class="bi bi-plus me-1"></i>Post a Job
                 </button>
             </div>
+        </div>
+        <div *ngIf="postError" class="alert alert-danger py-2 small mb-3 rounded-3 shadow-sm border-0">
+            <i class="bi bi-exclamation-circle me-2"></i>{{ postError }}
         </div>
 
         <!-- Post Job Form -->
@@ -85,16 +91,16 @@
 
         <!-- Tabs -->
         <div class="tab-nav mb-4">
-            <button class="tab-btn" [class.active]="activeTab === 'applied'" (click)="activeTab = 'applied'">
+            <button *ngIf="isUser" class="tab-btn" [class.active]="activeTab === 'applied'" (click)="activeTab = 'applied'">
                 <i class="bi bi-send me-2"></i>Applied Jobs
                 <span class="badge bg-primary ms-2">{{ appliedJobs.length }}</span>
             </button>
-            <button class="tab-btn" [class.active]="activeTab === 'posted'" (click)="activeTab = 'posted'">
+            <button *ngIf="isCompany" class="tab-btn" [class.active]="activeTab === 'posted'" (click)="activeTab = 'posted'">
                 <i class="bi bi-briefcase me-2"></i>Posted Jobs
                 <span class="badge bg-success ms-2">{{ postedJobs.length }}</span>
             </button>
             <button class="tab-btn" [class.active]="activeTab === 'pipeline'" (click)="activeTab = 'pipeline'">
-                <i class="bi bi-kanban me-2"></i>Hiring Pipeline
+                <i class="bi bi-kanban me-2"></i>{{ isCompany ? 'Applicants' : 'My Status' }}
                 <span class="badge bg-warning text-dark ms-2">{{ pipeline.length }}</span>
             </button>
             <button class="tab-btn" [class.active]="activeTab === 'interviews'" (click)="activeTab = 'interviews'">

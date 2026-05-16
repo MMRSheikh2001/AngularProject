@@ -21,6 +21,28 @@
 
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
+                <!-- Role Selection -->
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">I want to join as</label>
+                    <div class="row g-2">
+                        <div class="col">
+                            <input type="radio" class="btn-check" formControlName="role" value="user" id="roleUser">
+                            <label class="btn btn-outline-primary w-100 py-2 d-flex flex-column align-items-center gap-1" for="roleUser">
+                                <i class="bi bi-person-workspace fs-4"></i>
+                                <span class="small fw-semibold">Freelancer</span>
+                            </label>
+                        </div>
+                        <div class="col">
+                            <input type="radio" class="btn-check" formControlName="role" value="company" id="roleCompany">
+                            <label class="btn btn-outline-primary w-100 py-2 d-flex flex-column align-items-center gap-1" for="roleCompany">
+                                <i class="bi bi-building fs-4"></i>
+                                <span class="small fw-semibold">Employer</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div *ngIf="f['role'].touched && f['role'].invalid" class="text-danger small mt-1">Please select a role.</div>
+                </div>
+
                 <!-- Name -->
                 <div class="mb-3">
                     <label class="form-label small fw-semibold">Full Name</label>
