@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Sidebar } from '../../../shared/sidebar/sidebar';
@@ -35,28 +35,43 @@ export class WalletComponent implements OnInit {
   withdrawSuccess = false;
 
   activeTab = 'transactions';
-  userId = '';
+  userId: string | number = '';
 
   constructor(
     private auth: AuthService,
     private walletService: WalletService,
     private transactionService: TransactionService,
     private withdrawalService: WithdrawalService,
-    private paymentMethodService: PaymentMethodService
+    private paymentMethodService: PaymentMethodService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
     const userId = this.auth.getCurrentUserId();
-
-    if (!userId) return;
+    if (!userId) {
+      this.loading = false;
+      return;
+    }
     this.userId = userId;
-    this.loadWallet(userId);
+
+    const t = setTimeout(() => { this.loading = false; }, 5000);
+
+    this.walletService.findByUserId(userId).subscribe({
+      next: (wallets) => {
+        clearTimeout(t);
+        this.wallet = wallets[0] || null;
+        this.loading = false;
+        this.cdr.markForCheck();
+      },
+      error: () => { clearTimeout(t); this.loading = false; }
+    });
+
     this.loadTransactions(userId);
     this.loadWithdrawals(userId);
     this.loadPaymentMethods(userId);
   }
 
-  loadWallet(userId: string) {
+  loadWallet(userId: string | number) {
     this.walletService.findByUserId(userId).subscribe({
       next: (wallets) => {
         this.wallet = wallets[0] || null;
@@ -66,19 +81,19 @@ export class WalletComponent implements OnInit {
     });
   }
 
-  loadTransactions(userId: string) {
+  loadTransactions(userId: string | number) {
     this.transactionService.findByUserId(userId).subscribe({
       next: (t) => this.transactions = t
     });
   }
 
-  loadWithdrawals(userId: string) {
+  loadWithdrawals(userId: string | number) {
     this.withdrawalService.findByUserId(userId).subscribe({
       next: (w) => this.withdrawals = w
     });
   }
 
-  loadPaymentMethods(userId: string) {
+  loadPaymentMethods(userId: string | number) {
     this.paymentMethodService.findByUserId(userId).subscribe({
       next: (m) => this.paymentMethods = m
     });

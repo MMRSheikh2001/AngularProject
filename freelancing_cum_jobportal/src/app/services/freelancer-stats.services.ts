@@ -9,9 +9,9 @@ export class FreelancerStatsService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<FreelancerStats[]> { return this.http.get<FreelancerStats[]>(this.url); }
-  getById(id: string): Observable<FreelancerStats> { return this.http.get<FreelancerStats>(`${this.url}/${id}`); }
+  getById(id: string | number): Observable<FreelancerStats> { return this.http.get<FreelancerStats>(`${this.url}/${id}`); }
   save(s: FreelancerStats): Observable<FreelancerStats> { return this.http.post<FreelancerStats>(this.url, s); }
-  update(id: string, s: FreelancerStats): Observable<FreelancerStats> { return this.http.put<FreelancerStats>(`${this.url}/${id}`, s); }
-  delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
-  findByUserId(userId: string): Observable<FreelancerStats[]> { return this.http.get<FreelancerStats[]>(`${this.url}?userId=${userId}`); }
+  update(id: string | number, s: FreelancerStats): Observable<FreelancerStats> { return this.http.put<FreelancerStats>(`${this.url}/${id}`, s); }
+  delete(id: string | number): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+  findByUserId(userId: string | number): Observable<FreelancerStats[]> { return this.http.get<FreelancerStats[]>(`${this.url}?userId=${userId}`); }
 }

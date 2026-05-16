@@ -1,6 +1,10 @@
 export interface PaymentMethod {
-  id?: string;
-  userId: string;
+  id?: string | number;
+  userId?: string | number;
   type: 'card' | 'bank' | 'mobile';
   maskedDetails: string;
 }
+
+
+
+

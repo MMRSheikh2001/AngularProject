@@ -1,6 +1,6 @@
 export interface FreelancerStats {
-    id?: string;
-    userId: string;
+    id?: string | number;
+    userId?: string | number;
     totalEarnings: number;
     monthlyEarnings: number;
     ordersCompleted: number;
@@ -37,3 +37,7 @@ export interface EmploymentHistory {
     period: string;
     description: string;
 }
+
+
+
+

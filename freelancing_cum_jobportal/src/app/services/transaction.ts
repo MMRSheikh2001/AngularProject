@@ -9,27 +9,27 @@ export class TransactionService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<Transaction[]> { return this.http.get<Transaction[]>(this.url); }
-  getById(id: string): Observable<Transaction> { return this.http.get<Transaction>(`${this.url}/${id}`); }
+  getById(id: string | number): Observable<Transaction> { return this.http.get<Transaction>(`${this.url}/${id}`); }
   save(t: Transaction): Observable<Transaction> { return this.http.post<Transaction>(this.url, t); }
-  update(id: string, t: Transaction): Observable<Transaction> { return this.http.put<Transaction>(`${this.url}/${id}`, t); }
-  delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+  update(id: string | number, t: Transaction): Observable<Transaction> { return this.http.put<Transaction>(`${this.url}/${id}`, t); }
+  delete(id: string | number): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
 
-  findByUserId(userId: string): Observable<Transaction[]> {
+  findByUserId(userId: string | number): Observable<Transaction[]> {
     return this.http.get<Transaction[]>(`${this.url}?userId=${userId}&_sort=createdAt&_order=desc`);
   }
-  findByOrderId(orderId: string): Observable<Transaction[]> {
+  findByOrderId(orderId: string | number): Observable<Transaction[]> {
     return this.http.get<Transaction[]>(`${this.url}?orderId=${orderId}`);
   }
   findByType(type: string): Observable<Transaction[]> {
     return this.http.get<Transaction[]>(`${this.url}?type=${type}`);
   }
-  findCreditsByUserId(userId: string): Observable<Transaction[]> {
+  findCreditsByUserId(userId: string | number): Observable<Transaction[]> {
     return this.http.get<Transaction[]>(`${this.url}?userId=${userId}&type=credit`);
   }
-  findDebitsByUserId(userId: string): Observable<Transaction[]> {
+  findDebitsByUserId(userId: string | number): Observable<Transaction[]> {
     return this.http.get<Transaction[]>(`${this.url}?userId=${userId}&type=debit`);
   }
-  findLatestByUserId(userId: string): Observable<Transaction[]> {
+  findLatestByUserId(userId: string | number): Observable<Transaction[]> {
     return this.http.get<Transaction[]>(`${this.url}?userId=${userId}&_sort=createdAt&_order=desc&_limit=10`);
   }
 }

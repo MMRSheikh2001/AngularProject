@@ -9,12 +9,12 @@ export class GigPackageService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<GigPackage[]> { return this.http.get<GigPackage[]>(this.url); }
-  getById(id: string): Observable<GigPackage> { return this.http.get<GigPackage>(`${this.url}/${id}`); }
+  getById(id: string | number): Observable<GigPackage> { return this.http.get<GigPackage>(`${this.url}/${id}`); }
   save(pkg: GigPackage): Observable<GigPackage> { return this.http.post<GigPackage>(this.url, pkg); }
-  update(id: string, pkg: GigPackage): Observable<GigPackage> { return this.http.put<GigPackage>(`${this.url}/${id}`, pkg); }
-  delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+  update(id: string | number, pkg: GigPackage): Observable<GigPackage> { return this.http.put<GigPackage>(`${this.url}/${id}`, pkg); }
+  delete(id: string | number): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
 
-  findByGigId(gigId: string): Observable<GigPackage[]> {
+  findByGigId(gigId: string | number): Observable<GigPackage[]> {
     return this.http.get<GigPackage[]>(`${this.url}?gigId=${gigId}`);
   }
   findByName(name: string): Observable<GigPackage[]> {

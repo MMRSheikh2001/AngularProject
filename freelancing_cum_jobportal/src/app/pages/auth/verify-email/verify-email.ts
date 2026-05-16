@@ -7,7 +7,7 @@ import { UserVerificationService } from '../../../services/user-verification';
 @Component({
   selector: 'app-verify-email',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './verify-email.html',
   styleUrl: './verify-email.css'
 })

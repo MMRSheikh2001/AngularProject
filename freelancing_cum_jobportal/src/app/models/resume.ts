@@ -1,7 +1,7 @@
 // ── Sub-interfaces ────────────────────────────────────────────
 
 export interface Education {
-  id?: string;
+  id?: string | number;
   degree: string;
   groupMajor: string;
   institute: string;
@@ -13,7 +13,7 @@ export interface Education {
 }
 
 export interface Experience {
-  id?: string;
+  id?: string | number;
   companyName: string;
   designation: string;
   department: string;
@@ -24,14 +24,14 @@ export interface Experience {
 }
 
 export interface SkillEntry {
-  id?: string;
+  id?: string | number;
   skillName: string;
   skillLevel: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert';
   yearsOfExperience: number;
 }
 
 export interface Certification {
-  id?: string;
+  id?: string | number;
   courseName: string;
   institute: string;
   completionYear: number;
@@ -39,7 +39,7 @@ export interface Certification {
 }
 
 export interface Training {
-  id?: string;
+  id?: string | number;
   title: string;
   institute: string;
   duration: string;
@@ -47,7 +47,7 @@ export interface Training {
 }
 
 export interface Project {
-  id?: string;
+  id?: string | number;
   projectName: string;
   technologies: string;
   description: string;
@@ -58,8 +58,8 @@ export interface Project {
 // ── Main Resume Interface ─────────────────────────────────────
 
 export interface Resume {
-  id?: string;
-  userId: string;
+  id?: string | number;
+  userId?: string | number;
 
   // ── Basic (existing fields — kept) ──
   summary: string;
@@ -123,3 +123,7 @@ export interface Resume {
   trainings: Training[];
   projects: Project[];
 }
+
+
+
+

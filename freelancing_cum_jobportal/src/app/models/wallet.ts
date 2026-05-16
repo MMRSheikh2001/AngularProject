@@ -1,5 +1,9 @@
 export interface Wallet {
-  id?: string;
-  userId: string;
+  id?: string | number;
+  userId?: string | number;
   balance: number;
 }
+
+
+
+

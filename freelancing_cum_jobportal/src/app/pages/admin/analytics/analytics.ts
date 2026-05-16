@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -31,7 +31,8 @@ export class Analytics implements OnInit {
     private analyticsService: AnalyticsDailyService,
     private userService: UserService,
     private orderService: OrderService,
-    private gigService: GigService
+    private gigService: GigService,
+    private cdr:ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {

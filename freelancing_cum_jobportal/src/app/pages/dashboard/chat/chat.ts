@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ElementRef, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Sidebar } from '../../../shared/sidebar/sidebar';
@@ -29,21 +29,57 @@ export class Chat implements OnInit, AfterViewChecked {
   orders: Order[] = [];
   newMessage = '';
   sending = false;
-  userId = '';
+  userId: string | number = '';
   shouldScrollToBottom = false;
 
   constructor(
     private auth: AuthService,
     private chatService: ChatService,
     private messageService: MessageService,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
     const userId = this.auth.getCurrentUserId();
-    if (!userId) return;
+    if (!userId) {
+      this.loading = false;
+      return;
+    }
     this.userId = userId;
-    this.loadChats();
+    // Safety timeout — always stop spinner after 3s
+    const loadingTimeout = setTimeout(() => { this.loading = false; }, 3000);
+    this.loadChatsWithTimeout(loadingTimeout);
+  }
+
+  loadChatsWithTimeout(timeoutHandle: any): void {
+    this.chatService.findAll().subscribe({
+      next: (allChats) => {
+        this.orderService.findByClientId(this.userId).subscribe({
+          next: (clientOrders) => {
+            this.orderService.findByFreelancerId(this.userId).subscribe({
+              next: (freelancerOrders) => {
+                clearTimeout(timeoutHandle);
+                const myOrderIds = new Set([
+                  ...clientOrders.map(o => String(o.id)),
+                  ...freelancerOrders.map(o => String(o.id))
+                ]);
+                this.chats = allChats.filter(c => myOrderIds.has(String(c.orderId)));
+                this.orders = [...clientOrders, ...freelancerOrders];
+                this.loading = false;
+                if (this.chats.length > 0) {
+                  this.selectChat(this.chats[0]);
+                }
+                this.cdr.markForCheck();
+              },
+              error: () => { clearTimeout(timeoutHandle); this.loading = false; }
+            });
+          },
+          error: () => { clearTimeout(timeoutHandle); this.loading = false; }
+        });
+      },
+      error: () => { clearTimeout(timeoutHandle); this.loading = false; }
+    });
   }
 
   ngAfterViewChecked(): void {
@@ -53,42 +89,14 @@ export class Chat implements OnInit, AfterViewChecked {
     }
   }
 
-  loadChats(): void {
-    this.chatService.findAll().subscribe({
-      next: (allChats) => {
-        // Load orders to match chats with user
-        this.orderService.findByClientId(this.userId).subscribe({
-          next: (clientOrders) => {
-            this.orderService.findByFreelancerId(this.userId).subscribe({
-              next: (freelancerOrders) => {
-                const myOrderIds = new Set([
-                  ...clientOrders.map(o => o.id!),
-                  ...freelancerOrders.map(o => o.id!)
-                ]);
-                this.chats = allChats.filter(c => myOrderIds.has(c.orderId));
-                this.orders = [...clientOrders, ...freelancerOrders];
-                this.loading = false;
 
-                if (this.chats.length > 0) {
-                  this.selectChat(this.chats[0]);
-                }
-              },
-              error: () => { this.loading = false; }
-            });
-          },
-          error: () => { this.loading = false; }
-        });
-      },
-      error: () => { this.loading = false; }
-    });
-  }
 
   selectChat(chat: ChatModel): void {
     this.selectedChat = chat;
     this.loadMessages(chat.id!);
   }
 
-  loadMessages(chatId: string): void {
+  loadMessages(chatId: string | number): void {
     this.messageService.findByChatId(chatId).subscribe({
       next: (msgs) => {
         this.messages = msgs;
@@ -121,12 +129,16 @@ export class Chat implements OnInit, AfterViewChecked {
   }
 
   scrollToBottom(): void {
-    try {
-      if (this.messageContainer) {
-        this.messageContainer.nativeElement.scrollTop =
-          this.messageContainer.nativeElement.scrollHeight;
+    setTimeout(() => {
+      try {
+        if (this.messageContainer && this.messageContainer.nativeElement) {
+          this.messageContainer.nativeElement.scrollTop =
+            this.messageContainer.nativeElement.scrollHeight;
+        }
+      } catch (err) {
+        console.warn('Scroll to bottom failed:', err);
       }
-    } catch { }
+    }, 100);
   }
 
   isMine(msg: Message): boolean {

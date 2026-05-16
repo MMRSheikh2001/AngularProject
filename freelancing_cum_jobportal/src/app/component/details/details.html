@@ -18,33 +18,33 @@
     <div class="job-hero">
         <div class="container">
             <div class="d-flex align-items-start gap-4 flex-wrap">
-                <img [src]="job!.companyLogo" class="company-logo-hero" onerror="this.src='https://i.pravatar.cc/80'">
+                <img [src]="job?.companyLogo" class="company-logo-hero" onerror="this.src='https://i.pravatar.cc/80'">
                 <div class="flex-grow-1">
                     <div class="d-flex align-items-center gap-2 flex-wrap mb-2">
-                        <h2 class="fw-bold mb-0 text-white">{{ job!.title }}</h2>
-                        <span *ngIf="job!.isUrgent" class="badge bg-danger">
+                        <h2 class="fw-bold mb-0 text-white">{{ job?.title }}</h2>
+                        <span *ngIf="job?.isUrgent" class="badge bg-danger">
                             <i class="bi bi-lightning-fill me-1"></i>Urgent
                         </span>
-                        <span *ngIf="job!.isFeatured" class="badge bg-warning text-dark">
+                        <span *ngIf="job?.isFeatured" class="badge bg-warning text-dark">
                             <i class="bi bi-star-fill me-1"></i>Featured
                         </span>
                     </div>
                     <div class="d-flex align-items-center gap-2 mb-3">
-                        <span class="text-white fw-semibold fs-5">{{ job!.companyName }}</span>
-                        <span *ngIf="job!.companyInfo?.isVerified" class="badge bg-success">
+                        <span class="text-white fw-semibold fs-5">{{ job?.companyName }}</span>
+                        <span *ngIf="job?.companyInfo?.isVerified" class="badge bg-success">
                             <i class="bi bi-patch-check-fill me-1"></i>Verified
                         </span>
                     </div>
                     <div class="d-flex flex-wrap gap-3">
-                        <span class="hero-chip"><i class="bi bi-geo-alt me-1"></i>{{ job!.city }}, {{ job!.area
+                        <span class="hero-chip"><i class="bi bi-geo-alt me-1"></i>{{ job?.city }}, {{ job?.area
                             }}</span>
-                        <span class="hero-chip"><i class="bi bi-clock me-1"></i>{{ job!.jobType | titlecase }}</span>
-                        <span class="hero-chip"><i class="bi bi-building me-1"></i>{{ job!.workplaceType | titlecase
+                        <span class="hero-chip"><i class="bi bi-clock me-1"></i>{{ job?.jobType | titlecase }}</span>
+                        <span class="hero-chip"><i class="bi bi-building me-1"></i>{{ job?.workplaceType | titlecase
                             }}</span>
-                        <span class="hero-chip"><i class="bi bi-briefcase me-1"></i>{{ job!.experienceRequired }}</span>
+                        <span class="hero-chip"><i class="bi bi-briefcase me-1"></i>{{ job?.experienceRequired }}</span>
                         <span class="hero-chip text-warning fw-bold">
                             <i class="bi bi-currency-exchange me-1"></i>
-                            ৳{{ job!.salaryMin | number }} - ৳{{ job!.salaryMax | number }}
+                            ৳{{ (job?.salaryMin || 0) | number }} - ৳{{ (job?.salaryMax || 0) | number }}
                         </span>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                     <div class="stat-item">
                         <i class="bi bi-people text-primary"></i>
                         <div>
-                            <div class="stat-val">{{ job!.vacancyCount }}</div>
+                            <div class="stat-val">{{ job?.vacancyCount }}</div>
                             <div class="stat-lbl">Vacancies</div>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
                     <div class="stat-item">
                         <i class="bi bi-eye text-info"></i>
                         <div>
-                            <div class="stat-val">{{ job!.viewCount | number }}</div>
+                            <div class="stat-val">{{ job?.viewCount | number }}</div>
                             <div class="stat-lbl">Views</div>
                         </div>
                     </div>
@@ -79,7 +79,7 @@
                     <div class="stat-item">
                         <i class="bi bi-send text-success"></i>
                         <div>
-                            <div class="stat-val">{{ job!.applicantsCount }}</div>
+                            <div class="stat-val">{{ job?.applicantsCount }}</div>
                             <div class="stat-lbl">Applied</div>
                         </div>
                     </div>
@@ -96,43 +96,43 @@
                 </div>
 
                 <!-- Tags -->
-                <div class="d-flex flex-wrap gap-2 mb-4" *ngIf="job!.tags?.length">
-                    <span *ngFor="let tag of job!.tags" class="tag-chip">
+                <div class="d-flex flex-wrap gap-2 mb-4" *ngIf="job?.tags?.length">
+                    <span *ngFor="let tag of job?.tags" class="tag-chip">
                         <i class="bi bi-tag me-1"></i>{{ tag }}
                     </span>
                 </div>
 
                 <!-- Team Environment -->
-                <div class="detail-section mb-3" *ngIf="job!.teamEnvironment">
+                <div class="detail-section mb-3" *ngIf="job?.teamEnvironment">
                     <h5 class="section-title">About This Role</h5>
-                    <p class="text-muted">{{ job!.teamEnvironment }}</p>
-                    <p class="text-muted" *ngIf="job!.growthOpportunity">
+                    <p class="text-muted">{{ job?.teamEnvironment }}</p>
+                    <p class="text-muted" *ngIf="job?.growthOpportunity">
                         <i class="bi bi-graph-up-arrow text-success me-2"></i>
-                        {{ job!.growthOpportunity }}
+                        {{ job?.growthOpportunity }}
                     </p>
                 </div>
 
                 <!-- Job Description -->
                 <div class="detail-section mb-3">
                     <h5 class="section-title">Job Description</h5>
-                    <p class="text-muted">{{ job!.description }}</p>
+                    <p class="text-muted">{{ job?.description }}</p>
                 </div>
 
                 <!-- Responsibilities -->
-                <div class="detail-section mb-3" *ngIf="job!.responsibilities?.length">
+                <div class="detail-section mb-3" *ngIf="job?.responsibilities?.length">
                     <h5 class="section-title">Key Responsibilities</h5>
                     <ul class="responsibility-list">
-                        <li *ngFor="let r of job!.responsibilities">
+                        <li *ngFor="let r of job?.responsibilities">
                             <i class="bi bi-check-circle-fill text-primary me-2"></i>{{ r }}
                         </li>
                     </ul>
                 </div>
 
                 <!-- Daily Tasks -->
-                <div class="detail-section mb-3" *ngIf="job!.dailyTasks?.length">
+                <div class="detail-section mb-3" *ngIf="job?.dailyTasks?.length">
                     <h5 class="section-title">Daily Tasks</h5>
                     <ul class="responsibility-list">
-                        <li *ngFor="let t of job!.dailyTasks">
+                        <li *ngFor="let t of job?.dailyTasks">
                             <i class="bi bi-arrow-right-circle text-success me-2"></i>{{ t }}
                         </li>
                     </ul>
@@ -147,7 +147,7 @@
                                 <div class="req-card-title">
                                     <i class="bi bi-mortarboard text-primary me-2"></i>Education
                                 </div>
-                                <div class="req-card-body">{{ job!.educationLevel }}</div>
+                                <div class="req-card-body">{{ job?.educationLevel }}</div>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -156,7 +156,7 @@
                                     <i class="bi bi-briefcase text-success me-2"></i>Experience
                                 </div>
                                 <div class="req-card-body">
-                                    {{ job!.experienceYearsMin }}-{{ job!.experienceYearsMax }} years
+                                    {{ job?.experienceYearsMin }}-{{ job?.experienceYearsMax }} years
                                 </div>
                             </div>
                         </div>
@@ -165,7 +165,7 @@
                                 <div class="req-card-title">
                                     <i class="bi bi-person-badge text-warning me-2"></i>Gender
                                 </div>
-                                <div class="req-card-body">{{ job!.genderPreference }}</div>
+                                <div class="req-card-body">{{ job?.genderPreference }}</div>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -173,35 +173,37 @@
                                 <div class="req-card-title">
                                     <i class="bi bi-translate text-info me-2"></i>Language
                                 </div>
-                                <div class="req-card-body">{{ job!.languageRequirements }}</div>
+                                <div class="req-card-body">{{ job?.languageRequirements }}</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Required Skills -->
-                <div class="detail-section mb-3" *ngIf="job!.requiredSkills?.length">
+                <div class="detail-section mb-3" *ngIf="job?.requiredSkills?.length">
                     <h5 class="section-title">Required Skills</h5>
                     <div class="d-flex flex-wrap gap-2">
-                        <span *ngFor="let skill of job!.requiredSkills" class="skill-chip skill-required">
-                            <i class="bi bi-check2 me-1"></i>{{ skill }}
+                        <span *ngFor="let s of job?.requiredSkills" class="badge bg-light text-dark border fw-normal">
+                            {{ s }}
                         </span>
                     </div>
                 </div>
 
                 <!-- Soft Skills -->
-                <div class="detail-section mb-3" *ngIf="job!.softSkills?.length">
+                <div class="detail-section mb-3" *ngIf="job?.softSkills?.length">
                     <h5 class="section-title">Soft Skills</h5>
                     <div class="d-flex flex-wrap gap-2">
-                        <span *ngFor="let skill of job!.softSkills" class="skill-chip skill-soft">{{ skill }}</span>
+                        <span *ngFor="let s of job?.softSkills" class="badge bg-light text-dark border fw-normal">
+                            {{ s }}
+                        </span>
                     </div>
                 </div>
 
                 <!-- Benefits -->
-                <div class="detail-section mb-3" *ngIf="job!.benefits?.length">
+                <div class="detail-section mb-3" *ngIf="job?.benefits?.length">
                     <h5 class="section-title">Compensation & Benefits</h5>
                     <div class="row g-3">
-                        <div class="col-6 col-md-4" *ngFor="let benefit of job!.benefits">
+                        <div class="col-6 col-md-4" *ngFor="let benefit of job?.benefits">
                             <div class="benefit-item">
                                 <i class="bi {{ benefit.icon }} text-success"></i>
                                 <span>{{ benefit.name }}</span>
@@ -215,61 +217,61 @@
                     <h5 class="section-title">Workplace Information</h5>
                     <div class="d-flex align-items-center gap-3 mb-3">
                         <span class="badge bg-primary fs-6 py-2 px-3">
-                            <i class="bi bi-building me-2"></i>{{ job!.workplaceType | titlecase }}
+                            <i class="bi bi-building me-2"></i>{{ job?.workplaceType | titlecase }}
                         </span>
                         <span class="text-muted">
-                            <i class="bi bi-geo-alt me-1"></i>{{ job!.fullAddress }}
+                            <i class="bi bi-geo-alt me-1"></i>{{ job?.fullAddress }}
                         </span>
                     </div>
                     <!-- Office photos -->
-                    <div class="row g-2" *ngIf="job!.companyInfo?.officeImages?.length">
-                        <div class="col-6" *ngFor="let img of job!.companyInfo.officeImages">
+                    <div class="row g-2" *ngIf="job?.companyInfo?.officeImages?.length">
+                        <div class="col-6" *ngFor="let img of job?.companyInfo?.officeImages">
                             <img [src]="img" class="office-photo rounded" onerror="this.style.display='none'">
                         </div>
                     </div>
                 </div>
 
                 <!-- Company Info -->
-                <div class="detail-section mb-3" *ngIf="job!.companyInfo">
-                    <h5 class="section-title">About {{ job!.companyName }}</h5>
+                <div class="detail-section mb-3" *ngIf="job?.companyInfo">
+                    <h5 class="section-title">About {{ job?.companyName }}</h5>
                     <div class="company-info-card">
                         <div class="d-flex align-items-center gap-3 mb-3">
-                            <img [src]="job!.companyLogo" class="rounded" width="56" height="56"
+                            <img [src]="job?.companyLogo" class="rounded" width="56" height="56"
                                 onerror="this.src='https://i.pravatar.cc/56'">
                             <div>
-                                <div class="fw-bold">{{ job!.companyName }}</div>
-                                <div class="text-muted small">{{ job!.companyInfo.industry }}</div>
-                                <span *ngIf="job!.companyInfo.isVerified" class="badge bg-success small">
+                                <div class="fw-bold">{{ job?.companyName }}</div>
+                                <div class="text-muted small">{{ job?.companyInfo?.industry }}</div>
+                                <span *ngIf="job?.companyInfo?.isVerified" class="badge bg-success small">
                                     <i class="bi bi-patch-check me-1"></i>Verified Employer
                                 </span>
                             </div>
                         </div>
-                        <p class="text-muted small mb-3">{{ job!.companyInfo.overview }}</p>
+                        <p class="text-muted small mb-3">{{ job?.companyInfo?.overview }}</p>
                         <div class="row g-2 mb-3">
                             <div class="col-6">
                                 <div class="company-meta">
                                     <i class="bi bi-people text-primary me-2"></i>
-                                    <span class="small">{{ job!.companyInfo.companySize }}</span>
+                                    <span class="small">{{ job?.companyInfo?.companySize }}</span>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="company-meta">
                                     <i class="bi bi-calendar3 text-info me-2"></i>
-                                    <span class="small">Founded {{ job!.companyInfo.foundedYear }}</span>
+                                    <span class="small">Founded {{ job?.companyInfo?.foundedYear }}</span>
                                 </div>
                             </div>
-                            <div class="col-6" *ngIf="job!.companyInfo.website">
+                            <div class="col-6" *ngIf="job?.companyInfo?.website">
                                 <div class="company-meta">
                                     <i class="bi bi-globe text-success me-2"></i>
-                                    <a [href]="job!.companyInfo.website" target="_blank" class="small text-success">
+                                    <a [href]="job?.companyInfo?.website" target="_blank" class="small text-success">
                                         Website
                                     </a>
                                 </div>
                             </div>
-                            <div class="col-6" *ngIf="job!.companyInfo.linkedinUrl">
+                            <div class="col-6" *ngIf="job?.companyInfo?.linkedinUrl">
                                 <div class="company-meta">
                                     <i class="bi bi-linkedin text-primary me-2"></i>
-                                    <a [href]="job!.companyInfo.linkedinUrl" target="_blank" class="small text-primary">
+                                    <a [href]="job?.companyInfo?.linkedinUrl" target="_blank" class="small text-primary">
                                         LinkedIn
                                     </a>
                                 </div>
@@ -312,7 +314,7 @@
                                 {{ daysLeft }} days left to apply
                             </div>
                             <div class="text-muted small mt-1">
-                                Deadline: {{ job!.deadline | date:'dd MMM yyyy' }}
+                                Deadline: {{ job?.deadline | date:'dd MMM yyyy' }}
                             </div>
                         </div>
 
@@ -349,38 +351,38 @@
                         <h6 class="fw-bold mb-3">Job Overview</h6>
                         <div class="overview-row">
                             <span class="text-muted small">Published</span>
-                            <span class="small fw-semibold">{{ job!.publishedDate | date:'dd MMM yyyy' }}</span>
+                            <span class="small fw-semibold">{{ job?.publishedDate | date:'dd MMM yyyy' }}</span>
                         </div>
                         <div class="overview-row">
                             <span class="text-muted small">Vacancy</span>
-                            <span class="small fw-semibold">{{ job!.vacancyCount }}</span>
+                            <span class="small fw-semibold">{{ job?.vacancyCount }}</span>
                         </div>
                         <div class="overview-row">
                             <span class="text-muted small">Salary</span>
                             <span class="small fw-semibold text-success">
-                                ৳{{ job!.salaryMin | number }} - ৳{{ job!.salaryMax | number }}
-                                <span *ngIf="job!.salaryNegotiable" class="text-muted">(Negotiable)</span>
+                                ৳{{ (job?.salaryMin || 0) | number }} - ৳{{ (job?.salaryMax || 0) | number }}
+                                <span *ngIf="job?.salaryNegotiable" class="text-muted">(Negotiable)</span>
                             </span>
                         </div>
                         <div class="overview-row">
                             <span class="text-muted small">Job Type</span>
-                            <span class="badge bg-primary small">{{ job!.jobType }}</span>
+                            <span class="badge bg-primary small">{{ job?.jobType }}</span>
                         </div>
                         <div class="overview-row">
                             <span class="text-muted small">Workplace</span>
-                            <span class="badge bg-info text-dark small">{{ job!.workplaceType }}</span>
+                            <span class="badge bg-info text-dark small">{{ job?.workplaceType }}</span>
                         </div>
                         <div class="overview-row">
                             <span class="text-muted small">Experience</span>
-                            <span class="small fw-semibold">{{ job!.experienceRequired }}</span>
+                            <span class="small fw-semibold">{{ job?.experienceRequired }}</span>
                         </div>
                         <div class="overview-row">
                             <span class="text-muted small">Industry</span>
-                            <span class="small fw-semibold">{{ job!.industry }}</span>
+                            <span class="small fw-semibold">{{ job?.industry }}</span>
                         </div>
                         <div class="overview-row">
                             <span class="text-muted small">Location</span>
-                            <span class="small fw-semibold">{{ job!.city }}, {{ job!.division }}</span>
+                            <span class="small fw-semibold">{{ job?.city }}, {{ job?.division }}</span>
                         </div>
                     </div>
 
@@ -416,14 +418,14 @@
             <div class="col-lg-8">
 
                 <!-- Gig Title -->
-                <h3 class="fw-bold mb-3">{{ gig!.title }}</h3>
+                <h3 class="fw-bold mb-3">{{ gig?.title }}</h3>
 
                 <!-- Seller Info -->
                 <div class="seller-bar mb-4">
                     <img src="https://i.pravatar.cc/48?img=3" class="rounded-circle" width="48" height="48">
                     <div class="flex-grow-1">
                         <div class="d-flex align-items-center gap-2">
-                            <span class="fw-semibold">Ahmed Rahman</span>
+                            <span class="fw-semibold">Mahbub Rahman</span>
                             <span class="badge bg-success" style="font-size: 10px;">
                                 <i class="bi bi-circle-fill me-1" style="font-size: 7px;"></i>Online
                             </span>
@@ -435,9 +437,9 @@
                                     style="font-size: 12px;"></i>
                                 <span class="text-dark ms-1 small">{{ getAvgRating() }}</span>
                             </span>
-                            <span class="text-muted small">({{ gig!.totalOrders }} reviews)</span>
+                            <span class="text-muted small">({{ gig?.totalOrders }} reviews)</span>
                             <span class="text-muted small">
-                                <i class="bi bi-clock me-1"></i>{{ gig!.responseTime }}
+                                <i class="bi bi-clock me-1"></i>{{ gig?.responseTime }}
                             </span>
                         </div>
                     </div>
@@ -453,10 +455,10 @@
 
                 <!-- Image Gallery -->
                 <div class="gallery-wrap mb-4">
-                    <img [src]="(gig!.images?.length ? gig!.images[activeImageIndex] : gig!.coverImage)"
+                    <img [src]="(gig?.images?.length ? gig?.images?.[ activeImageIndex] : gig?.coverImage)"
                         class="gallery-main" onerror="this.src='https://picsum.photos/seed/gig/700/400'">
                     <div class="gallery-thumbs" *ngIf="(gig?.images?.length || 0) > 1">
-                        <img *ngFor="let img of gig!.images; let i = index" [src]="img" class="gallery-thumb"
+                        <img *ngFor="let img of gig?.images; let i = index" [src]="img" class="gallery-thumb"
                             [class.gallery-thumb-active]="i === activeImageIndex" (click)="activeImageIndex = i">
                     </div>
                 </div>
@@ -464,7 +466,7 @@
                 <!-- Stats Row -->
                 <div class="gig-stats-row mb-4">
                     <div class="gig-stat">
-                        <div class="gig-stat-val text-success">{{ gig!.totalOrders }}</div>
+                        <div class="gig-stat-val text-success">{{ gig?.totalOrders }}</div>
                         <div class="gig-stat-lbl">Completed</div>
                     </div>
                     <div class="gig-stat">
@@ -472,18 +474,18 @@
                         <div class="gig-stat-lbl">Avg Rating</div>
                     </div>
                     <div class="gig-stat">
-                        <div class="gig-stat-val text-primary">{{ gig!.queueCount }}</div>
+                        <div class="gig-stat-val text-primary">{{ gig?.queueCount }}</div>
                         <div class="gig-stat-lbl">In Queue</div>
                     </div>
                     <div class="gig-stat">
-                        <div class="gig-stat-val text-info">{{ gig!.repeatClientPercent }}%</div>
+                        <div class="gig-stat-val text-info">{{ gig?.repeatClientPercent }}%</div>
                         <div class="gig-stat-lbl">Repeat Clients</div>
                     </div>
                 </div>
 
                 <!-- Tags -->
-                <div class="d-flex flex-wrap gap-2 mb-4" *ngIf="gig!.tags?.length">
-                    <span *ngFor="let tag of gig!.tags" class="tag-chip">{{ tag }}</span>
+                <div class="d-flex flex-wrap gap-2 mb-4" *ngIf="gig?.tags?.length">
+                    <span *ngFor="let tag of gig?.tags" class="tag-chip">{{ tag }}</span>
                 </div>
 
                 <!-- Tabs -->
@@ -491,7 +493,7 @@
                     <button class="gig-tab" [class.active]="activeTab === 'description'"
                         (click)="activeTab = 'description'">Description</button>
                     <button class="gig-tab" [class.active]="activeTab === 'reviews'" (click)="activeTab = 'reviews'">
-                        Reviews ({{ gig!.reviews?.length || 0 }})
+                        Reviews ({{ gig?.reviews?.length || 0 }})
                     </button>
                     <button class="gig-tab" [class.active]="activeTab === 'faq'"
                         (click)="activeTab = 'faq'">FAQ</button>
@@ -501,22 +503,22 @@
                 <div *ngIf="activeTab === 'description'">
                     <div class="detail-section mb-3">
                         <h6 class="section-title-small">About This Gig</h6>
-                        <p class="text-muted">{{ gig!.description }}</p>
+                        <p class="text-muted">{{ gig?.description }}</p>
                     </div>
 
-                    <div class="detail-section mb-3" *ngIf="gig!.whatYouGet?.length">
+                    <div class="detail-section mb-3" *ngIf="gig?.whatYouGet?.length">
                         <h6 class="section-title-small">What You Get</h6>
                         <ul class="responsibility-list">
-                            <li *ngFor="let item of gig!.whatYouGet">
+                            <li *ngFor="let item of gig?.whatYouGet">
                                 <i class="bi bi-check-circle-fill text-success me-2"></i>{{ item }}
                             </li>
                         </ul>
                     </div>
 
-                    <div class="detail-section mb-3" *ngIf="gig!.technologies?.length">
+                    <div class="detail-section mb-3" *ngIf="gig?.technologies?.length">
                         <h6 class="section-title-small">Technologies Used</h6>
                         <div class="d-flex flex-wrap gap-2">
-                            <span *ngFor="let tech of gig!.technologies" class="skill-chip skill-required">{{ tech
+                            <span *ngFor="let tech of gig?.technologies" class="skill-chip skill-required">{{ tech
                                 }}</span>
                         </div>
                     </div>
@@ -526,46 +528,46 @@
                 <div *ngIf="activeTab === 'reviews'">
 
                     <!-- Rating breakdown -->
-                    <div class="rating-breakdown mb-4" *ngIf="gig!.reviews?.length">
+                    <div class="rating-breakdown mb-4" *ngIf="gig?.reviews?.length">
                         <div class="row align-items-center">
                             <div class="col-3 text-center">
                                 <div class="rating-big">{{ getAvgRating() }}</div>
                                 <div class="text-warning">
                                     <i *ngFor="let s of getStars(getAvgRating())" class="bi {{ s }}"></i>
                                 </div>
-                                <div class="text-muted small">{{ gig!.reviews?.length }} reviews</div>
+                                <div class="text-muted small">{{ gig?.reviews?.length }} reviews</div>
                             </div>
                             <div class="col-9">
                                 <div class="rating-row">
                                     <span class="small text-muted w-100">Communication</span>
                                     <div class="progress flex-grow-1 mx-2" style="height: 6px;">
                                         <div class="progress-bar bg-warning"
-                                            [style.width]="(gig!.communicationRating / 5 * 100) + '%'"></div>
+                                            [style.width]="((gig?.communicationRating || 0) / 5 * 100) + '%'"></div>
                                     </div>
-                                    <span class="small fw-semibold">{{ gig!.communicationRating }}</span>
+                                    <span class="small fw-semibold">{{ (gig?.communicationRating || 0) }}</span>
                                 </div>
                                 <div class="rating-row">
                                     <span class="small text-muted w-100">Delivery</span>
                                     <div class="progress flex-grow-1 mx-2" style="height: 6px;">
                                         <div class="progress-bar bg-warning"
-                                            [style.width]="(gig!.deliveryRating / 5 * 100) + '%'"></div>
+                                            [style.width]="((gig?.deliveryRating || 0) / 5 * 100) + '%'"></div>
                                     </div>
-                                    <span class="small fw-semibold">{{ gig!.deliveryRating }}</span>
+                                    <span class="small fw-semibold">{{ (gig?.deliveryRating || 0) }}</span>
                                 </div>
                                 <div class="rating-row">
                                     <span class="small text-muted w-100">Value</span>
                                     <div class="progress flex-grow-1 mx-2" style="height: 6px;">
                                         <div class="progress-bar bg-warning"
-                                            [style.width]="(gig!.valueRating / 5 * 100) + '%'"></div>
+                                            [style.width]="((gig?.valueRating || 0) / 5 * 100) + '%'"></div>
                                     </div>
-                                    <span class="small fw-semibold">{{ gig!.valueRating }}</span>
+                                    <span class="small fw-semibold">{{ (gig?.valueRating || 0) }}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Individual reviews -->
-                    <div *ngFor="let review of gig!.reviews" class="review-card mb-3">
+                    <div *ngFor="let review of gig?.reviews" class="review-card mb-3">
                         <div class="d-flex align-items-center gap-3 mb-2">
                             <img [src]="review.reviewerAvatar" class="rounded-circle" width="40" height="40">
                             <div>
@@ -580,14 +582,14 @@
                         <p class="text-muted small mb-0">{{ review.comment }}</p>
                     </div>
 
-                    <div *ngIf="!gig!.reviews?.length" class="text-center py-4 text-muted">
+                    <div *ngIf="!gig?.reviews?.length" class="text-center py-4 text-muted">
                         No reviews yet.
                     </div>
                 </div>
 
                 <!-- FAQ Tab -->
                 <div *ngIf="activeTab === 'faq'">
-                    <div *ngFor="let faq of gig!.faqs; let i = index" class="faq-item mb-2">
+                    <div *ngFor="let faq of gig?.faqs; let i = index" class="faq-item mb-2">
                         <div class="faq-question" (click)="toggleFaq(i)">
                             <span>{{ faq.question }}</span>
                             <i class="bi" [class.bi-chevron-down]="activeFaqIndex !== i"
@@ -597,7 +599,7 @@
                             {{ faq.answer }}
                         </div>
                     </div>
-                    <div *ngIf="!gig!.faqs?.length" class="text-center py-4 text-muted">
+                    <div *ngIf="!gig?.faqs?.length" class="text-center py-4 text-muted">
                         No FAQs added.
                     </div>
                 </div>
@@ -645,7 +647,7 @@
                                 <div class="fw-semibold text-capitalize">{{ selectedPackage.name }}</div>
                                 <div class="text-muted small">{{ selectedPackage.description }}</div>
                             </div>
-                            <div class="package-price">${{ selectedPackage.price }}</div>
+                            <div class="package-price">৳{{ selectedPackage.price | number }}</div>
                         </div>
 
                         <div class="d-flex gap-3 mb-3">
@@ -670,7 +672,7 @@
                         </ul>
 
                         <button class="btn btn-primary w-100 fw-bold py-2" (click)="orderGig(selectedPackage)">
-                            <i class="bi bi-cart me-2"></i>Continue — ${{ selectedPackage.price }}
+                            <i class="bi bi-cart me-2"></i>Continue — ৳{{ selectedPackage.price | number }}
                         </button>
 
                         <div class="text-center mt-2">
@@ -697,7 +699,7 @@
                                     <tr>
                                         <td class="small">Price</td>
                                         <td *ngFor="let pkg of packages" class="text-center small fw-bold">
-                                            ${{ pkg.price }}
+                                            ৳{{ pkg.price | number }}
                                         </td>
                                     </tr>
                                     <tr>
@@ -742,23 +744,23 @@
                         <h6 class="fw-bold mb-3 small">About the Seller</h6>
                         <div class="overview-row">
                             <span class="text-muted small">Member Since</span>
-                            <span class="small">{{ gig!.publishedDate | date:'MMM yyyy' }}</span>
+                            <span class="small">{{ gig?.publishedDate | date:'MMM yyyy' }}</span>
                         </div>
                         <div class="overview-row">
                             <span class="text-muted small">Languages</span>
-                            <span class="small">{{ gig!.languages?.join(', ') }}</span>
+                            <span class="small">{{ gig?.languages?.join(', ') }}</span>
                         </div>
                         <div class="overview-row">
                             <span class="text-muted small">Response Time</span>
-                            <span class="small text-success">{{ gig!.responseTime }}</span>
+                            <span class="small text-success">{{ gig?.responseTime }}</span>
                         </div>
                         <div class="overview-row">
                             <span class="text-muted small">Views</span>
-                            <span class="small">{{ gig!.viewCount | number }}</span>
+                            <span class="small">{{ gig?.viewCount | number }}</span>
                         </div>
                         <div class="overview-row">
                             <span class="text-muted small">Saves</span>
-                            <span class="small">{{ gig!.savedCount }}</span>
+                            <span class="small">{{ gig?.savedCount }}</span>
                         </div>
                     </div>
 

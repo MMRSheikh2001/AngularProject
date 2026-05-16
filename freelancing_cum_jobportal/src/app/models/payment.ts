@@ -6,3 +6,5 @@ export interface Payment {
   method: 'card' | 'bank' | 'wallet';
   status: 'pending' | 'completed' | 'failed' | 'refunded';
 }
+
+

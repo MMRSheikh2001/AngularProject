@@ -32,3 +32,5 @@ export interface EmployerStats {
     memberSince?: string;
     avgResponseTime?: string;
 }
+
+

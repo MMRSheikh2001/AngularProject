@@ -6,3 +6,5 @@ export interface TransactionLog {
   ipAddress: string;
   deviceInfo: string;
 }
+
+

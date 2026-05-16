@@ -84,7 +84,7 @@ export class GigsList implements OnInit {
     }
 
     if (this.selectedCategory) {
-      result = result.filter(g => g.categoryId === this.selectedCategory);
+      result = result.filter(g => g.categoryId == this.selectedCategory);
     }
 
     if (this.selectedRating > 0) {
@@ -94,7 +94,7 @@ export class GigsList implements OnInit {
       result = result.filter(g => {
         // price here is the gig's starting price — use packages if available,
         // or fall back to a default. Adjust field name to match your data.
-        const p = (g as any).startingPrice ?? 50;
+        const p = g.startingPrice ?? 0;
         if (this.selectedPrice === 'under50') return p < 50;
         if (this.selectedPrice === '50to100') return p >= 50 && p <= 100;
         if (this.selectedPrice === '100to200') return p >= 100 && p <= 200;
@@ -123,8 +123,9 @@ export class GigsList implements OnInit {
     this.applyFilters();
   }
 
-  getCategoryName(id: string): string {
-    return this.categories.find(c => c.id === id)?.name || 'General';
+  getCategoryName(id?: string | number): string {
+    if (!id) return 'General';
+    return this.categories.find(c => c.id == id)?.name || 'General';
   }
 
   get pagedGigs(): Gig[] {

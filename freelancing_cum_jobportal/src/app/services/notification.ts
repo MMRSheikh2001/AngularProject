@@ -10,12 +10,12 @@ export class NotificationService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<AppNotification[]> { return this.http.get<AppNotification[]>(this.url); }
-  getById(id: string): Observable<AppNotification> { return this.http.get<AppNotification>(`${this.url}/${id}`); }
+  getById(id: string | number): Observable<AppNotification> { return this.http.get<AppNotification>(`${this.url}/${id}`); }
   save(n: AppNotification): Observable<AppNotification> { return this.http.post<AppNotification>(this.url, n); }
-  update(id: string, n: AppNotification): Observable<AppNotification> { return this.http.put<AppNotification>(`${this.url}/${id}`, n); }
-  delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+  update(id: string | number, n: AppNotification): Observable<AppNotification> { return this.http.put<AppNotification>(`${this.url}/${id}`, n); }
+  delete(id: string | number): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
 
-  findByUserId(userId: string): Observable<AppNotification[]> {
+  findByUserId(userId: string | number): Observable<AppNotification[]> {
     return this.http.get<AppNotification[]>(`${this.url}?userId=${userId}&_sort=id&_order=desc`);
   }
   findUnreadByUserId(userId: string): Observable<AppNotification[]> {

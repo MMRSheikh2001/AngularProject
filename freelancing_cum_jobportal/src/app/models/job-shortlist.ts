@@ -4,3 +4,5 @@ export interface JobShortlist {
   applicantId: string;
   notes: string;
 }
+
+

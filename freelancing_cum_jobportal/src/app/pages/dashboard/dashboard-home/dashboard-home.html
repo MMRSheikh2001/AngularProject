@@ -11,19 +11,23 @@
         <div *ngIf="!loading">
 
             <!-- Welcome header -->
-            <div class="welcome-banner mb-4">
+            <div class="welcome-banner mb-4 shadow-sm border-0">
                 <div class="d-flex align-items-center gap-3">
-                    <img [src]="currentUser?.profileImage" class="rounded-circle border border-white border-3"
-                        width="56" height="56" style="object-fit:cover">
+                    <div class="avatar-wrap">
+                        <img [src]="currentUser?.profileImage || 'https://i.pravatar.cc/56'" class="rounded-circle border border-white border-3"
+                            width="56" height="56" style="object-fit:cover"
+                            onerror="this.src='https://i.pravatar.cc/56'">
+                        <div class="online-indicator"></div>
+                    </div>
                     <div>
                         <h4 class="fw-bold mb-0 text-white">
                             Welcome back, {{ currentUser?.name }}!
                         </h4>
-                        <div class="text-white opacity-75 small">
-                            <span class="badge bg-white text-primary me-2">
+                        <div class="text-white opacity-75 small d-flex align-items-center gap-2">
+                            <span class="badge bg-white text-primary rounded-pill px-3">
                                 {{ currentUser?.role | titlecase }}
                             </span>
-                            {{ currentUser?.city }}
+                            <span><i class="bi bi-geo-alt me-1"></i>{{ currentUser?.city }}</span>
                         </div>
                     </div>
                 </div>
@@ -34,28 +38,28 @@
                 <div class="col-6 col-lg-3">
                     <div class="stat-card stat-blue">
                         <div class="stat-icon"><i class="bi bi-briefcase"></i></div>
-                        <div class="stat-value">{{ stats?.applied }}</div>
+                        <div class="stat-value">{{ stats.applied }}</div>
                         <div class="stat-label">Jobs Applied</div>
                     </div>
                 </div>
                 <div class="col-6 col-lg-3">
                     <div class="stat-card stat-green">
                         <div class="stat-icon"><i class="bi bi-box"></i></div>
-                        <div class="stat-value">{{ stats?.activeOrders }}</div>
+                        <div class="stat-value">{{ stats.activeOrders }}</div>
                         <div class="stat-label">Active Orders</div>
                     </div>
                 </div>
                 <div class="col-6 col-lg-3">
                     <div class="stat-card stat-amber">
                         <div class="stat-icon"><i class="bi bi-wallet2"></i></div>
-                        <div class="stat-value">৳{{ stats?.balance | number }}</div>
+                        <div class="stat-value">৳{{ stats.balance | number }}</div>
                         <div class="stat-label">Wallet Balance</div>
                     </div>
                 </div>
                 <div class="col-6 col-lg-3">
                     <div class="stat-card stat-red">
                         <div class="stat-icon"><i class="bi bi-bell"></i></div>
-                        <div class="stat-value">{{ stats?.unread }}</div>
+                        <div class="stat-value">{{ stats.unread }}</div>
                         <div class="stat-label">Unread Alerts</div>
                     </div>
                 </div>
@@ -208,7 +212,7 @@
                         <div class="perf-label">Average Rating</div>
                         <div class="progress mt-2" style="height: 4px;">
                             <div class="progress-bar bg-warning"
-                                [style.width]="((freelancerStats.averageRating ?? 0) / 5 * 100) + '%'"></div>
+                                [style.width]="(freelancerStats.averageRating / 5 * 100) + '%'"></div>
                         </div>
                     </div>
                 </div>
@@ -230,7 +234,7 @@
                             <a routerLink="/jobs" class="btn btn-primary btn-sm">Browse Jobs</a>
                         </div>
 
-                        <div *ngFor="let app of applications" class="app-item">
+                        <div *ngFor="let app of applications" class="app-item clickable-item" routerLink="/dashboard/jobs">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
                                     <div class="fw-semibold small">Job Application</div>
@@ -260,7 +264,7 @@
                             <a routerLink="/gigs" class="btn btn-success btn-sm">Browse Gigs</a>
                         </div>
 
-                        <div *ngFor="let order of orders" class="app-item">
+                        <div *ngFor="let order of orders" class="app-item clickable-item" routerLink="/dashboard/orders">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
                                     <div class="fw-semibold small">Order #{{ (order.id + '').slice(0,8) }}</div>
@@ -283,7 +287,7 @@
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h6 class="fw-bold mb-0">
                                 Recent Notifications
-                                <span *ngIf="(stats.unread ?? 0) > 0" class="badge bg-danger">{{ stats.unread
+                                <span *ngIf="stats.unread > 0" class="badge bg-danger">{{ stats.unread
                                     }}</span>
                             </h6>
                             <a routerLink="/dashboard/notifications" class="btn btn-link btn-sm p-0">View all</a>

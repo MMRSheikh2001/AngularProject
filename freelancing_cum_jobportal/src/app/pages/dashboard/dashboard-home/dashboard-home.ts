@@ -1,24 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Sidebar } from '../../../shared/sidebar/sidebar';
 import { AuthService } from '../../../services/auth';
-
 import { JobApplicationService } from '../../../services/job-application';
 import { OrderService } from '../../../services/order';
 import { WalletService } from '../../../services/wallet';
 import { NotificationService } from '../../../services/notification';
-
 import { JobApplication } from '../../../models/job-application';
 import { Order } from '../../../models/order';
-
-
 import { JobseekerDashboardStats } from '../../../models/dashboard-stats';
 import { FreelancerStats } from '../../../models/freelancer-stats';
 import { DashboardStatsService } from '../../../services/dashboard-stats.services';
 import { FreelancerStatsService } from '../../../services/freelancer-stats.services';
 import { AppNotification } from '../../../models/notification';
-
 
 @Component({
   selector: 'app-dashboard-home',
@@ -34,30 +29,25 @@ export class DashboardHome implements OnInit {
   freelancerStats: FreelancerStats | null = null;
   weeklyBarMax = 0;
 
-
-  // currentUser = this.auth.getCurrentUser();
   currentUser: any;
+  userId: string | number = '';
 
-  // Summary data
   applications: JobApplication[] = [];
   orders: Order[] = [];
   walletBalance = 0;
   notifications: AppNotification[] = [];
-  unreadCount = 0;
 
-  // Quick stats
-  stats = {
-    applied: 0,
-    activeOrders: 0,
-    balance: 0,
-    unread: 0
-  };
+  stats = { applied: 0, activeOrders: 0, balance: 0, unread: 0 };
+
+  // Counter: ALL 4 core loaders must complete before loading = false
+  private loadCount = 0;
+  private readonly TOTAL_LOADERS = 4;
 
   quickActions = [
-    { label: 'Post a Job', icon: 'bi-plus-circle', route: '/dashboard/jobs', color: 'btn-primary' },
-    { label: 'Create a Gig', icon: 'bi-grid-plus', route: '/dashboard/gigs', color: 'btn-success' },
-    { label: 'Browse Jobs', icon: 'bi-search', route: '/jobs', color: 'btn-outline-primary' },
-    { label: 'Browse Gigs', icon: 'bi-shop', route: '/gigs', color: 'btn-outline-success' },
+    { label: 'Post a Job',   icon: 'bi-plus-circle', route: '/dashboard/jobs', color: 'btn-primary' },
+    { label: 'Create a Gig', icon: 'bi-grid-plus',   route: '/dashboard/gigs', color: 'btn-success' },
+    { label: 'Browse Jobs',  icon: 'bi-search',       route: '/jobs',           color: 'btn-outline-primary' },
+    { label: 'Browse Gigs',  icon: 'bi-shop',         route: '/gigs',           color: 'btn-outline-success' },
   ];
 
   constructor(
@@ -67,46 +57,63 @@ export class DashboardHome implements OnInit {
     private walletService: WalletService,
     private notificationService: NotificationService,
     private dashboardStatsService: DashboardStatsService,
-    private freelancerStatsService: FreelancerStatsService
-  ) { }
+    private freelancerStatsService: FreelancerStatsService,
+    private cdr:ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
-    const userId = this.auth.getCurrentUserId();
-
-    if (!userId) return;
-    this.loadApplications(userId);
-    this.loadOrders(userId);
-    this.loadWallet(userId);
-    this.loadNotifications(userId);
     this.currentUser = this.auth.getCurrentUser();
-    this.loadDashboardStats(userId);
-    this.loadFreelancerStats(userId);
+    if (!this.currentUser) {
+      this.loading = false;
+      return;
+    }
+    this.userId = this.currentUser.id;
+
+    // Absolute safety net — always stop spinner within 5s
+    setTimeout(() => { this.loading = false; }, 5000);
+
+    this.loadApplications(this.userId);
+    this.loadOrders(this.userId);
+    this.loadWallet(this.userId);
+    this.loadNotifications(this.userId);
+    // Optional stats — do not block the spinner
+    this.loadDashboardStats(this.userId);
+    this.loadFreelancerStats(this.userId);
+     this.cdr.markForCheck();
   }
 
+  private checkLoading() {
+    this.loadCount++;
+    if (this.loadCount >= this.TOTAL_LOADERS) {
+      this.loading = false;
+    }
+  }
 
-  loadApplications(userId: string) {
+  loadApplications(userId: string | number) {
     this.jobAppService.findByApplicantId(userId).subscribe({
       next: (apps) => {
         this.applications = apps.slice(0, 5);
         this.stats.applied = apps.length;
         this.checkLoading();
+         this.cdr.markForCheck();
       },
       error: () => this.checkLoading()
     });
   }
 
-  loadOrders(userId: string) {
+  loadOrders(userId: string | number) {
     this.orderService.findByClientId(userId).subscribe({
       next: (orders) => {
         this.orders = orders.slice(0, 5);
         this.stats.activeOrders = orders.filter(o => o.status === 'active').length;
         this.checkLoading();
+         this.cdr.markForCheck();
       },
       error: () => this.checkLoading()
     });
   }
 
-  loadWallet(userId: string) {
+  loadWallet(userId: string | number) {
     this.walletService.findByUserId(userId).subscribe({
       next: (wallets) => {
         this.walletBalance = wallets[0]?.balance || 0;
@@ -117,7 +124,7 @@ export class DashboardHome implements OnInit {
     });
   }
 
-  loadNotifications(userId: string) {
+  loadNotifications(userId: string | number) {
     this.notificationService.findByUserId(userId).subscribe({
       next: (notifs) => {
         this.notifications = notifs.slice(0, 5);
@@ -128,50 +135,42 @@ export class DashboardHome implements OnInit {
     });
   }
 
-  checkLoading() {
-    this.loading = false;
-  }
-
-  getStatusClass(status: string): string {
-    const map: any = {
-      'pending': 'bg-warning text-dark',
-      'shortlisted': 'bg-info text-dark',
-      'hired': 'bg-success',
-      'rejected': 'bg-danger',
-      'active': 'bg-primary',
-      'completed': 'bg-success',
-      'delivered': 'bg-info text-dark',
-      'revision': 'bg-warning text-dark',
-      'disputed': 'bg-danger'
-    };
-    return map[status] || 'bg-secondary';
-  }
-
-  getNotifIcon(type: string): string {
-    const map: any = {
-      'job_alert': 'bi-briefcase text-primary',
-      'order_update': 'bi-box text-success',
-      'message': 'bi-chat text-info',
-      'payment': 'bi-wallet2 text-warning',
-      'system': 'bi-bell text-secondary'
-    };
-    return map[type] || 'bi-bell text-secondary';
-  }
-  loadDashboardStats(userId: string) {
+  loadDashboardStats(userId: string | number) {
     this.dashboardStatsService.getJobseekerStats(userId).subscribe({
-      next: (stats) => { if (stats.length > 0) this.jsStats = stats[0]; }
+      next: (stats) => { if (stats.length > 0) this.jsStats = stats[0]; },
+      error: () => {}
     });
   }
 
-  loadFreelancerStats(userId: string) {
+  loadFreelancerStats(userId: string | number) {
     this.freelancerStatsService.findByUserId(userId).subscribe({
       next: (stats) => {
         if (stats.length > 0) {
           this.freelancerStats = stats[0];
           this.weeklyBarMax = Math.max(...(stats[0].weeklyEarnings || [1]));
         }
-      }
+      },
+      error: () => {}
     });
+  }
+
+  getStatusClass(status: string): string {
+    const map: any = {
+      'pending': 'bg-warning text-dark', 'shortlisted': 'bg-info text-dark',
+      'hired': 'bg-success', 'rejected': 'bg-danger', 'active': 'bg-primary',
+      'completed': 'bg-success', 'delivered': 'bg-info text-dark',
+      'revision': 'bg-warning text-dark', 'disputed': 'bg-danger'
+    };
+    return map[status] || 'bg-secondary';
+  }
+
+  getNotifIcon(type: string): string {
+    const map: any = {
+      'job_alert': 'bi-briefcase text-primary', 'order_update': 'bi-box text-success',
+      'message': 'bi-chat text-info', 'payment': 'bi-wallet2 text-warning',
+      'system': 'bi-bell text-secondary'
+    };
+    return map[type] || 'bi-bell text-secondary';
   }
 
   getBarHeight(value: number): string {

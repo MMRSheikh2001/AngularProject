@@ -9,12 +9,12 @@ export class ReportService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<Report[]> { return this.http.get<Report[]>(this.url); }
-  getById(id: string): Observable<Report> { return this.http.get<Report>(`${this.url}/${id}`); }
+  getById(id: string | number): Observable<Report> { return this.http.get<Report>(`${this.url}/${id}`); }
   save(r: Report): Observable<Report> { return this.http.post<Report>(this.url, r); }
-  update(id: string, r: Report): Observable<Report> { return this.http.put<Report>(`${this.url}/${id}`, r); }
-  delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+  update(id: string | number, r: Report): Observable<Report> { return this.http.put<Report>(`${this.url}/${id}`, r); }
+  delete(id: string | number): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
 
-  findByReportedUserId(userId: string): Observable<Report[]> {
+  findByReportedUserId(userId: string | number): Observable<Report[]> {
     return this.http.get<Report[]>(`${this.url}?reportedUserId=${userId}`);
   }
   findByReportedBy(userId: string): Observable<Report[]> {

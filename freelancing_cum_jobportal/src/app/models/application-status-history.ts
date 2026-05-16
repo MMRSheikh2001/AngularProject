@@ -4,3 +4,5 @@ export interface ApplicationStatusHistory {
   status: string;
   changedAt: string;
 }
+
+

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -42,7 +42,7 @@ export class JobsManagement implements OnInit {
   // Interviews
   interviews: InterviewRound[] = [];
 
-  userId = '';
+  userId: string | number = '';
 
   jobTypes = ['full-time', 'part-time', 'remote', 'contract'];
   cities = ['Dhaka', 'Chittagong', 'Sylhet', 'Rajshahi', 'Khulna'];
@@ -53,7 +53,8 @@ export class JobsManagement implements OnInit {
     private jobAppService: JobApplicationService,
     private pipelineService: HiringPipelineService,
     private interviewService: InterviewRoundService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private cdr:ChangeDetectorRef
   ) {
     this.postForm = this.fb.group({
       title: ['', Validators.required],
@@ -71,7 +72,10 @@ export class JobsManagement implements OnInit {
 
   ngOnInit(): void {
     const userId = this.auth.getCurrentUserId();
-    if (!userId) return;
+    if (!userId) {
+      this.loading = false;
+      return;
+    }
     this.userId = userId;
     this.loadAll();
   }
@@ -81,12 +85,14 @@ export class JobsManagement implements OnInit {
     this.loadPosted();
     this.loadPipeline();
     this.loadInterviews();
+    this.cdr.markForCheck();
   }
 
   loadApplied(): void {
+    const t = setTimeout(() => { this.loading = false; }, 5000);
     this.jobAppService.findByApplicantId(this.userId).subscribe({
-      next: (apps) => { this.appliedJobs = apps; this.loading = false; },
-      error: () => { this.loading = false; }
+      next: (apps) => { clearTimeout(t); this.appliedJobs = apps; this.loading = false;  this.cdr.markForCheck(); },
+      error: () => { clearTimeout(t); this.loading = false; }
     });
   }
 

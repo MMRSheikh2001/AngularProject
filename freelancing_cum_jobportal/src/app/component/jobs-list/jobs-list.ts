@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -52,7 +52,8 @@ export class JobsList implements OnInit {
 
   constructor(
     private jobService: JobService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cdr:ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {

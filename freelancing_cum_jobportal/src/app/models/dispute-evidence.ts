@@ -4,3 +4,5 @@ export interface DisputeEvidence {
   fileUrl: string;
   uploadedBy: string;
 }
+
+

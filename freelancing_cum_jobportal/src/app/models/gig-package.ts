@@ -4,8 +4,8 @@ export interface GigPackageFeature {
 }
 
 export interface GigPackage {
-  id?: string;
-  gigId: string;
+  id?: string | number;
+  gigId?: string | number;
   name: 'basic' | 'standard' | 'premium';
   price: number;
   deliveryDays: number;
@@ -17,3 +17,7 @@ export interface GigPackage {
   description: string;
   popular: boolean;
 }
+
+
+
+

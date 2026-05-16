@@ -9,27 +9,27 @@ export class OrderService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<Order[]> { return this.http.get<Order[]>(this.url); }
-  getById(id: string): Observable<Order> { return this.http.get<Order>(`${this.url}/${id}`); }
+  getById(id: string | number): Observable<Order> { return this.http.get<Order>(`${this.url}/${id}`); }
   save(order: Order): Observable<Order> { return this.http.post<Order>(this.url, order); }
-  update(id: string, order: Order): Observable<Order> { return this.http.put<Order>(`${this.url}/${id}`, order); }
-  delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+  update(id: string | number, order: Order): Observable<Order> { return this.http.put<Order>(`${this.url}/${id}`, order); }
+  delete(id: string | number): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
 
-  findByClientId(clientId: string): Observable<Order[]> {
+  findByClientId(clientId: string | number): Observable<Order[]> {
     return this.http.get<Order[]>(`${this.url}?clientId=${clientId}&isDeleted=false`);
   }
-  findByFreelancerId(freelancerId: string): Observable<Order[]> {
+  findByFreelancerId(freelancerId: string | number): Observable<Order[]> {
     return this.http.get<Order[]>(`${this.url}?freelancerId=${freelancerId}&isDeleted=false`);
   }
   findByStatus(status: string): Observable<Order[]> {
     return this.http.get<Order[]>(`${this.url}?status=${status}&isDeleted=false`);
   }
-  findByGigId(gigId: string): Observable<Order[]> {
+  findByGigId(gigId: string | number): Observable<Order[]> {
     return this.http.get<Order[]>(`${this.url}?gigId=${gigId}&isDeleted=false`);
   }
-  findByClientIdAndStatus(clientId: string, status: string): Observable<Order[]> {
+  findByClientIdAndStatus(clientId: string | number, status: string): Observable<Order[]> {
     return this.http.get<Order[]>(`${this.url}?clientId=${clientId}&status=${status}`);
   }
-  findByFreelancerIdAndStatus(freelancerId: string, status: string): Observable<Order[]> {
+  findByFreelancerIdAndStatus(freelancerId: string | number, status: string): Observable<Order[]> {
     return this.http.get<Order[]>(`${this.url}?freelancerId=${freelancerId}&status=${status}`);
   }
   findActiveOrders(): Observable<Order[]> {

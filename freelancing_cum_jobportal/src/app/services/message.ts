@@ -9,12 +9,12 @@ export class MessageService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<Message[]> { return this.http.get<Message[]>(this.url); }
-  getById(id: string): Observable<Message> { return this.http.get<Message>(`${this.url}/${id}`); }
+  getById(id: string | number): Observable<Message> { return this.http.get<Message>(`${this.url}/${id}`); }
   save(msg: Message): Observable<Message> { return this.http.post<Message>(this.url, msg); }
-  update(id: string, msg: Message): Observable<Message> { return this.http.put<Message>(`${this.url}/${id}`, msg); }
-  delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+  update(id: string | number, msg: Message): Observable<Message> { return this.http.put<Message>(`${this.url}/${id}`, msg); }
+  delete(id: string | number): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
 
-  findByChatId(chatId: string): Observable<Message[]> {
+  findByChatId(chatId: string | number): Observable<Message[]> {
     return this.http.get<Message[]>(`${this.url}?chatId=${chatId}&_sort=createdAt&_order=asc`);
   }
   findBySenderId(senderId: string): Observable<Message[]> {

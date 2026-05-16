@@ -3,3 +3,5 @@ export interface PlatformEarning {
   orderId: string;
   commissionAmount: number;
 }
+
+

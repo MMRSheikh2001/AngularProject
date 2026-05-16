@@ -9,12 +9,12 @@ export class JobService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<Job[]> { return this.http.get<Job[]>(this.url); }
-  getById(id: string): Observable<Job> { return this.http.get<Job>(`${this.url}/${id}`); }
+  getById(id: string | number): Observable<Job> { return this.http.get<Job>(`${this.url}/${id}`); }
   save(job: Job): Observable<Job> { return this.http.post<Job>(this.url, job); }
-  update(id: string, job: Job): Observable<Job> { return this.http.put<Job>(`${this.url}/${id}`, job); }
-  delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+  update(id: string | number, job: Job): Observable<Job> { return this.http.put<Job>(`${this.url}/${id}`, job); }
+  delete(id: string | number): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
 
-  findByEmployerId(employerId: string): Observable<Job[]> {
+  findByEmployerId(employerId: string | number): Observable<Job[]> {
     return this.http.get<Job[]>(`${this.url}?employerId=${employerId}`);
   }
   findByStatus(status: string): Observable<Job[]> {

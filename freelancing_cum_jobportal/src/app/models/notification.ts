@@ -7,3 +7,5 @@ export interface AppNotification {
   relatedType: string;
   isRead: boolean;
 }
+
+

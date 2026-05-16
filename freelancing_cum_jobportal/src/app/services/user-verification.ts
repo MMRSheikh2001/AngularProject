@@ -9,12 +9,12 @@ export class UserVerificationService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<UserVerification[]> { return this.http.get<UserVerification[]>(this.url); }
-  getById(id: string): Observable<UserVerification> { return this.http.get<UserVerification>(`${this.url}/${id}`); }
+  getById(id: string | number): Observable<UserVerification> { return this.http.get<UserVerification>(`${this.url}/${id}`); }
   save(v: UserVerification): Observable<UserVerification> { return this.http.post<UserVerification>(this.url, v); }
-  update(id: string, v: UserVerification): Observable<UserVerification> { return this.http.put<UserVerification>(`${this.url}/${id}`, v); }
-  delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+  update(id: string | number, v: UserVerification): Observable<UserVerification> { return this.http.put<UserVerification>(`${this.url}/${id}`, v); }
+  delete(id: string | number): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
 
-  findByUserId(userId: string): Observable<UserVerification[]> {
+  findByUserId(userId: string | number): Observable<UserVerification[]> {
     return this.http.get<UserVerification[]>(`${this.url}?userId=${userId}`);
   }
   findByOtpCode(otpCode: string): Observable<UserVerification[]> {

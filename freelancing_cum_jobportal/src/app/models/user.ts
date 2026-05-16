@@ -2,7 +2,7 @@ import { FreelancerStats } from './freelancer-stats';
 import { EmployerStats } from './employer-stats';
 
 export interface User {
-  id?: string;
+  id?: string | number;
 
   name: string;
   email: string;
@@ -34,3 +34,7 @@ export interface User {
   freelancerStats?: FreelancerStats;
   employerStats?: EmployerStats;
 }
+
+
+
+

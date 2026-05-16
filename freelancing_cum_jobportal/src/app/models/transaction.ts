@@ -1,7 +1,7 @@
 export interface Transaction {
-  id?: string;
-  userId: string;
-  orderId: string;
+  id?: string | number;
+  userId?: string | number;
+  orderId?: string | number;
   amount: number;
   type: 'credit' | 'debit';
   platformFee: number;
@@ -10,3 +10,7 @@ export interface Transaction {
   currentHash?: string;
   createdAt: string;
 }
+
+
+
+

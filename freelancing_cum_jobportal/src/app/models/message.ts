@@ -1,8 +1,12 @@
 export interface Message {
-  id?: string;
-  chatId: string;
-  senderId: string;
+  id?: string | number;
+  chatId?: string | number;
+  senderId?: string | number;
   message: string;
   status: 'sent' | 'delivered' | 'read';
   createdAt: string;
 }
+
+
+
+

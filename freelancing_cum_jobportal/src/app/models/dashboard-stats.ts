@@ -1,6 +1,6 @@
 export interface JobseekerDashboardStats {
-    id?: string;
-    userId?: string;
+    id?: string | number;
+    userId?: string | number;
 
     profileCompletion: number;
     resumeScore: number;
@@ -60,3 +60,7 @@ export interface EmployerDashboardStats {
 
     monthlyHires?: number[];
 }
+
+
+
+

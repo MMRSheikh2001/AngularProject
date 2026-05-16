@@ -9,10 +9,10 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<User[]> { return this.http.get<User[]>(this.url); }
-  getById(id: string): Observable<User> { return this.http.get<User>(`${this.url}/${id}`); }
+  getById(id: string | number): Observable<User> { return this.http.get<User>(`${this.url}/${id}`); }
   save(user: User): Observable<User> { return this.http.post<User>(this.url, user); }
-  update(id: string, user: User): Observable<User> { return this.http.put<User>(`${this.url}/${id}`, user); }
-  delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+  update(id: string | number, user: User): Observable<User> { return this.http.put<User>(`${this.url}/${id}`, user); }
+  delete(id: string | number): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
 
 
   findByEmail(email: string): Observable<User[]> {

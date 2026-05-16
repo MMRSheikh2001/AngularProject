@@ -38,7 +38,9 @@
                 <!-- Logged in -->
                 <ng-container *ngIf="auth.isLoggedIn()">
                     <a routerLink="/dashboard" class="btn btn-outline-primary btn-sm">
-                        <i class="bi bi-grid me-1"></i>Dashboard
+                        <img [src]="auth.getCurrentUser()?.profileImage || 'https://i.pravatar.cc/32'"
+                                class="rounded-circle border me-1" width="24" height="24"
+                                onerror="this.src='https://i.pravatar.cc/32'">Dashboard
                     </a>
                     <a *ngIf="auth.isAdmin()" routerLink="/admin" class="btn btn-outline-danger btn-sm">
                         <i class="bi bi-shield me-1"></i>Admin

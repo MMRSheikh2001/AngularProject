@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Sidebar } from '../../../shared/sidebar/sidebar';
@@ -29,7 +29,7 @@ export class Orders implements OnInit {
   revisions: OrderRevision[] = [];
   filterStatus = '';
   activeTab = 'list';
-  userId = '';
+  userId: string | number = '';
 
   statusOptions = ['', 'pending', 'active', 'delivered', 'revision', 'completed', 'cancelled', 'disputed'];
 
@@ -38,22 +38,35 @@ export class Orders implements OnInit {
     private orderService: OrderService,
     private deliveryService: OrderDeliveryService,
     private revisionService: OrderRevisionService,
-    private disputeService: DisputeService
+    private disputeService: DisputeService,
+    private cdr:ChangeDetectorRef
   ) { }
 
   ngOnInit() {
     const userId = this.auth.getCurrentUserId();
-
-    if (!userId) return;
+    if (!userId) {
+      this.loading = false;
+      return;
+    }
     this.userId = userId;
+
+    // Safety timeout — always stop spinner after 3s
+    const loadingTimeout = setTimeout(() => { this.loading = false; }, 3000);
+
     this.orderService.findByClientId(userId).subscribe({
       next: (orders) => {
+        clearTimeout(loadingTimeout);
         this.orders = orders;
         this.filteredOrders = orders;
         this.loading = false;
+         this.cdr.markForCheck();
       },
-      error: () => { this.loading = false; }
+      error: () => {
+        clearTimeout(loadingTimeout);
+        this.loading = false;
+      }
     });
+     this.cdr.markForCheck();
   }
 
   applyFilter() {
@@ -66,9 +79,10 @@ export class Orders implements OnInit {
     this.selectedOrder = order;
     this.activeTab = 'detail';
     this.loadOrderDetails(order.id!);
+     this.cdr.markForCheck();
   }
 
-  loadOrderDetails(orderId: string) {
+  loadOrderDetails(orderId: string | number) {
     this.deliveryService.findByOrderId(orderId).subscribe({
       next: (d) => this.deliveries = d
     });
@@ -84,7 +98,7 @@ export class Orders implements OnInit {
     }).subscribe({
       next: () => {
         this.selectedOrder!.status = 'completed';
-        const o = this.orders.find(o => o.id === this.selectedOrder!.id);
+        const o = this.orders.find(o => o.id == this.selectedOrder!.id);
         if (o) o.status = 'completed';
       }
     });

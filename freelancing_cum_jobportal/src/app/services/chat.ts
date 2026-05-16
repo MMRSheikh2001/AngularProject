@@ -10,12 +10,12 @@ export class ChatService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<ChatModel[]> { return this.http.get<ChatModel[]>(this.url); }
-  getById(id: string): Observable<ChatModel> { return this.http.get<ChatModel>(`${this.url}/${id}`); }
+  getById(id: string | number): Observable<ChatModel> { return this.http.get<ChatModel>(`${this.url}/${id}`); }
   save(chat: ChatModel): Observable<ChatModel> { return this.http.post<ChatModel>(this.url, chat); }
-  update(id: string, chat: ChatModel): Observable<ChatModel> { return this.http.put<ChatModel>(`${this.url}/${id}`, chat); }
-  delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+  update(id: string | number, chat: ChatModel): Observable<ChatModel> { return this.http.put<ChatModel>(`${this.url}/${id}`, chat); }
+  delete(id: string | number): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
 
-  findByOrderId(orderId: string): Observable<ChatModel[]> {
+  findByOrderId(orderId: string | number): Observable<ChatModel[]> {
     return this.http.get<ChatModel[]>(`${this.url}?orderId=${orderId}`);
   }
   findActiveChats(): Observable<ChatModel[]> {

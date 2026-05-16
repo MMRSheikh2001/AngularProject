@@ -8,3 +8,5 @@ export interface AnalyticsDaily {
   revenue: number;
   commission: number;
 }
+
+

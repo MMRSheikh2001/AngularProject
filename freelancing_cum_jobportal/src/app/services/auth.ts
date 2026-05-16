@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { User } from '../models/user';
 
 @Injectable({ providedIn: 'root' })
@@ -8,6 +8,9 @@ export class AuthService {
 
   private url = 'http://localhost:3000/users';
   private STORAGE_KEY = 'workbridge_user';
+
+  private currentUserSubject = new BehaviorSubject<User | null>(this.getStoredUser());
+  public currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -17,7 +20,7 @@ export class AuthService {
     return this.http.get<User[]>(this.url);
   }
 
-  getById(id: string): Observable<User> {
+  getById(id: string | number): Observable<User> {
     return this.http.get<User>(`${this.url}/${id}`);
   }
 
@@ -25,11 +28,11 @@ export class AuthService {
     return this.http.post<User>(this.url, user);
   }
 
-  update(id: string, user: User): Observable<User> {
+  update(id: string | number, user: User): Observable<User> {
     return this.http.put<User>(`${this.url}/${id}`, user);
   }
 
-  delete(id: string): Observable<void> {
+  delete(id: string | number): Observable<void> {
     return this.http.delete<void>(`${this.url}/${id}`);
   }
 
@@ -93,7 +96,6 @@ export class AuthService {
           }
 
           // Step 2 — Build new user
-          // role and isSuperAdmin are HARDCODED — frontend cannot override
           const newUser: User = {
             name: data.name.trim(),
             email: data.email.trim().toLowerCase(),
@@ -101,24 +103,79 @@ export class AuthService {
             phone: data.phone.trim(),
             city: data.city,
             area: data.area.trim(),
-            profileImage: `https://i.pravatar.cc/150?u=${data.email}`,
+            profileImage: `https://i.pravatar.cc/150?u=${encodeURIComponent(data.email)}`,
             isVerified: false,
             status: 'active',
             isDeleted: false,
             createdAt: new Date().toISOString(),
-            role: 'user',          // FORCED — always user
-            isSuperAdmin: false,   // FORCED — always false
+            role: 'user',
+            isSuperAdmin: false,
           };
 
-          // Step 3 — Save to JSON Server
+          // Step 3 — Save user, then auto-provision all required records
           this.save(newUser).subscribe({
             next: (savedUser) => {
-              // Store in localStorage (without password)
+              const uid = String(savedUser.id);
+
+              // Auto-provision: Wallet
+              this.http.post('http://localhost:3000/wallets', {
+                userId: uid, balance: 0
+              }).subscribe();
+
+              // Auto-provision: Empty Resume/Profile
+              this.http.post('http://localhost:3000/resumes', {
+                userId: uid,
+                resumeHeadline: '',
+                careerObjective: '',
+                cvVisibility: 'Public',
+                profileCompletion: 0,
+                educations: [],
+                experiences: [],
+                skillEntries: [],
+                certificationList: [],
+                projects: [],
+                trainings: [],
+                languagesKnown: []
+              }).subscribe();
+
+              // Auto-provision: Jobseeker Dashboard Stats
+              this.http.post('http://localhost:3000/jobseekerDashboardStats', {
+                userId: uid,
+                profileCompletion: 0,
+                appliedJobs: 0,
+                profileViews: 0,
+                interviewInvitations: 0,
+                savedJobs: 0,
+                recommendedJobsCount: 0,
+                applicationsByStatus: []
+              }).subscribe();
+
+              // Auto-provision: Freelancer Stats
+              this.http.post('http://localhost:3000/freelancerStats', {
+                userId: uid,
+                totalEarnings: 0,
+                monthlyEarnings: 0,
+                ordersCompleted: 0,
+                responseRate: 100,
+                completionRate: 100,
+                averageRating: 0,
+                weeklyEarnings: [0, 0, 0, 0, 0, 0, 0]
+              }).subscribe();
+
+              // Welcome notification
+              this.http.post('http://localhost:3000/notifications', {
+                userId: uid,
+                message: `Welcome to WorkBridge, ${savedUser.name}! Complete your profile to get started.`,
+                type: 'system',
+                isRead: false,
+                createdAt: new Date().toISOString()
+              }).subscribe();
+
               this.storeUser(savedUser);
               observer.next({ success: true, message: 'Registration successful!', user: savedUser });
               observer.complete();
             },
-            error: (err) => {
+            error: () => {
               observer.next({ success: false, message: 'Registration failed. Try again.' });
               observer.complete();
             }
@@ -199,9 +256,10 @@ export class AuthService {
     const safeUser = { ...user };
     delete (safeUser as any).password;
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(safeUser));
+    this.currentUserSubject.next(safeUser);
   }
 
-  getCurrentUser(): User | null {
+  private getStoredUser(): User | null {
     const data = localStorage.getItem(this.STORAGE_KEY);
     if (!data) return null;
     try {
@@ -211,12 +269,17 @@ export class AuthService {
     }
   }
 
-  getCurrentUserId(): string | undefined {
+  getCurrentUser(): User | null {
+    return this.currentUserSubject.value;
+  }
+
+  getCurrentUserId(): string | number | undefined {
     return this.getCurrentUser()?.id;
   }
 
   logout(): void {
     localStorage.removeItem(this.STORAGE_KEY);
+    this.currentUserSubject.next(null);
   }
 
   // ─── Role Checks ──────────────────────────────────────────────

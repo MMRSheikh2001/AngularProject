@@ -36,15 +36,22 @@ export class Notifications implements OnInit {
 
   ngOnInit() {
     const userId = this.auth.getCurrentUserId();
-
-    if (!userId) return;
+    if (!userId) {
+      this.loading = false;
+      return;
+    }
+    const loadingTimeout = setTimeout(() => { this.loading = false; }, 3000);
     this.notifService.findByUserId(userId).subscribe({
       next: (notifs) => {
+        clearTimeout(loadingTimeout);
         this.allNotifications = notifs;
         this.filtered = notifs;
         this.loading = false;
       },
-      error: () => { this.loading = false; }
+      error: () => {
+        clearTimeout(loadingTimeout);
+        this.loading = false;
+      }
     });
   }
 

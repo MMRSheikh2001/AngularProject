@@ -20,14 +20,11 @@ export class Navbar implements OnInit {
   constructor(public auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    this.refreshState();
-  }
-
-  refreshState(): void {
-    const user = this.auth.getCurrentUser();
-    this.isLoggedIn = !!user;
-    this.isAdmin = user?.role === 'admin';
-    this.userName = user?.name || '';
+    this.auth.currentUser$.subscribe(user => {
+      this.isLoggedIn = !!user;
+      this.isAdmin = user?.role === 'admin';
+      this.userName = user?.name || '';
+    });
   }
 
   logout(): void {

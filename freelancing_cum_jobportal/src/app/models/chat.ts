@@ -1,7 +1,11 @@
 export interface ChatModel {
-  id?: string;
-  orderId: string;
+  id?: string | number;
+  orderId?: string | number;
   isActive: boolean;
   startTime: string;
   expiryTime: string;
 }
+
+
+
+

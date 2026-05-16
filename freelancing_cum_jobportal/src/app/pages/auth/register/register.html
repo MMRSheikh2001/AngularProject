@@ -1,18 +1,21 @@
-<div class="min-vh-100 d-flex align-items-center justify-content-center bg-light py-5">
-    <div class="card shadow-sm border-0 w-100" style="max-width: 480px; border-radius: 16px;">
-        <div class="card-body p-4">
+<app-navbar></app-navbar>
+
+<div class="min-vh-100 d-flex align-items-center justify-content-center"
+    style="background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 100%); padding-top: 80px; padding-bottom: 40px;">
+    <div class="card shadow border-0 w-100" style="max-width: 500px; border-radius: 20px;">
+        <div class="card-body p-5">
 
             <!-- Logo -->
             <div class="text-center mb-4">
-                <h4 class="fw-bold text-primary">
-                    <i class="bi bi-briefcase-fill me-2"></i>WorkBridge
-                </h4>
-                <h5 class="fw-semibold">Create Your Account</h5>
-                <p class="text-muted small">Join thousands of professionals</p>
+                <div class="mb-3">
+                    <i class="bi bi-person-plus-fill text-primary" style="font-size: 2.5rem;"></i>
+                </div>
+                <h4 class="fw-bold mb-1">Create Your Account</h4>
+                <p class="text-muted small mb-0">Join thousands of professionals on WorkBridge</p>
             </div>
 
             <!-- Error Alert -->
-            <div *ngIf="error" class="alert alert-danger py-2 small d-flex align-items-center gap-2">
+            <div *ngIf="error" class="alert alert-danger py-2 small d-flex align-items-center gap-2 border-0 rounded-3">
                 <i class="bi bi-exclamation-circle-fill"></i>{{ error }}
             </div>
 
@@ -21,30 +24,42 @@
                 <!-- Name -->
                 <div class="mb-3">
                     <label class="form-label small fw-semibold">Full Name</label>
-                    <input formControlName="name" type="text" class="form-control"
-                        [class.is-invalid]="f['name'].touched && f['name'].invalid" placeholder="Ahmed Rahman">
-                    <div class="invalid-feedback">
-                        Name must be at least 3 characters.
+                    <div class="input-group">
+                        <span class="input-group-text border-end-0 bg-white">
+                            <i class="bi bi-person text-muted"></i>
+                        </span>
+                        <input formControlName="name" type="text" class="form-control border-start-0 ps-0"
+                            [class.is-invalid]="f['name'].touched && f['name'].invalid"
+                            placeholder="Ahmed Rahman">
+                        <div class="invalid-feedback">Name must be at least 3 characters.</div>
                     </div>
                 </div>
 
                 <!-- Email -->
                 <div class="mb-3">
-                    <label class="form-label small fw-semibold">Email</label>
-                    <input formControlName="email" type="email" class="form-control"
-                        [class.is-invalid]="f['email'].touched && f['email'].invalid" placeholder="ahmed@email.com">
-                    <div class="invalid-feedback">
-                        Please enter a valid email address.
+                    <label class="form-label small fw-semibold">Email Address</label>
+                    <div class="input-group">
+                        <span class="input-group-text border-end-0 bg-white">
+                            <i class="bi bi-envelope text-muted"></i>
+                        </span>
+                        <input formControlName="email" type="email" class="form-control border-start-0 ps-0"
+                            [class.is-invalid]="f['email'].touched && f['email'].invalid"
+                            placeholder="ahmed@email.com">
+                        <div class="invalid-feedback">Please enter a valid email address.</div>
                     </div>
                 </div>
 
                 <!-- Phone -->
                 <div class="mb-3">
-                    <label class="form-label small fw-semibold">Phone</label>
-                    <input formControlName="phone" type="tel" class="form-control"
-                        [class.is-invalid]="f['phone'].touched && f['phone'].invalid" placeholder="01712345678">
-                    <div class="invalid-feedback">
-                        Phone must be exactly 11 digits.
+                    <label class="form-label small fw-semibold">Phone Number</label>
+                    <div class="input-group">
+                        <span class="input-group-text border-end-0 bg-white">
+                            <i class="bi bi-phone text-muted"></i>
+                        </span>
+                        <input formControlName="phone" type="tel" class="form-control border-start-0 ps-0"
+                            [class.is-invalid]="f['phone'].touched && f['phone'].invalid"
+                            placeholder="01712345678">
+                        <div class="invalid-feedback">Phone must be exactly 11 digits.</div>
                     </div>
                 </div>
 
@@ -62,7 +77,8 @@
                     <div class="col">
                         <label class="form-label small fw-semibold">Area</label>
                         <input formControlName="area" type="text" class="form-control"
-                            [class.is-invalid]="f['area'].touched && f['area'].invalid" placeholder="Gulshan">
+                            [class.is-invalid]="f['area'].touched && f['area'].invalid"
+                            placeholder="Gulshan">
                         <div class="invalid-feedback">Area is required.</div>
                     </div>
                 </div>
@@ -71,10 +87,15 @@
                 <div class="mb-2">
                     <label class="form-label small fw-semibold">Password</label>
                     <div class="input-group">
+                        <span class="input-group-text border-end-0 bg-white">
+                            <i class="bi bi-lock text-muted"></i>
+                        </span>
                         <input formControlName="password" [type]="showPassword ? 'text' : 'password'"
-                            class="form-control" [class.is-invalid]="f['password'].touched && f['password'].invalid"
+                            class="form-control border-start-0 border-end-0 ps-0"
+                            [class.is-invalid]="f['password'].touched && f['password'].invalid"
                             placeholder="Min 6 characters">
-                        <button class="btn btn-outline-secondary" type="button" (click)="showPassword = !showPassword">
+                        <button class="btn btn-outline-secondary border-start-0" type="button"
+                            (click)="showPassword = !showPassword">
                             <i class="bi" [class.bi-eye]="!showPassword" [class.bi-eye-slash]="showPassword"></i>
                         </button>
                         <div class="invalid-feedback">Minimum 6 characters required.</div>
@@ -102,10 +123,15 @@
                 <div class="mb-4">
                     <label class="form-label small fw-semibold">Confirm Password</label>
                     <div class="input-group">
+                        <span class="input-group-text border-end-0 bg-white">
+                            <i class="bi bi-shield-lock text-muted"></i>
+                        </span>
                         <input formControlName="confirmPassword" [type]="showConfirm ? 'text' : 'password'"
-                            class="form-control" [class.is-invalid]="f['confirmPassword'].touched && !passwordsMatch()"
+                            class="form-control border-start-0 border-end-0 ps-0"
+                            [class.is-invalid]="f['confirmPassword'].touched && !passwordsMatch()"
                             placeholder="Repeat password">
-                        <button class="btn btn-outline-secondary" type="button" (click)="showConfirm = !showConfirm">
+                        <button class="btn btn-outline-secondary border-start-0" type="button"
+                            (click)="showConfirm = !showConfirm">
                             <i class="bi" [class.bi-eye]="!showConfirm" [class.bi-eye-slash]="showConfirm"></i>
                         </button>
                         <div class="invalid-feedback">Passwords do not match.</div>
@@ -113,16 +139,16 @@
                 </div>
 
                 <!-- Submit -->
-                <button type="submit" class="btn btn-primary w-100 py-2" [disabled]="loading">
+                <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold rounded-3" [disabled]="loading">
                     <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
-                    {{ loading ? 'Creating account...' : 'Create Account' }}
+                    {{ loading ? 'Creating account...' : 'Create Free Account' }}
                 </button>
 
             </form>
 
-            <p class="text-center mt-3 small text-muted">
+            <p class="text-center mt-3 small text-muted mb-0">
                 Already have an account?
-                <a routerLink="/login" class="text-primary fw-semibold">Login</a>
+                <a routerLink="/login" class="text-primary fw-semibold text-decoration-none">Sign In</a>
             </p>
 
         </div>

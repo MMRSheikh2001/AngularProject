@@ -6,3 +6,5 @@ export interface JobAlertNotification {
   isRead: boolean;
   createdAt: string;
 }
+
+

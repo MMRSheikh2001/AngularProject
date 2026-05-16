@@ -9,18 +9,18 @@ export class OrderRevisionService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<OrderRevision[]> { return this.http.get<OrderRevision[]>(this.url); }
-  getById(id: string): Observable<OrderRevision> { return this.http.get<OrderRevision>(`${this.url}/${id}`); }
+  getById(id: string | number): Observable<OrderRevision> { return this.http.get<OrderRevision>(`${this.url}/${id}`); }
   save(r: OrderRevision): Observable<OrderRevision> { return this.http.post<OrderRevision>(this.url, r); }
-  update(id: string, r: OrderRevision): Observable<OrderRevision> { return this.http.put<OrderRevision>(`${this.url}/${id}`, r); }
-  delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+  update(id: string | number, r: OrderRevision): Observable<OrderRevision> { return this.http.put<OrderRevision>(`${this.url}/${id}`, r); }
+  delete(id: string | number): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
 
-  findByOrderId(orderId: string): Observable<OrderRevision[]> {
+  findByOrderId(orderId: string | number): Observable<OrderRevision[]> {
     return this.http.get<OrderRevision[]>(`${this.url}?orderId=${orderId}`);
   }
-  findByRequestedBy(userId: string): Observable<OrderRevision[]> {
+  findByRequestedBy(userId: string | number): Observable<OrderRevision[]> {
     return this.http.get<OrderRevision[]>(`${this.url}?requestedBy=${userId}`);
   }
-  findLatestByOrderId(orderId: string): Observable<OrderRevision[]> {
+  findLatestByOrderId(orderId: string | number): Observable<OrderRevision[]> {
     return this.http.get<OrderRevision[]>(`${this.url}?orderId=${orderId}&_sort=createdAt&_order=desc`);
   }
 }

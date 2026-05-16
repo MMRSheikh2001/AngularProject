@@ -7,3 +7,5 @@ export interface JobAlert {
   salaryMin: number;
   salaryMax: number;
 }
+
+

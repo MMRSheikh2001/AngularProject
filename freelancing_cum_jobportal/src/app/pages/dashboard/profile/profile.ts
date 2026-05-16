@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from '@angular/forms';
 
@@ -11,6 +11,8 @@ import { LocationService } from '../../../services/location.service';
 import { Resume, Education, Experience, SkillEntry, Certification, Training, Project } from '../../../models/resume';
 import { UserReputation } from '../../../models/user-reputation';
 import { UserLevel } from '../../../models/user-level';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-profile',
@@ -32,6 +34,7 @@ export class Profile implements OnInit {
   level: UserLevel | null = null;
   profileCompletion = 0;
   missingFields: string[] = [];
+  showPreview = false;
 
   // Location data
   divisions: string[] = [];
@@ -68,19 +71,20 @@ export class Profile implements OnInit {
     private resumeService: ResumeService,
     private reputationService: UserReputationService,
     private levelService: UserLevelService,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private cdr: ChangeDetectorRef
 
   ) { }
 
   ngOnInit(): void {
-    const userId = this.auth.getCurrentUserId();
-
-    if (!userId) return;
     this.currentUser = this.auth.getCurrentUser();
+    if (!this.currentUser) {
+      this.loading = false;
+      return;
+    }
     this.divisions = this.locationService.getDivisions();
     this.buildForm();
     this.loadData();
-
   }
 
 
@@ -289,19 +293,33 @@ export class Profile implements OnInit {
 
   loadData(): void {
     const userId = this.currentUser?.id;
-    if (!userId) return;
+    if (!userId) {
+      this.loading = false;
+      return;
+    }
+
+    // Safety net — always stop spinner within 5s
+    const loadingTimeout = setTimeout(() => {
+      this.loading = false;
+    }, 5000);
 
     this.resumeService.findByUserId(userId).subscribe({
       next: (resumes) => {
+        clearTimeout(loadingTimeout);
         if (resumes.length > 0) {
           this.resume = resumes[0];
           this.patchForm(this.resume);
           this.profileCompletion = this.resume.profileCompletion || 0;
           this.missingFields = this.resumeService.getMissingFields(this.resume);
         }
+        // For new users with no resume, the form is already empty — just show it
         this.loading = false;
+        this.cdr.markForCheck();
       },
-      error: () => { this.loading = false; }
+      error: () => {
+        clearTimeout(loadingTimeout);
+        this.loading = false;
+      }
     });
 
     this.reputationService.findByUserId(userId).subscribe({
@@ -454,6 +472,45 @@ export class Profile implements OnInit {
         this.saveError = 'Failed to save. Please try again.';
       }
     });
+  }
+
+  // ── CV Actions ──────────────────────────────────────────────
+
+  onPreview(): void {
+    this.showPreview = true;
+  }
+
+  async onDownload(): Promise<void> {
+    const element = document.getElementById('cv-pdf-template');
+    if (!element) {
+      alert('Error: CV template not found');
+      return;
+    }
+
+    try {
+      this.saving = true;
+      const canvas = await html2canvas(element, {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        backgroundColor: '#ffffff'
+      });
+
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      const filename = `resume-${this.currentUser?.name?.replace(/\s+/g, '-') || 'user'}.pdf`;
+      pdf.save(filename);
+      this.saving = false;
+    } catch (err) {
+      console.error('PDF Generation Error:', err);
+      alert('Failed to generate PDF. Please try again.');
+      this.saving = false;
+    }
   }
 
   // ── Helpers ───────────────────────────────────────────────────

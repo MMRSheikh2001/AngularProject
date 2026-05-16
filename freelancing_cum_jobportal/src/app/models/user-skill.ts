@@ -3,3 +3,5 @@ export interface UserSkill {
   userId: string;
   skillName: string;
 }
+
+

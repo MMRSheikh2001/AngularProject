@@ -9,15 +9,15 @@ export class OrderDeliveryService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<OrderDelivery[]> { return this.http.get<OrderDelivery[]>(this.url); }
-  getById(id: string): Observable<OrderDelivery> { return this.http.get<OrderDelivery>(`${this.url}/${id}`); }
+  getById(id: string | number): Observable<OrderDelivery> { return this.http.get<OrderDelivery>(`${this.url}/${id}`); }
   save(d: OrderDelivery): Observable<OrderDelivery> { return this.http.post<OrderDelivery>(this.url, d); }
-  update(id: string, d: OrderDelivery): Observable<OrderDelivery> { return this.http.put<OrderDelivery>(`${this.url}/${id}`, d); }
-  delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+  update(id: string | number, d: OrderDelivery): Observable<OrderDelivery> { return this.http.put<OrderDelivery>(`${this.url}/${id}`, d); }
+  delete(id: string | number): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
 
-  findByOrderId(orderId: string): Observable<OrderDelivery[]> {
+  findByOrderId(orderId: string | number): Observable<OrderDelivery[]> {
     return this.http.get<OrderDelivery[]>(`${this.url}?orderId=${orderId}`);
   }
-  findLatestByOrderId(orderId: string): Observable<OrderDelivery[]> {
+  findLatestByOrderId(orderId: string | number): Observable<OrderDelivery[]> {
     return this.http.get<OrderDelivery[]>(`${this.url}?orderId=${orderId}&_sort=deliveredAt&_order=desc`);
   }
 }

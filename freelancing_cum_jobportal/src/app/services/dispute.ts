@@ -9,15 +9,15 @@ export class DisputeService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<Dispute[]> { return this.http.get<Dispute[]>(this.url); }
-  getById(id: string): Observable<Dispute> { return this.http.get<Dispute>(`${this.url}/${id}`); }
+  getById(id: string | number): Observable<Dispute> { return this.http.get<Dispute>(`${this.url}/${id}`); }
   save(d: Dispute): Observable<Dispute> { return this.http.post<Dispute>(this.url, d); }
-  update(id: string, d: Dispute): Observable<Dispute> { return this.http.put<Dispute>(`${this.url}/${id}`, d); }
-  delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+  update(id: string | number, d: Dispute): Observable<Dispute> { return this.http.put<Dispute>(`${this.url}/${id}`, d); }
+  delete(id: string | number): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
 
-  findByOrderId(orderId: string): Observable<Dispute[]> {
+  findByOrderId(orderId: string | number): Observable<Dispute[]> {
     return this.http.get<Dispute[]>(`${this.url}?orderId=${orderId}`);
   }
-  findByRaisedBy(userId: string): Observable<Dispute[]> {
+  findByRaisedBy(userId: string | number): Observable<Dispute[]> {
     return this.http.get<Dispute[]>(`${this.url}?raisedBy=${userId}`);
   }
   findByStatus(status: string): Observable<Dispute[]> {

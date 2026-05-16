@@ -215,7 +215,7 @@
                             <!-- Logo -->
                             <div class="col-auto pe-3">
                                 <div class="logo-wrap">
-                                    <img [src]="job.companyLogo" class="company-logo"
+                            <img [src]="job.companyLogo || 'https://i.pravatar.cc/48'" class="company-logo"
                                         onerror="this.src='https://i.pravatar.cc/48'">
                                     <span *ngIf="job.companyInfo?.isVerified" class="verified-dot"
                                         title="Verified Company">
@@ -275,7 +275,7 @@
                                 </div>
 
                                 <!-- Skills -->
-                                <div class="d-flex flex-wrap gap-1 mb-2" *ngIf="job.requiredSkills?.length">
+                                <div class="d-flex flex-wrap gap-1 mb-2" *ngIf="job.requiredSkills.length">
                                     <span *ngFor="let skill of job.requiredSkills.slice(0, 5)" class="skill-tag">{{
                                         skill }}</span>
                                     <span *ngIf="job.requiredSkills.length > 5" class="skill-tag text-muted">
@@ -329,7 +329,7 @@
                         <!-- Header -->
                         <div class="d-flex align-items-start gap-2 mb-3">
                             <div class="logo-wrap">
-                                <img [src]="job.companyLogo" class="company-logo"
+                                <img [src]="job.companyLogo || 'https://i.pravatar.cc/44'" class="company-logo"
                                     onerror="this.src='https://i.pravatar.cc/44'">
                                 <span *ngIf="job.companyInfo?.isVerified" class="verified-dot">
                                     <i class="bi bi-patch-check-fill"></i>
@@ -371,7 +371,7 @@
                         </div>
 
                         <!-- Skills -->
-                        <div class="d-flex flex-wrap gap-1 mb-3" *ngIf="job.requiredSkills?.length">
+                        <div class="d-flex flex-wrap gap-1 mb-3" *ngIf="job.requiredSkills.length">
                             <span *ngFor="let skill of job.requiredSkills.slice(0, 3)" class="skill-tag">{{ skill
                                 }}</span>
                         </div>

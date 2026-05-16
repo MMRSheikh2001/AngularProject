@@ -16,7 +16,7 @@ export class ResumeService {
     return this.http.get<Resume[]>(this.url);
   }
 
-  getById(id: string): Observable<Resume> {
+  getById(id: string | number): Observable<Resume> {
     return this.http.get<Resume>(`${this.url}/${id}`);
   }
 
@@ -24,17 +24,17 @@ export class ResumeService {
     return this.http.post<Resume>(this.url, resume);
   }
 
-  update(id: string, resume: Resume): Observable<Resume> {
+  update(id: string | number, resume: Resume): Observable<Resume> {
     return this.http.put<Resume>(`${this.url}/${id}`, resume);
   }
 
-  delete(id: string): Observable<void> {
+  delete(id: string | number): Observable<void> {
     return this.http.delete<void>(`${this.url}/${id}`);
   }
 
   // ── Filter Methods ────────────────────────────────────────────
 
-  findByUserId(userId: string): Observable<Resume[]> {
+  findByUserId(userId: string | number): Observable<Resume[]> {
     return this.http.get<Resume[]>(`${this.url}?userId=${userId}`);
   }
 
@@ -93,7 +93,7 @@ export class ResumeService {
     return missing;
   }
 
-  getPublicProfile(userId: string): Observable<Resume[]> {
+  getPublicProfile(userId: string | number): Observable<Resume[]> {
     return this.http.get<Resume[]>(
       `${this.url}?userId=${userId}&cvVisibility=Public`
     );

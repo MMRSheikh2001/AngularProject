@@ -16,10 +16,11 @@
                 <span *ngIf="saveError" class="badge bg-danger py-2 px-3">
                     {{ saveError }}
                 </span>
-                <button class="btn btn-outline-secondary btn-sm">
+                <button class="btn btn-outline-secondary btn-sm" (click)="onPreview()">
                     <i class="bi bi-eye me-1"></i>Preview CV
                 </button>
-                <button class="btn btn-outline-success btn-sm">
+                <button class="btn btn-outline-success btn-sm" (click)="onDownload()" [disabled]="saving">
+                    <span *ngIf="saving" class="spinner-border spinner-border-sm me-1"></span>
                     <i class="bi bi-download me-1"></i>Download CV
                 </button>
                 <button class="btn btn-primary btn-sm" (click)="onSave()" [disabled]="saving">
@@ -817,3 +818,182 @@
         </div>
     </div>
 </div>
+
+<!-- ── PREVIEW MODAL ── -->
+<div class="modal-backdrop fade show" *ngIf="showPreview"></div>
+<div class="modal fade show d-block" *ngIf="showPreview" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 16px;">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold text-primary">CV Preview</h5>
+                <button type="button" class="btn-close" (click)="showPreview = false"></button>
+            </div>
+            <div class="modal-body p-0 bg-light">
+                <div class="preview-container p-4 d-flex justify-content-center">
+                    <!-- Real Preview of the CV -->
+                    <div class="cv-live-preview shadow-sm bg-white" style="transform: scale(0.65); transform-origin: top center; width: 210mm; height: 297mm; overflow: hidden; pointer-events: none;">
+                        
+                        <!-- Header -->
+                        <div class="d-flex justify-content-between align-items-start mb-4 pb-3 border-bottom border-primary border-2 p-5">
+                            <div>
+                                <h1 class="fw-bold text-primary mb-1" style="font-size: 28px;">{{ currentUser?.name | uppercase }}</h1>
+                                <p class="text-secondary fw-semibold mb-2" style="font-size: 16px;">{{ form.get('resumeHeadline')?.value }}</p>
+                                <div class="d-flex flex-wrap gap-3 small text-muted">
+                                    <span><i class="bi bi-envelope-fill text-primary me-1"></i>{{ currentUser?.email }}</span>
+                                    <span><i class="bi bi-telephone-fill text-primary me-1"></i>{{ currentUser?.phone }}</span>
+                                </div>
+                            </div>
+                            <div *ngIf="currentUser?.profileImage">
+                                <img [src]="currentUser.profileImage" class="rounded border" width="80" height="80" style="object-fit: cover;">
+                            </div>
+                        </div>
+
+                        <!-- Content snippet -->
+                        <div class="px-5">
+                            <div class="mb-4">
+                                <h6 class="text-primary fw-bold border-bottom pb-1 mb-2" style="letter-spacing: 1px; font-size: 12px;">CAREER OBJECTIVE</h6>
+                                <p class="extra-small text-muted" style="line-height: 1.4;">{{ form.get('careerObjective')?.value || 'Building impactful digital solutions...' }}</p>
+                            </div>
+
+                            <div class="mb-4" *ngIf="skillEntriesArray.length > 0">
+                                <h6 class="text-primary fw-bold border-bottom pb-1 mb-2" style="letter-spacing: 1px; font-size: 12px;">SKILLS</h6>
+                                <div class="d-flex flex-wrap gap-1">
+                                    <span *ngFor="let s of skillEntriesArray.value" class="extra-small badge bg-light text-dark border px-2 py-1 fw-normal">
+                                        {{ s.skillName }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="mb-4" *ngIf="experiencesArray.length > 0">
+                                <h6 class="text-primary fw-bold border-bottom pb-1 mb-2" style="letter-spacing: 1px; font-size: 12px;">EXPERIENCE</h6>
+                                <div *ngFor="let exp of experiencesArray.value.slice(0,1)" class="mb-2">
+                                    <div class="fw-bold text-dark extra-small">{{ exp.designation }} at {{ exp.companyName }}</div>
+                                    <p class="extra-small text-muted mb-0">{{ exp.employmentPeriod }}</p>
+                                </div>
+                            </div>
+                            
+                            <p class="text-center text-primary fw-bold mt-4" style="font-size: 14px; opacity: 0.5;">... Full Details in PDF ...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-light px-4" (click)="showPreview = false">Close</button>
+                <button type="button" class="btn btn-success px-4" (click)="onDownload(); showPreview = false">
+                    <i class="bi bi-download me-1"></i>Download PDF
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ── HIDDEN CV TEMPLATE FOR PDF GENERATION ── -->
+<div style="position: fixed; left: -210mm; top: 0; z-index: -1000; overflow: visible;">
+    <div id="cv-pdf-template" class="bg-white shadow-sm p-5" style="width: 210mm; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+        
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-start mb-4 pb-3 border-bottom border-primary border-2">
+            <div>
+                <h1 class="fw-bold text-primary mb-1" style="font-size: 28px;">{{ currentUser?.name | uppercase }}</h1>
+                <p class="text-secondary fw-semibold mb-2" style="font-size: 16px;">{{ form.get('resumeHeadline')?.value }}</p>
+                <div class="d-flex flex-wrap gap-3 small text-muted">
+                    <span><i class="bi bi-envelope-fill text-primary me-1"></i>{{ currentUser?.email }}</span>
+                    <span><i class="bi bi-telephone-fill text-primary me-1"></i>{{ currentUser?.phone }}</span>
+                    <span *ngIf="form.get('presentAddress')?.value"><i class="bi bi-geo-alt-fill text-primary me-1"></i>{{ form.get('presentAddress')?.value }}</span>
+                </div>
+                <div class="d-flex gap-3 mt-1 small">
+                    <a *ngIf="form.get('linkedinUrl')?.value" [href]="form.get('linkedinUrl')?.value" class="text-decoration-none text-primary">LinkedIn</a>
+                    <a *ngIf="form.get('githubLink')?.value" [href]="form.get('githubLink')?.value" class="text-decoration-none text-primary">GitHub</a>
+                    <a *ngIf="form.get('portfolioLink')?.value" [href]="form.get('portfolioLink')?.value" class="text-decoration-none text-primary">Portfolio</a>
+                </div>
+            </div>
+            <div *ngIf="currentUser?.profileImage">
+                <img [src]="currentUser.profileImage" class="rounded border" width="100" height="100" style="object-fit: cover;">
+            </div>
+        </div>
+
+        <!-- Objective -->
+        <div class="mb-4" *ngIf="form.get('careerObjective')?.value">
+            <h6 class="text-primary fw-bold border-bottom pb-1 mb-2" style="letter-spacing: 1px;">CAREER OBJECTIVE</h6>
+            <p class="small text-justify" style="line-height: 1.6;">{{ form.get('careerObjective')?.value }}</p>
+        </div>
+
+        <!-- Skills -->
+        <div class="mb-4" *ngIf="skillEntriesArray.length > 0">
+            <h6 class="text-primary fw-bold border-bottom pb-1 mb-2" style="letter-spacing: 1px;">SPECIAL SKILLS</h6>
+            <div class="d-flex flex-wrap gap-2">
+                <span *ngFor="let s of skillEntriesArray.value" class="badge bg-light text-dark border px-3 py-2 fw-normal" style="font-size: 12px;">
+                    {{ s.skillName }} ({{ s.skillLevel }})
+                </span>
+            </div>
+        </div>
+
+        <!-- Experience -->
+        <div class="mb-4" *ngIf="experiencesArray.length > 0">
+            <h6 class="text-primary fw-bold border-bottom pb-1 mb-2" style="letter-spacing: 1px;">WORK EXPERIENCE</h6>
+            <div *ngFor="let exp of experiencesArray.value" class="mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span class="fw-bold text-dark">{{ exp.designation }}</span>
+                    <span class="small text-muted fw-semibold">{{ exp.employmentPeriod }}</span>
+                </div>
+                <div class="text-primary small fw-semibold mb-1">{{ exp.companyName }}</div>
+                <p class="small text-muted mb-0" style="white-space: pre-line;">{{ exp.responsibilities }}</p>
+            </div>
+        </div>
+
+        <!-- Education -->
+        <div class="mb-4" *ngIf="educationsArray.length > 0">
+            <h6 class="text-primary fw-bold border-bottom pb-1 mb-2" style="letter-spacing: 1px;">EDUCATION</h6>
+            <div *ngFor="let edu of educationsArray.value" class="mb-2">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span class="fw-bold text-dark">{{ edu.degree }}</span>
+                    <span class="small text-muted fw-semibold">{{ edu.passingYear }}</span>
+                </div>
+                <div class="text-secondary small">{{ edu.institute }}</div>
+                <div class="small text-muted" *ngIf="edu.result">Result: {{ edu.result }}</div>
+            </div>
+        </div>
+
+        <!-- Projects -->
+        <div class="mb-4" *ngIf="projectsArray.length > 0">
+            <h6 class="text-primary fw-bold border-bottom pb-1 mb-2" style="letter-spacing: 1px;">PROJECTS</h6>
+            <div *ngFor="let proj of projectsArray.value" class="mb-3">
+                <div class="fw-bold text-dark small mb-1">{{ proj.projectName }}</div>
+                <div class="text-muted extra-small mb-1">Tech: {{ proj.technologies }}</div>
+                <p class="small text-muted mb-1">{{ proj.description }}</p>
+                <a *ngIf="proj.liveLink" [href]="proj.liveLink" class="extra-small text-decoration-none text-primary">Live Demo</a>
+            </div>
+        </div>
+
+        <!-- Personal Details -->
+        <div class="mb-4">
+            <h6 class="text-primary fw-bold border-bottom pb-1 mb-2" style="letter-spacing: 1px;">PERSONAL DETAILS</h6>
+            <div class="row g-2 small">
+                <div class="col-4 text-muted fw-semibold">Father's Name:</div>
+                <div class="col-8">{{ form.get('fatherName')?.value || 'N/A' }}</div>
+                <div class="col-4 text-muted fw-semibold">Mother's Name:</div>
+                <div class="col-8">{{ form.get('motherName')?.value || 'N/A' }}</div>
+                <div class="col-4 text-muted fw-semibold">Date of Birth:</div>
+                <div class="col-8">{{ form.get('dateOfBirth')?.value || 'N/A' }}</div>
+                <div class="col-4 text-muted fw-semibold">Gender:</div>
+                <div class="col-8">{{ form.get('gender')?.value || 'N/A' }}</div>
+                <div class="col-4 text-muted fw-semibold">Nationality:</div>
+                <div class="col-8">{{ form.get('nationality')?.value || 'N/A' }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .extra-small { font-size: 11px; }
+    #cv-pdf-template {
+        box-sizing: border-box;
+    }
+    .preview-container {
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+    .cv-live-preview {
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+    }
+</style>

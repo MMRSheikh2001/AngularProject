@@ -9,10 +9,10 @@ export class CategoryService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<Category[]> { return this.http.get<Category[]>(this.url); }
-  getById(id: string): Observable<Category> { return this.http.get<Category>(`${this.url}/${id}`); }
+  getById(id: string | number): Observable<Category> { return this.http.get<Category>(`${this.url}/${id}`); }
   save(c: Category): Observable<Category> { return this.http.post<Category>(this.url, c); }
-  update(id: string, c: Category): Observable<Category> { return this.http.put<Category>(`${this.url}/${id}`, c); }
-  delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+  update(id: string | number, c: Category): Observable<Category> { return this.http.put<Category>(`${this.url}/${id}`, c); }
+  delete(id: string | number): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
 
   findByName(name: string): Observable<Category[]> {
     return this.http.get<Category[]>(`${this.url}?name_like=${name}`);

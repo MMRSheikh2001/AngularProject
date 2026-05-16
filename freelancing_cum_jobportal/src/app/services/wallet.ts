@@ -9,12 +9,12 @@ export class WalletService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<Wallet[]> { return this.http.get<Wallet[]>(this.url); }
-  getById(id: string): Observable<Wallet> { return this.http.get<Wallet>(`${this.url}/${id}`); }
+  getById(id: string | number): Observable<Wallet> { return this.http.get<Wallet>(`${this.url}/${id}`); }
   save(wallet: Wallet): Observable<Wallet> { return this.http.post<Wallet>(this.url, wallet); }
-  update(id: string, wallet: Wallet): Observable<Wallet> { return this.http.put<Wallet>(`${this.url}/${id}`, wallet); }
-  delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+  update(id: string | number, wallet: Wallet): Observable<Wallet> { return this.http.put<Wallet>(`${this.url}/${id}`, wallet); }
+  delete(id: string | number): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
 
-  findByUserId(userId: string): Observable<Wallet[]> {
+  findByUserId(userId: string | number): Observable<Wallet[]> {
     return this.http.get<Wallet[]>(`${this.url}?userId=${userId}`);
   }
   findByMinBalance(minBalance: number): Observable<Wallet[]> {

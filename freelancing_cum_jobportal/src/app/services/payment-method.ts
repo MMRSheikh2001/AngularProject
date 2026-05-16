@@ -9,12 +9,12 @@ export class PaymentMethodService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<PaymentMethod[]> { return this.http.get<PaymentMethod[]>(this.url); }
-  getById(id: string): Observable<PaymentMethod> { return this.http.get<PaymentMethod>(`${this.url}/${id}`); }
+  getById(id: string | number): Observable<PaymentMethod> { return this.http.get<PaymentMethod>(`${this.url}/${id}`); }
   save(m: PaymentMethod): Observable<PaymentMethod> { return this.http.post<PaymentMethod>(this.url, m); }
-  update(id: string, m: PaymentMethod): Observable<PaymentMethod> { return this.http.put<PaymentMethod>(`${this.url}/${id}`, m); }
-  delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+  update(id: string | number, m: PaymentMethod): Observable<PaymentMethod> { return this.http.put<PaymentMethod>(`${this.url}/${id}`, m); }
+  delete(id: string | number): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
 
-  findByUserId(userId: string): Observable<PaymentMethod[]> {
+  findByUserId(userId: string | number): Observable<PaymentMethod[]> {
     return this.http.get<PaymentMethod[]>(`${this.url}?userId=${userId}`);
   }
   findByType(type: string): Observable<PaymentMethod[]> {

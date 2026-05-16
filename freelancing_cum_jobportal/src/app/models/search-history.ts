@@ -4,3 +4,5 @@ export interface SearchHistory {
   keyword: string;
   createdAt: string;
 }
+
+

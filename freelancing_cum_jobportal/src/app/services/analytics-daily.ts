@@ -9,10 +9,10 @@ export class AnalyticsDailyService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<AnalyticsDaily[]> { return this.http.get<AnalyticsDaily[]>(this.url); }
-  getById(id: string): Observable<AnalyticsDaily> { return this.http.get<AnalyticsDaily>(`${this.url}/${id}`); }
+  getById(id: string | number): Observable<AnalyticsDaily> { return this.http.get<AnalyticsDaily>(`${this.url}/${id}`); }
   save(a: AnalyticsDaily): Observable<AnalyticsDaily> { return this.http.post<AnalyticsDaily>(this.url, a); }
-  update(id: string, a: AnalyticsDaily): Observable<AnalyticsDaily> { return this.http.put<AnalyticsDaily>(`${this.url}/${id}`, a); }
-  delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+  update(id: string | number, a: AnalyticsDaily): Observable<AnalyticsDaily> { return this.http.put<AnalyticsDaily>(`${this.url}/${id}`, a); }
+  delete(id: string | number): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
 
   findByDate(date: string): Observable<AnalyticsDaily[]> {
     return this.http.get<AnalyticsDaily[]>(`${this.url}?date=${date}`);

@@ -1,8 +1,12 @@
 export interface Dispute {
-  id?: string;
-  orderId: string;
-  raisedBy: string;
+  id?: string | number;
+  orderId?: string | number;
+  raisedBy: string | number;
   reason: string;
   status: 'open' | 'under-review' | 'resolved' | 'closed';
   adminAction: string;
 }
+
+
+
+

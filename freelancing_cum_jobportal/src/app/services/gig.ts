@@ -9,12 +9,12 @@ export class GigService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<Gig[]> { return this.http.get<Gig[]>(this.url); }
-  getById(id: string): Observable<Gig> { return this.http.get<Gig>(`${this.url}/${id}`); }
+  getById(id: string | number): Observable<Gig> { return this.http.get<Gig>(`${this.url}/${id}`); }
   save(gig: Gig): Observable<Gig> { return this.http.post<Gig>(this.url, gig); }
-  update(id: string, gig: Gig): Observable<Gig> { return this.http.put<Gig>(`${this.url}/${id}`, gig); }
-  delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+  update(id: string | number, gig: Gig): Observable<Gig> { return this.http.put<Gig>(`${this.url}/${id}`, gig); }
+  delete(id: string | number): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
 
-  findByFreelancerId(freelancerId: string): Observable<Gig[]> {
+  findByFreelancerId(freelancerId: string | number): Observable<Gig[]> {
     return this.http.get<Gig[]>(`${this.url}?freelancerId=${freelancerId}&isDeleted=false`);
   }
   findByCategoryId(categoryId: string): Observable<Gig[]> {

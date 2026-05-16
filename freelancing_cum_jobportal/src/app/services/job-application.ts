@@ -9,24 +9,24 @@ export class JobApplicationService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<JobApplication[]> { return this.http.get<JobApplication[]>(this.url); }
-  getById(id: string): Observable<JobApplication> { return this.http.get<JobApplication>(`${this.url}/${id}`); }
+  getById(id: string | number): Observable<JobApplication> { return this.http.get<JobApplication>(`${this.url}/${id}`); }
   save(app: JobApplication): Observable<JobApplication> { return this.http.post<JobApplication>(this.url, app); }
-  update(id: string, app: JobApplication): Observable<JobApplication> { return this.http.put<JobApplication>(`${this.url}/${id}`, app); }
-  delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+  update(id: string | number, app: JobApplication): Observable<JobApplication> { return this.http.put<JobApplication>(`${this.url}/${id}`, app); }
+  delete(id: string | number): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
 
-  findByJobId(jobId: string): Observable<JobApplication[]> {
+  findByJobId(jobId: string | number): Observable<JobApplication[]> {
     return this.http.get<JobApplication[]>(`${this.url}?jobId=${jobId}`);
   }
-  findByApplicantId(applicantId: string): Observable<JobApplication[]> {
-    return this.http.get<JobApplication[]>(`${this.url}?applicantId=${applicantId}`);
+  findByApplicantId(applicantId: string | number): Observable<JobApplication[]> {
+    return this.http.get<JobApplication[]>(`${this.url}?applicantId=${applicantId}&_expand=job`);
   }
   findByStatus(status: string): Observable<JobApplication[]> {
     return this.http.get<JobApplication[]>(`${this.url}?status=${status}`);
   }
-  findByJobIdAndStatus(jobId: string, status: string): Observable<JobApplication[]> {
+  findByJobIdAndStatus(jobId: string | number, status: string): Observable<JobApplication[]> {
     return this.http.get<JobApplication[]>(`${this.url}?jobId=${jobId}&status=${status}`);
   }
-  findByApplicantIdAndJobId(applicantId: string, jobId: string): Observable<JobApplication[]> {
+  findByApplicantIdAndJobId(applicantId: string | number, jobId: string | number): Observable<JobApplication[]> {
     return this.http.get<JobApplication[]>(`${this.url}?applicantId=${applicantId}&jobId=${jobId}`);
   }
 }

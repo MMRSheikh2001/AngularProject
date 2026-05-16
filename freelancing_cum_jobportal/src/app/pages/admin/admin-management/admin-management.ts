@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -31,14 +31,15 @@ export class AdminManagement implements OnInit {
   reports: Report[] = [];
   disputes: Dispute[] = [];
 
-  confirmAction: { type: string; userId: string; userName: string } | null = null;
+  confirmAction: { type: string; userId: string | number; userName: string } | null = null;
 
   constructor(
     private userService: UserService,
     private reportService: ReportService,
     private disputeService: DisputeService,
     private orderService: OrderService,
-    private auth: AuthService
+    private auth: AuthService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -51,6 +52,7 @@ export class AdminManagement implements OnInit {
         this.users = u;
         this.filteredUsers = u;
         this.loading = false;
+        this.cdr.markForCheck();
       },
       error: () => { this.loading = false; }
     });
@@ -86,7 +88,7 @@ export class AdminManagement implements OnInit {
   executeAction(): void {
     if (!this.confirmAction) return;
     const { type, userId } = this.confirmAction;
-    const user = this.users.find(u => u.id === userId);
+    const user = this.users.find(u => u.id == userId);
     if (!user) return;
 
     const newStatus = type === 'ban' ? 'banned' :
@@ -135,6 +137,6 @@ export class AdminManagement implements OnInit {
   }
 
   isCurrentAdmin(user: User): boolean {
-    return user.id === this.auth.getCurrentUserId();
+    return user.id == this.auth.getCurrentUserId();
   }
 }

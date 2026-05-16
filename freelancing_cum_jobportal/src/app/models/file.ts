@@ -4,3 +4,5 @@ export interface UploadedFile {
   fileUrl: string;
   fileType: 'image' | 'pdf' | 'doc' | 'zip' | 'other';
 }
+
+

@@ -9,7 +9,7 @@ export class DashboardStatsService {
 
   constructor(private http: HttpClient) { }
 
-  getJobseekerStats(userId: string): Observable<JobseekerDashboardStats[]> {
+  getJobseekerStats(userId: string | number): Observable<JobseekerDashboardStats[]> {
     return this.http.get<JobseekerDashboardStats[]>(`${this.jsUrl}?userId=${userId}`);
   }
 

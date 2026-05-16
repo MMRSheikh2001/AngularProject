@@ -10,12 +10,12 @@ export class UserSessionService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<UserSession[]> { return this.http.get<UserSession[]>(this.url); }
-  getById(id: string): Observable<UserSession> { return this.http.get<UserSession>(`${this.url}/${id}`); }
+  getById(id: string | number): Observable<UserSession> { return this.http.get<UserSession>(`${this.url}/${id}`); }
   save(session: UserSession): Observable<UserSession> { return this.http.post<UserSession>(this.url, session); }
-  update(id: string, session: UserSession): Observable<UserSession> { return this.http.put<UserSession>(`${this.url}/${id}`, session); }
-  delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+  update(id: string | number, session: UserSession): Observable<UserSession> { return this.http.put<UserSession>(`${this.url}/${id}`, session); }
+  delete(id: string | number): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
 
-  findByUserId(userId: string): Observable<UserSession[]> {
+  findByUserId(userId: string | number): Observable<UserSession[]> {
     return this.http.get<UserSession[]>(`${this.url}?userId=${userId}`);
   }
   findByToken(token: string): Observable<UserSession[]> {
@@ -29,7 +29,7 @@ export class UserSessionService {
       })
     );
   }
-  findActiveByUserId(userId: string): Observable<UserSession[]> {
+  findActiveByUserId(userId: string | number): Observable<UserSession[]> {
     const now = new Date().toISOString();
     // JSON Server supports _gte filters for dates:
     return this.http.get<UserSession[]>(

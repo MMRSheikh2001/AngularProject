@@ -8,6 +8,7 @@ import { JobService } from '../../services/job';
 import { GigService } from '../../services/gig';
 import { GigPackageService } from '../../services/gig-package';
 import { JobApplicationService } from '../../services/job-application';
+import { OrderService } from '../../services/order';
 import { AuthService } from '../../services/auth';
 import { Job } from '../../models/job';
 import { Gig } from '../../models/gig';
@@ -64,6 +65,7 @@ export class Details implements OnInit {
     private gigService: GigService,
     private gigPackageService: GigPackageService,
     private jobAppService: JobApplicationService,
+    private orderService: OrderService,
     public auth: AuthService,
     private fb: FormBuilder
   ) {
@@ -170,12 +172,43 @@ export class Details implements OnInit {
 
   orderGig(pkg: GigPackage): void {
     if (!this.auth.isLoggedIn()) { this.router.navigate(['/login']); return; }
-    alert(`Redirecting to order: ${pkg.name} — $${pkg.price}`);
+    const userId = this.auth.getCurrentUserId();
+    if (!userId || !this.gig) return;
+
+    this.applying = true; // Use applying state for loading
+    const order = {
+      gigId: this.gig.id!,
+      clientId: userId,
+      freelancerId: this.gig.freelancerId,
+      totalAmount: pkg.price,
+      commissionAmount: Math.round(pkg.price * 0.1),
+      status: 'active' as const,
+      isDeleted: false,
+      createdAt: new Date().toISOString(),
+      completedAt: ''
+    };
+
+    this.orderService.save(order).subscribe({
+      next: () => {
+        this.applying = false;
+        this.router.navigate(['/dashboard/orders']);
+      },
+      error: () => {
+        this.applying = false;
+        alert('Failed to place order. Please try again.');
+      }
+    });
   }
 
   orderGigDefault(): void {
-    if (!this.auth.isLoggedIn()) { this.router.navigate(['/login']); return; }
-    alert('Order placed! Starting at $50');
+    if (this.selectedPackage) {
+      this.orderGig(this.selectedPackage);
+    } else if (this.packages.length > 0) {
+      this.orderGig(this.packages[0]);
+    } else {
+      if (!this.auth.isLoggedIn()) { this.router.navigate(['/login']); return; }
+      alert('No packages available for this gig.');
+    }
   }
 
   toggleSave(): void { this.saved = !this.saved; }

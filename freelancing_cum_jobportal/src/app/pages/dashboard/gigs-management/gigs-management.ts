@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -32,7 +32,7 @@ export class GigsManagement implements OnInit {
   myOrders: Order[] = [];
 
   gigForm: FormGroup;
-  userId = '';
+  userId: string | number = '';
 
   constructor(
     private auth: AuthService,
@@ -40,7 +40,8 @@ export class GigsManagement implements OnInit {
     private gigPackageService: GigPackageService,
     private categoryService: CategoryService,
     private orderService: OrderService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private cdr: ChangeDetectorRef
   ) {
     this.gigForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(10)]],
@@ -68,26 +69,35 @@ export class GigsManagement implements OnInit {
 
   ngOnInit(): void {
     const userId = this.auth.getCurrentUserId();
-    if (!userId) return;
+    if (!userId) {
+      this.loading = false;
+      return;
+    }
     this.userId = userId;
     this.loadData();
   }
 
   loadData(): void {
+    const t = setTimeout(() => { this.loading = false; }, 5000);
     this.gigService.findByFreelancerId(this.userId).subscribe({
-      next: (gigs) => { this.myGigs = gigs; this.loading = false; },
-      error: () => { this.loading = false; }
+      next: (gigs) => { clearTimeout(t); this.myGigs = gigs; this.loading = false; 
+        this.cdr.markForCheck();
+      },
+      error: () => { clearTimeout(t); this.loading = false; }
     });
     this.categoryService.findAll().subscribe({
-      next: (cats) => this.categories = cats
+      next: (cats) => this.categories = cats,
+      error: () => { }
     });
     this.orderService.findByFreelancerId(this.userId).subscribe({
-      next: (orders) => this.myOrders = orders
+      next: (orders) => this.myOrders = orders,
+      error: () => { }
     });
   }
 
-  getCategoryName(id: string): string {
-    return this.categories.find(c => c.id === id)?.name || 'General';
+  getCategoryName(id?: string | number): string {
+    if (!id) return 'General';
+    return this.categories.find(c => c.id == id)?.name || 'General';
   }
 
   toggleGigStatus(gig: Gig): void {
@@ -108,7 +118,7 @@ export class GigsManagement implements OnInit {
       categoryId: v.categoryId,
       title: v.title,
       description: v.description,
-        startingPrice: v.basicPrice,
+      startingPrice: v.basicPrice,
       status: 'active',
       isDeleted: false,
       coverImage: v.coverImage || 'https://picsum.photos/seed/gig/600/400',
@@ -165,19 +175,31 @@ export class GigsManagement implements OnInit {
           },
         ];
 
-        const saves = packages.map(p => this.gigPackageService.save(p).subscribe());
-        this.myGigs.unshift(saved);
-        this.saving = false;
-        this.saveSuccess = true;
-        this.activeTab = 'my-gigs';
-        this.gigForm.reset({
-          basicPrice: 50, basicDeliveryDays: 3, basicRevisions: 2,
-          standardPrice: 100, standardDeliveryDays: 7, standardRevisions: 5,
-          premiumPrice: 250, premiumDeliveryDays: 14, premiumRevisions: 999,
-        });
-        setTimeout(() => this.saveSuccess = false, 3000);
+        // Sequential save for simplicity and reliability in demo
+        this.savePackagesSequentially(packages, 0, saved);
       },
       error: () => { this.saving = false; }
+    });
+  }
+
+  private savePackagesSequentially(pkgs: GigPackage[], index: number, savedGig: Gig): void {
+    if (index >= pkgs.length) {
+      this.myGigs.unshift(savedGig);
+      this.saving = false;
+      this.saveSuccess = true;
+      this.activeTab = 'my-gigs';
+      this.gigForm.reset({
+        basicPrice: 50, basicDeliveryDays: 3, basicRevisions: 2,
+        standardPrice: 100, standardDeliveryDays: 7, standardRevisions: 5,
+        premiumPrice: 250, premiumDeliveryDays: 14, premiumRevisions: 999,
+      });
+      setTimeout(() => this.saveSuccess = false, 3000);
+      return;
+    }
+
+    this.gigPackageService.save(pkgs[index]).subscribe({
+      next: () => this.savePackagesSequentially(pkgs, index + 1, savedGig),
+      error: () => this.savePackagesSequentially(pkgs, index + 1, savedGig) // Continue even if one fails
     });
   }
 

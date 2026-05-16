@@ -6,8 +6,8 @@ export interface GigFaq {
 }
 
 export interface GigReview {
-  id?: string;
-  reviewerId: string;
+  id?: string | number;
+  reviewerId?: string | number;
   reviewerName: string;
   reviewerAvatar: string;
   rating: number;
@@ -21,9 +21,9 @@ export interface GigReview {
 
 
 export interface Gig {
-  id?: string;
-  freelancerId: string;
-  categoryId: string;
+  id?: string | number;
+  freelancerId?: string | number;
+  categoryId?: string | number;
 
   startingPrice?: number;
 
@@ -57,3 +57,7 @@ export interface Gig {
   savedCount: number;
   publishedDate: string;
 }
+
+
+
+

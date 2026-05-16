@@ -9,12 +9,12 @@ export class UserReputationService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<UserReputation[]> { return this.http.get<UserReputation[]>(this.url); }
-  getById(id: string): Observable<UserReputation> { return this.http.get<UserReputation>(`${this.url}/${id}`); }
+  getById(id: string | number): Observable<UserReputation> { return this.http.get<UserReputation>(`${this.url}/${id}`); }
   save(r: UserReputation): Observable<UserReputation> { return this.http.post<UserReputation>(this.url, r); }
-  update(id: string, r: UserReputation): Observable<UserReputation> { return this.http.put<UserReputation>(`${this.url}/${id}`, r); }
-  delete(id: string): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
+  update(id: string | number, r: UserReputation): Observable<UserReputation> { return this.http.put<UserReputation>(`${this.url}/${id}`, r); }
+  delete(id: string | number): Observable<void> { return this.http.delete<void>(`${this.url}/${id}`); }
 
-  findByUserId(userId: string): Observable<UserReputation[]> {
+  findByUserId(userId: string | number): Observable<UserReputation[]> {
     return this.http.get<UserReputation[]>(`${this.url}?userId=${userId}`);
   }
   findTopReputation(): Observable<UserReputation[]> {

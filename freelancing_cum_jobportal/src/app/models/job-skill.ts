@@ -3,3 +3,5 @@ export interface JobSkill {
   jobId: string;
   skillName: string;
 }
+
+

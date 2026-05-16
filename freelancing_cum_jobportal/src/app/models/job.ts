@@ -16,8 +16,8 @@ export interface CompanyInfo {
 }
 
 export interface Job {
-  id?: string;
-  employerId: string;
+  id?: string | number;
+  employerId?: string | number;
 
   // ── Basic (existing) ──
   title: string;
@@ -68,8 +68,12 @@ export interface Job {
   tags: string[];
   viewCount: number;
   applicantsCount: number;
-  companyInfo: CompanyInfo;
+  companyInfo?: CompanyInfo;
   teamEnvironment: string;
   growthOpportunity: string;
   publishedDate: string;
 }
+
+
+
+
