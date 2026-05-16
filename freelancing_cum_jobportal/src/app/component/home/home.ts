@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Navbar } from '../../shared/navbar/navbar';
@@ -59,7 +59,8 @@ export class Home implements OnInit {
     private jobService: JobService,
     private gigService: GigService,
     private categoryService: CategoryService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -74,6 +75,7 @@ export class Home implements OnInit {
         this.jobs = jobs.slice(0, 6);
         this.stats.jobs = jobs.length;
         this.loading = false;
+        this.cdr.markForCheck();
       },
       error: () => { this.loading = false; }
     });
@@ -84,6 +86,7 @@ export class Home implements OnInit {
       next: (gigs) => {
         this.gigs = gigs.slice(0, 6);
         this.stats.gigs = gigs.length;
+        this.cdr.markForCheck();
       }
     });
   }
