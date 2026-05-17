@@ -4276,6 +4276,18 @@
       "isDeleted": false,
       "createdAt": "2026-05-14",
       "completedAt": ""
+    },
+    {
+      "gigId": "g8",
+      "clientId": "zYqE5RwO52Q",
+      "freelancerId": "6",
+      "totalAmount": 1866,
+      "commissionAmount": 187,
+      "status": "active",
+      "isDeleted": false,
+      "createdAt": "2026-05-16T22:13:03.842Z",
+      "completedAt": "",
+      "id": "kmTPReawlvw"
     }
   ],
   "notifications": [
@@ -4869,6 +4881,54 @@
       "certificationList": [],
       "trainings": [],
       "projects": []
+    },
+    {
+      "userId": "1",
+      "summary": "",
+      "education": "",
+      "experience": "",
+      "certifications": "",
+      "resumeHeadline": "ffgdfgg",
+      "careerObjective": "fdfhzjggd",
+      "fatherName": "fdhdfhdfh",
+      "motherName": "fhfhddfh",
+      "gender": "Male",
+      "dateOfBirth": "2026-04-29",
+      "nationality": "Bangladeshi",
+      "religion": "Islam",
+      "maritalStatus": "Single",
+      "bloodGroup": "A+",
+      "division": "Dhaka",
+      "district": "Rajbari",
+      "upazila": "fhh",
+      "postCode": "34",
+      "presentAddress": "gghfgghgh",
+      "permanentAddress": "hfhghghdfhxdfh",
+      "careerSummary": "",
+      "careerLevel": "",
+      "presentSalary": 0,
+      "expectedSalary": 0,
+      "availableFor": "",
+      "preferredJobCategories": [],
+      "preferredLocations": [],
+      "englishProficiency": "",
+      "languagesKnown": [],
+      "linkedinUrl": "",
+      "githubLink": "",
+      "portfolioLink": "",
+      "behanceUrl": "",
+      "dribbbleUrl": "",
+      "cvVisibility": "Public",
+      "nidNumber": "54454646",
+      "nidVerified": false,
+      "educations": [],
+      "experiences": [],
+      "skillEntries": [],
+      "certificationList": [],
+      "trainings": [],
+      "projects": [],
+      "profileCompletion": 44,
+      "id": "7q3ixMLLgKQ"
     }
   ],
   "wallets": [
@@ -4970,5 +5030,6 @@
   "userSessions": [],
   "userSkills": [],
   "userVerifications": [],
-  "withdrawals": []
+  "withdrawals": [],
+  "$schema": "./node_modules/json-server/schema.json"
 }
