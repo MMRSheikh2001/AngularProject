@@ -1,0 +1,50 @@
+Now help me define MY OWN platform clearly.
+
+My platform has 3 roles:
+
+1. Admin
+2. Company
+3. User
+
+COMPANY:
+
+* can post jobs
+* manage applications
+* hire users
+* browse gigs
+* buy gigs/services
+
+USER:
+
+* can apply to jobs
+* create gigs
+* sell freelance services
+* buy gigs
+* maintain profile and CV
+
+ADMIN:
+
+* manages entire platform
+
+I want you to now design MY product architecture.
+
+Explain:
+
+1. Exact platform vision
+2. Target audience
+3. MVP scope
+4. Core workflows
+5. User journeys
+6. Dashboard structure for each role
+7. What pages should exist
+8. What features should exist
+9. What features should NOT exist initially
+10. Which features are essential
+11. Which features are advanced
+12. Which features are fake/demo-friendly for academic projects
+13. Realistic project scope for a single student
+14. What makes this platform unique
+15. What should be simplified from Fiverr/Bdjobs/Indeed/LinkedIn
+
+DO NOT WRITE CODE.
+I want architecture and planning only.

@@ -1,0 +1,57 @@
+Now create the COMPLETE page and UI map for my platform.
+
+For EVERY page explain:
+
+* purpose
+* components
+* forms
+* tables
+* cards
+* filters
+* actions
+* user interactions
+* backend interactions
+
+Include:
+
+PUBLIC PAGES:
+
+* home
+* jobs
+* gigs
+* login
+* register
+* company profiles
+* freelancer profiles
+
+USER DASHBOARD:
+
+* profile
+* CV
+* applications
+* saved jobs
+* gigs
+* orders
+* messages
+* wallet
+
+COMPANY DASHBOARD:
+
+* post job
+* manage jobs
+* applicants
+* buy gigs
+* orders
+* company profile
+
+ADMIN DASHBOARD:
+
+* users
+* companies
+* jobs
+* gigs
+* reports
+* analytics
+* moderation
+
+DO NOT WRITE CODE.

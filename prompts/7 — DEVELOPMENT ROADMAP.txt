@@ -1,0 +1,26 @@
+Now create the COMPLETE development roadmap.
+
+I want:
+
+1. Step-by-step build order
+2. Which features to build first
+3. What to mock initially
+4. What to hardcode initially
+5. JSON Server strategy
+6. Angular development sequence
+7. Backend migration strategy later
+8. Daily development milestones
+9. What can break easily
+10. Common beginner mistakes
+11. Testing strategy
+12. Debugging strategy
+13. Refactoring strategy
+14. Demo preparation strategy
+
+Then create:
+
+* Beginner roadmap
+* Intermediate roadmap
+* Production roadmap
+
+DO NOT WRITE CODE.

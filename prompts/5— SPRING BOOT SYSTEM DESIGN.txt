@@ -1,0 +1,30 @@
+Now explain how this system would be built professionally using Spring Boot + MySQL.
+
+Explain:
+
+1. Backend architecture
+2. Layered architecture
+3. Controllers
+4. Services
+5. Repositories
+6. DTOs
+7. Authentication
+8. JWT flow
+9. Role-based authorization
+10. File upload system
+11. CV upload architecture
+12. Gig order workflow
+13. Job application workflow
+14. Notification workflow
+15. Chat system architecture
+16. Payment architecture
+17. Security architecture
+18. Validation architecture
+19. Logging
+20. Exception handling
+21. Database transaction management
+22. Scalability
+23. Deployment strategy
+
+DO NOT WRITE CODE.
+I want enterprise-level understanding first.

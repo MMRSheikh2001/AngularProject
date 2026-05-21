@@ -1,0 +1,126 @@
+I want to deeply study and analyze these platforms as a software architect, product manager, system analyst, database architect, and UX designer:
+
+* Bdjobs
+* Indeed
+* Fiverr
+* LinkedIn
+* Upwork (optional comparison)
+
+IMPORTANT:
+I do NOT want code.
+
+I want COMPLETE PRODUCT ANALYSIS and SYSTEM UNDERSTANDING.
+
+====================================================
+MY PROJECT IDEA
+===============
+
+I want to build a hybrid platform where:
+
+COMPANIES:
+
+* post jobs
+* manage hiring
+* browse freelancer gigs
+* buy freelancer services
+
+USERS:
+
+* apply for jobs
+* create gigs
+* sell services
+* buy services
+* maintain CV/profile
+
+ADMIN:
+
+* manages the platform
+
+STACK:
+
+* Angular frontend
+* Spring Boot backend
+* MySQL database
+
+Initially I may prototype using Angular + JSON Server.
+
+====================================================
+YOUR ROLE
+=========
+
+Behave like:
+
+* senior software architect
+* enterprise backend architect
+* frontend architect
+* product designer
+* system analyst
+* database engineer
+* startup CTO
+
+====================================================
+YOUR TASK
+=========
+
+Analyze EACH platform deeply.
+
+For EACH platform explain:
+
+1. Core Purpose
+2. Business Model
+3. Main User Roles
+4. Main Features
+5. User Journey
+6. Dashboard Structure
+7. Hiring Workflow
+8. Freelancing Workflow
+9. Search & Filtering
+10. Recommendation System
+11. Messaging System
+12. Notification System
+13. Review & Rating System
+14. Wallet/Payment System
+15. Profile/CV System
+16. Gig System
+17. Employer System
+18. Admin System
+19. Security Features
+20. Fraud Prevention
+21. UX Design Philosophy
+22. Mobile/Desktop Differences
+23. Database Implications
+24. Backend Architecture Implications
+25. Frontend Architecture Implications
+26. Scalability Considerations
+
+For every feature explain:
+
+* WHY it exists
+* HOW it likely works internally
+* WHAT entities/tables it likely needs
+* WHAT APIs it likely needs
+* WHAT frontend components it likely needs
+* WHAT business logic it likely requires
+
+Then compare ALL platforms:
+
+* strengths
+* weaknesses
+* complexity
+* scalability
+* UX quality
+* beginner friendliness
+* best ideas for my project
+
+Then explain:
+
+* what I should build
+* what I should simplify
+* what I should avoid initially
+* what features are too enterprise-level
+* what features are realistic for an academic project
+
+IMPORTANT:
+DO NOT generate code.
+
+I want COMPLETE INDUSTRY UNDERSTANDING before coding anything.

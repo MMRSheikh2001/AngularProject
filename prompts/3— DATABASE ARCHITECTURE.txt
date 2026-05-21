@@ -1,0 +1,45 @@
+Now design the COMPLETE database architecture for my platform.
+
+I want:
+
+1. All entities/tables
+2. Relationships
+3. Foreign keys
+4. User role relationships
+5. ERD-style explanation
+6. Why each table exists
+7. Required fields for each table
+8. Optional fields
+9. Which tables are core MVP
+10. Which tables are advanced
+
+Explain deeply for:
+
+* users
+* companies
+* admins
+* jobs
+* job applications
+* gigs
+* gig orders
+* reviews
+* notifications
+* chat/messages
+* wallets
+* transactions
+* saved jobs
+* saved gigs
+* skills
+* categories
+* CV/resume
+* portfolio
+* experience
+* education
+
+Then explain:
+
+* how this maps later into MySQL
+* how Angular will consume the data
+* how Spring Boot entities/services/controllers would later connect
+
+DO NOT WRITE CODE.

@@ -1,0 +1,34 @@
+Now help me design the Angular frontend architecture.
+
+I want to understand:
+
+1. Folder structure
+2. Component structure
+3. Shared components
+4. Feature modules
+5. Routing strategy
+6. Guards
+7. Services
+8. State management
+9. API flow
+10. Reusable UI strategy
+11. Dashboard architecture
+12. Authentication flow
+13. Navbar behavior
+14. Layout strategy
+15. Lazy loading vs non-lazy loading
+16. Form architecture
+17. Validation architecture
+18. Notification architecture
+19. Search/filter architecture
+20. Chat UI architecture
+
+Explain:
+
+* WHY each architectural decision matters
+* beginner-friendly approaches
+* scalable approaches
+* what to use for Angular + JSON Server first
+* what to improve later with Spring Boot
+
+DO NOT WRITE CODE.
