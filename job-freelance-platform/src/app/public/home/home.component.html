@@ -1,0 +1,138 @@
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container text-center">
+    <h1>Find Jobs. Hire Talent. Grow Your Career.</h1>
+    <p class="mb-4">Bangladesh's leading job portal and freelance marketplace.</p>
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+      <a routerLink="/jobs" class="btn btn-light btn-lg px-4">Browse Jobs</a>
+      <a routerLink="/gigs" class="btn btn-outline-light btn-lg px-4">Browse Gigs</a>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-5 bg-white">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-3 col-sm-6" *ngFor="let stat of stats">
+        <app-stats-card [title]="stat.title" [value]="stat.value" [icon]="stat.icon" [color]="stat.color"></app-stats-card>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Jobs -->
+<section class="py-5">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h2 class="section-title">Featured Jobs</h2>
+        <p class="section-subtitle mb-0">Latest opportunities from top companies</p>
+      </div>
+      <a routerLink="/jobs" class="btn btn-outline-primary">View All Jobs</a>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-3 col-md-6" *ngFor="let job of featuredJobs">
+        <app-job-card
+          [jobId]="job.jobId"
+          [title]="job.title"
+          [company]="job.company"
+          [location]="job.location"
+          [salary]="job.salary"
+          [jobType]="job.jobType"
+          [deadline]="job.deadline">
+        </app-job-card>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Gigs -->
+<section class="py-5 bg-white">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h2 class="section-title">Featured Gigs</h2>
+        <p class="section-subtitle mb-0">Top freelance services ready to hire</p>
+      </div>
+      <a routerLink="/gigs" class="btn btn-outline-primary">View All Gigs</a>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-3 col-md-6" *ngFor="let gig of featuredGigs">
+        <app-gig-card
+          [gigId]="gig.gigId"
+          [title]="gig.title"
+          [sellerName]="gig.sellerName"
+          [price]="gig.price"
+          [rating]="gig.rating"
+          [reviewCount]="gig.reviewCount"
+          [category]="gig.category">
+        </app-gig-card>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Freelancers -->
+<section class="py-5">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h2 class="section-title">Top Freelancers</h2>
+        <p class="section-subtitle mb-0">Hire skilled professionals for your projects</p>
+      </div>
+      <a routerLink="/freelancers" class="btn btn-outline-primary">View All</a>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6" *ngFor="let fl of featuredFreelancers">
+        <app-freelancer-card
+          [userId]="fl.userId"
+          [name]="fl.name"
+          [title]="fl.title"
+          [skills]="fl.skills"
+          [rating]="fl.rating"
+          [reviewCount]="fl.reviewCount"
+          [hourlyRate]="fl.hourlyRate"
+          [location]="fl.location">
+        </app-freelancer-card>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Companies -->
+<section class="py-5 bg-white">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h2 class="section-title">Top Companies Hiring</h2>
+        <p class="section-subtitle mb-0">Join industry-leading organizations</p>
+      </div>
+      <a routerLink="/companies" class="btn btn-outline-primary">View All</a>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-3 col-md-6" *ngFor="let co of featuredCompanies">
+        <app-company-card
+          [companyId]="co.companyId"
+          [name]="co.name"
+          [industry]="co.industry"
+          [location]="co.location"
+          [jobCount]="co.jobCount"
+          [size]="co.size">
+        </app-company-card>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5" style="background: linear-gradient(135deg,#1e3a5f,#0d6efd); color:#fff;">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-3">Ready to Get Started?</h2>
+    <p class="mb-4 opacity-75">Join thousands of professionals already using WorkBridge.</p>
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+      <a routerLink="/register" class="btn btn-light btn-lg px-4">Create Free Account</a>
+      <a routerLink="/contact" class="btn btn-outline-light btn-lg px-4">Contact Us</a>
+    </div>
+  </div>
+</section>

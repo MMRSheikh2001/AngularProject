@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h5 class="page-title mb-0">Manage Job Postings</h5>
+  <a routerLink="/company/post-job" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle me-1"></i>Post a New Job</a>
+</div>
+
+<div class="card border-0 shadow-sm">
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th class="px-4">Job Title</th>
+            <th>Type</th>
+            <th>Applicants Received</th>
+            <th>Date Posted</th>
+            <th>Status</th>
+            <th class="text-center px-4">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let job of jobs">
+            <td class="px-4 fw-semibold">{{ job.title }}</td>
+            <td><span class="badge bg-secondary bg-opacity-10 text-secondary">{{ job.type }}</span></td>
+            <td>
+              <a routerLink="/company/applicants" class="fw-bold text-primary">
+                {{ job.applicants }} applicants
+              </a>
+            </td>
+            <td class="text-muted">{{ job.postedDate }}</td>
+            <td>
+              <span class="badge px-3 py-2 text-capitalize" [class.bg-success]="job.status === 'Active'" [class.bg-secondary]="job.status === 'Closed'">
+                {{ job.status }}
+              </span>
+            </td>
+            <td class="text-center px-4">
+              <div class="d-flex gap-2 justify-content-center">
+                <button type="button" class="btn btn-outline-secondary btn-sm" (click)="toggleStatus(job)" [title]="job.status === 'Active' ? 'Close Posting' : 'Reopen Posting'">
+                  <i class="bi" [class.bi-pause-fill]="job.status === 'Active'" [class.bi-play-fill]="job.status === 'Closed'"></i>
+                </button>
+                <a routerLink="/company/applicants" class="btn btn-outline-primary btn-sm">
+                  <i class="bi bi-people"></i> View Applicants
+                </a>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="jobs.length === 0">
+            <td colspan="6" class="text-center py-5 text-muted">
+              <i class="bi bi-briefcase" style="font-size: 3rem;"></i>
+              <h6 class="mt-3">No Jobs Posted</h6>
+              <p class="small">You haven't posted any jobs yet.</p>
+              <a routerLink="/company/post-job" class="btn btn-primary btn-sm mt-3">Post First Job</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

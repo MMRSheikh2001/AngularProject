@@ -1,0 +1,122 @@
+<div class="min-vh-100 bg-light py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-7">
+
+        <!-- Brand -->
+        <div class="text-center mb-4">
+          <a routerLink="/home" class="text-decoration-none">
+            <h2 class="fw-bold text-primary"><i class="bi bi-briefcase-fill me-2"></i>WorkBridge</h2>
+          </a>
+          <p class="text-muted">Create your free account</p>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-4">
+            <h5 class="fw-semibold mb-4">Create Account</h5>
+
+            <!-- Role Selection -->
+            <div class="mb-4">
+              <label class="form-label fw-semibold">I am a:</label>
+              <div class="d-flex gap-3">
+                <div class="flex-fill">
+                  <input type="radio" class="btn-check" id="roleUser" name="role" value="user"
+                         [checked]="selectedRole === 'user'" (change)="selectRole('user')" />
+                  <label class="btn btn-outline-primary w-100" for="roleUser">
+                    <i class="bi bi-person-fill d-block fs-4 mb-1"></i>
+                    Job Seeker / Freelancer
+                  </label>
+                </div>
+                <div class="flex-fill">
+                  <input type="radio" class="btn-check" id="roleCompany" name="role" value="company"
+                         [checked]="selectedRole === 'company'" (change)="selectRole('company')" />
+                  <label class="btn btn-outline-secondary w-100" for="roleCompany">
+                    <i class="bi bi-building-fill d-block fs-4 mb-1"></i>
+                    Company / Employer
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <form (ngSubmit)="onSubmit()">
+
+              <!-- User fields -->
+              <div *ngIf="selectedRole === 'user'">
+                <div class="row g-3 mb-3">
+                  <div class="col-6">
+                    <label for="firstName" class="form-label fw-semibold">First Name</label>
+                    <input type="text" id="firstName" class="form-control" placeholder="First name"
+                           [(ngModel)]="firstName" name="firstName" required />
+                  </div>
+                  <div class="col-6">
+                    <label for="lastName" class="form-label fw-semibold">Last Name</label>
+                    <input type="text" id="lastName" class="form-control" placeholder="Last name"
+                           [(ngModel)]="lastName" name="lastName" required />
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="userPhone" class="form-label fw-semibold">Phone Number</label>
+                  <input type="tel" id="userPhone" class="form-control" placeholder="+880 17xx-xxxxxx"
+                         [(ngModel)]="phone" name="phone" />
+                </div>
+              </div>
+
+              <!-- Company fields -->
+              <div *ngIf="selectedRole === 'company'">
+                <div class="mb-3">
+                  <label for="companyName" class="form-label fw-semibold">Company Name</label>
+                  <input type="text" id="companyName" class="form-control" placeholder="Your company name"
+                         [(ngModel)]="companyName" name="companyName" required />
+                </div>
+                <div class="mb-3">
+                  <label for="industry" class="form-label fw-semibold">Industry</label>
+                  <select id="industry" class="form-select" [(ngModel)]="industry" name="industry" required>
+                    <option value="">Select industry...</option>
+                    <option *ngFor="let ind of industries" [value]="ind">{{ ind }}</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="companyPhone" class="form-label fw-semibold">Company Phone</label>
+                  <input type="tel" id="companyPhone" class="form-control" placeholder="+880 2x-xxxxxxx"
+                         [(ngModel)]="companyPhone" name="companyPhone" />
+                </div>
+              </div>
+
+              <!-- Common fields -->
+              <div class="mb-3">
+                <label for="regEmail" class="form-label fw-semibold">Email Address</label>
+                <input type="email" id="regEmail" class="form-control" placeholder="your@email.com"
+                       [(ngModel)]="email" name="email" required />
+              </div>
+              <div class="mb-3">
+                <label for="regPassword" class="form-label fw-semibold">Password</label>
+                <input type="password" id="regPassword" class="form-control" placeholder="Minimum 8 characters"
+                       [(ngModel)]="password" name="password" required />
+              </div>
+              <div class="mb-3">
+                <label for="confirmPassword" class="form-label fw-semibold">Confirm Password</label>
+                <input type="password" id="confirmPassword" class="form-control" placeholder="Repeat your password"
+                       [(ngModel)]="confirmPassword" name="confirmPassword" required />
+              </div>
+              <div class="mb-4 form-check">
+                <input type="checkbox" id="agreeTerms" class="form-check-input" [(ngModel)]="agreeTerms" name="agreeTerms" required />
+                <label for="agreeTerms" class="form-check-label small">
+                  I agree to the <a href="#" class="text-primary">Terms of Service</a> and <a href="#" class="text-primary">Privacy Policy</a>
+                </label>
+              </div>
+
+              <button type="submit" class="btn btn-primary w-100">Create Account</button>
+            </form>
+
+            <hr class="my-3">
+            <p class="text-center text-muted small mb-0">
+              Already have an account?
+              <a routerLink="/login" class="text-primary fw-semibold text-decoration-none">Sign in</a>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

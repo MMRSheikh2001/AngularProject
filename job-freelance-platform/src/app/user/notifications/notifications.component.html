@@ -1,0 +1,39 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h5 class="page-title mb-0">Notifications</h5>
+  <button *ngIf="unreadCount > 0" type="button" class="btn btn-outline-primary btn-sm" (click)="markAllRead()">
+    Mark All as Read
+  </button>
+</div>
+
+<div class="card border-0 shadow-sm">
+  <div class="card-body p-0">
+    <div class="list-group list-group-flush">
+      <div
+        *ngFor="let notif of notifications"
+        class="list-group-item p-3 d-flex align-items-start gap-3 border-bottom"
+        [class.bg-light]="!notif.read"
+      >
+        <div class="rounded-circle bg-primary bg-opacity-10 p-2 text-primary flex-shrink-0">
+          <i class="bi {{ notif.icon }} fs-5"></i>
+        </div>
+        <div class="flex-grow-1">
+          <p class="mb-1 text-dark" [class.fw-semibold]="!notif.read">{{ notif.text }}</p>
+          <small class="text-muted">{{ notif.time }}</small>
+        </div>
+        <button
+          *ngIf="!notif.read"
+          type="button"
+          class="btn btn-link btn-sm text-decoration-none"
+          (click)="markRead(notif.id)"
+        >
+          Mark as Read
+        </button>
+      </div>
+      <div *ngIf="notifications.length === 0" class="text-center py-5 text-muted">
+        <i class="bi bi-bell-slash" style="font-size: 3rem;"></i>
+        <h6 class="mt-3">All Caught Up!</h6>
+        <p class="small mb-0">You have no new notifications.</p>
+      </div>
+    </div>
+  </div>
+</div>

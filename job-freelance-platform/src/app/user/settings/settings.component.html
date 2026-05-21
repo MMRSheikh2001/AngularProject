@@ -1,0 +1,97 @@
+<div class="page-title">Settings</div>
+
+<div class="row g-4">
+  <!-- Settings Form Column -->
+  <div class="col-lg-8">
+
+    <!-- Account Details -->
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-body">
+        <h6 class="fw-semibold mb-3 border-bottom pb-2">Account Settings</h6>
+        <form (ngSubmit)="onSaveAccount()">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Email Address</label>
+            <input type="email" class="form-control" [(ngModel)]="email" name="settingsEmail" required />
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Current Password</label>
+            <input type="password" class="form-control" [(ngModel)]="currentPassword" name="settingsCurrPass" />
+          </div>
+          <div class="row g-3 mb-4">
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">New Password</label>
+              <input type="password" class="form-control" [(ngModel)]="newPassword" name="settingsNewPass" />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Confirm Password</label>
+              <input type="password" class="form-control" [(ngModel)]="confirmPassword" name="settingsConfPass" />
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm">Update Account</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Email Notifications -->
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-body">
+        <h6 class="fw-semibold mb-3 border-bottom pb-2">Email Notifications</h6>
+        <form (ngSubmit)="onSaveNotifications()">
+          <div class="form-check mb-2">
+            <input type="checkbox" class="form-check-input" id="emailNotif" [(ngModel)]="emailNotifications" name="emailNotif" />
+            <label class="form-check-label small" for="emailNotif">Send me email updates for system alerts</label>
+          </div>
+          <div class="form-check mb-2">
+            <input type="checkbox" class="form-check-input" id="jobAlerts" [(ngModel)]="jobAlerts" name="jobAlerts" />
+            <label class="form-check-label small" for="jobAlerts">Notify me of new job listings matching my skills</label>
+          </div>
+          <div class="form-check mb-2">
+            <input type="checkbox" class="form-check-input" id="orderUpdates" [(ngModel)]="orderUpdates" name="orderUpdates" />
+            <label class="form-check-label small" for="orderUpdates">Notify me when there is an update to my order</label>
+          </div>
+          <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="messageAlerts" [(ngModel)]="messageAlerts" name="messageAlerts" />
+            <label class="form-check-label small" for="messageAlerts">Notify me when I receive a chat message</label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm">Save Preferences</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Privacy Settings -->
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-body">
+        <h6 class="fw-semibold mb-3 border-bottom pb-2">Privacy Settings</h6>
+        <form (ngSubmit)="onSavePrivacy()">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Profile Visibility</label>
+            <select class="form-select" [(ngModel)]="profileVisibility" name="profileVisibility">
+              <option value="public">Public (Visible to everyone)</option>
+              <option value="companies">Companies Only (Only registered employers)</option>
+              <option value="private">Private (Only you can see)</option>
+            </select>
+          </div>
+          <div class="form-check mb-2">
+            <input type="checkbox" class="form-check-input" id="showEmail" [(ngModel)]="showEmail" name="showEmail" />
+            <label class="form-check-label small" for="showEmail">Display email address publicly on my profile</label>
+          </div>
+          <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="showPhone" [(ngModel)]="showPhone" name="showPhone" />
+            <label class="form-check-label small" for="showPhone">Display phone number publicly on my profile</label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm">Save Privacy</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Delete Account -->
+    <div class="card border-danger bg-danger bg-opacity-10 shadow-sm">
+      <div class="card-body">
+        <h6 class="fw-semibold text-danger mb-2">Danger Zone</h6>
+        <p class="small text-muted mb-3">Once you delete your account, there is no going back. All of your user data, applications, and wallet details will be deleted permanently.</p>
+        <button type="button" class="btn btn-danger btn-sm" (click)="onDeleteAccount()">Delete Account</button>
+      </div>
+    </div>
+
+  </div>
+</div>

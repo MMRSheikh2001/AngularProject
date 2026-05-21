@@ -1,0 +1,134 @@
+<!-- Breadcrumb -->
+<div class="bg-white border-bottom py-3">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+        <li class="breadcrumb-item"><a routerLink="/freelancers">Freelancers</a></li>
+        <li class="breadcrumb-item active">{{ freelancer.name }}</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<div class="container py-4">
+  <div class="row g-4">
+
+    <!-- Left: profile -->
+    <div class="col-lg-8">
+
+      <!-- Profile card -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-start gap-4">
+            <div class="avatar-circle" style="width:80px;height:80px;font-size:2rem;flex-shrink:0;">
+              {{ freelancer.name.charAt(0) }}
+            </div>
+            <div class="flex-grow-1">
+              <h1 class="h4 fw-bold mb-1">{{ freelancer.name }}</h1>
+              <p class="text-muted mb-2">{{ freelancer.title }}</p>
+              <p class="small text-muted mb-2"><i class="bi bi-geo-alt me-1"></i>{{ freelancer.location.full }}</p>
+              <div class="d-flex align-items-center gap-3">
+                <span><i class="bi bi-star-fill text-warning me-1"></i><strong>{{ freelancer.rating }}</strong> ({{ freelancer.reviewCount }} reviews)</span>
+                <span class="text-muted small">{{ freelancer.completedOrders }} orders completed</span>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <p class="text-muted mb-3">{{ freelancer.bio }}</p>
+          <div class="d-flex gap-2 flex-wrap">
+            <a [href]="freelancer.github" target="_blank" class="btn btn-sm btn-outline-dark"><i class="bi bi-github me-1"></i>GitHub</a>
+            <a [href]="freelancer.linkedin" target="_blank" class="btn btn-sm btn-outline-primary"><i class="bi bi-linkedin me-1"></i>LinkedIn</a>
+            <a routerLink="/register" class="btn btn-sm btn-primary ms-auto">Hire Me</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-4">
+          <h6 class="fw-semibold mb-3">Skills</h6>
+          <div class="d-flex flex-wrap gap-2">
+            <span *ngFor="let skill of freelancer.skills" class="badge bg-primary bg-opacity-10 text-primary">{{ skill }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-4">
+          <h6 class="fw-semibold mb-3">Education</h6>
+          <div *ngFor="let edu of freelancer.education" class="d-flex justify-content-between mb-2">
+            <div>
+              <p class="fw-semibold mb-0">{{ edu.degree }}</p>
+              <small class="text-muted">{{ edu.institution }}</small>
+            </div>
+            <small class="text-muted">{{ edu.year }}</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Experience -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-4">
+          <h6 class="fw-semibold mb-3">Experience</h6>
+          <div *ngFor="let exp of freelancer.experience" class="d-flex justify-content-between mb-2">
+            <div>
+              <p class="fw-semibold mb-0">{{ exp.role }}</p>
+              <small class="text-muted">{{ exp.company }}</small>
+            </div>
+            <small class="text-muted">{{ exp.duration }}</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Portfolio -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-4">
+          <h6 class="fw-semibold mb-3">Portfolio</h6>
+          <div class="row g-2">
+            <div class="col-4" *ngFor="let item of freelancer.portfolio">
+              <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height:100px;">
+                <i class="bi bi-image text-muted fs-4"></i>
+              </div>
+              <small class="text-muted d-block mt-1 text-center">{{ item }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reviews -->
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+          <h6 class="fw-semibold mb-3">Client Reviews</h6>
+          <div *ngFor="let r of freelancer.reviews" class="border-bottom pb-3 mb-3">
+            <div class="d-flex justify-content-between">
+              <strong>{{ r.reviewer }}</strong>
+              <small class="text-muted">{{ r.date }}</small>
+            </div>
+            <div class="d-flex gap-1 my-1">
+              <i class="bi bi-star-fill text-warning small" *ngFor="let s of [].constructor(r.rating)"></i>
+            </div>
+            <p class="text-muted small mb-0">{{ r.comment }}</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right: sidebar -->
+    <div class="col-lg-4">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+          <h6 class="fw-semibold mb-3">Hire {{ freelancer.name }}</h6>
+          <p class="text-muted small mb-1"><i class="bi bi-cash-coin me-2 text-primary"></i><strong>Rate:</strong> ৳{{ freelancer.hourlyRate }}/hr</p>
+          <p class="text-muted small mb-1"><i class="bi bi-geo-alt me-2 text-primary"></i><strong>Location:</strong> {{ freelancer.location.district }}, {{ freelancer.location.division }}</p>
+          <p class="text-muted small mb-3"><i class="bi bi-calendar3 me-2 text-primary"></i><strong>Member since:</strong> {{ freelancer.memberSince }}</p>
+          <a routerLink="/register" class="btn btn-primary w-100 mb-2">Hire Now</a>
+          <button class="btn btn-outline-secondary w-100">Send Message</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,98 @@
+<!-- Header -->
+<div class="bg-white border-bottom py-4">
+  <div class="container">
+    <h1 class="page-title mb-1">Contact Us</h1>
+    <p class="text-muted mb-0">We'd love to hear from you</p>
+  </div>
+</div>
+
+<div class="container py-5">
+  <div class="row g-4">
+
+    <!-- Contact form -->
+    <div class="col-lg-7">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+
+          <div *ngIf="submitted" class="alert alert-success">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            Thank you! Your message has been sent. We'll get back to you within 24 hours.
+          </div>
+
+          <form (ngSubmit)="onSubmit()" *ngIf="!submitted">
+            <div class="mb-3">
+              <label for="contactName" class="form-label fw-semibold">Full Name</label>
+              <input type="text" id="contactName" class="form-control" placeholder="Your full name" [(ngModel)]="name" name="name" required />
+            </div>
+            <div class="mb-3">
+              <label for="contactEmail" class="form-label fw-semibold">Email Address</label>
+              <input type="email" id="contactEmail" class="form-control" placeholder="your@email.com" [(ngModel)]="email" name="email" required />
+            </div>
+            <div class="mb-3">
+              <label for="contactSubject" class="form-label fw-semibold">Subject</label>
+              <input type="text" id="contactSubject" class="form-control" placeholder="How can we help?" [(ngModel)]="subject" name="subject" required />
+            </div>
+            <div class="mb-4">
+              <label for="contactMessage" class="form-label fw-semibold">Message</label>
+              <textarea id="contactMessage" class="form-control" rows="5" placeholder="Write your message here..." [(ngModel)]="message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary px-4">
+              <i class="bi bi-send me-2"></i>Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact info -->
+    <div class="col-lg-5">
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-4">
+          <h6 class="fw-semibold mb-3">Get In Touch</h6>
+          <ul class="list-unstyled text-muted">
+            <li class="mb-3 d-flex gap-3">
+              <i class="bi bi-envelope-fill text-primary fs-5"></i>
+              <div>
+                <p class="fw-semibold mb-0">Email</p>
+                <p class="mb-0 small">support&#64;workbridge.com.bd</p>
+              </div>
+            </li>
+            <li class="mb-3 d-flex gap-3">
+              <i class="bi bi-telephone-fill text-primary fs-5"></i>
+              <div>
+                <p class="fw-semibold mb-0">Phone</p>
+                <p class="mb-0 small">+880 1700-000000</p>
+              </div>
+            </li>
+            <li class="mb-3 d-flex gap-3">
+              <i class="bi bi-geo-alt-fill text-primary fs-5"></i>
+              <div>
+                <p class="fw-semibold mb-0">Office</p>
+                <p class="mb-0 small">Gulshan-2, Dhaka-1212, Bangladesh</p>
+              </div>
+            </li>
+            <li class="d-flex gap-3">
+              <i class="bi bi-clock-fill text-primary fs-5"></i>
+              <div>
+                <p class="fw-semibold mb-0">Office Hours</p>
+                <p class="mb-0 small">Sun–Thu: 9:00 AM – 6:00 PM</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+          <h6 class="fw-semibold mb-3">Follow Us</h6>
+          <div class="d-flex gap-2">
+            <a href="#" class="btn btn-outline-primary"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="btn btn-outline-primary"><i class="bi bi-linkedin"></i></a>
+            <a href="#" class="btn btn-outline-dark"><i class="bi bi-twitter-x"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,148 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h5 class="page-title mb-0">ATS-Friendly CV Builder</h5>
+  <a routerLink="/user/cv-preview" class="btn btn-outline-primary btn-sm"><i class="bi bi-eye me-1"></i>Preview CV</a>
+</div>
+
+<form>
+  <div class="row g-4">
+    <!-- Main Form Fields -->
+    <div class="col-lg-8">
+      <!-- Contact / Personal Details -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <h6 class="fw-semibold mb-3 border-bottom pb-2">Contact Details</h6>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Full Name</label>
+              <input type="text" class="form-control" [(ngModel)]="fullName" name="fullName" required />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Job Title</label>
+              <input type="text" class="form-control" [(ngModel)]="jobTitle" name="jobTitle" placeholder="e.g. Senior Frontend Developer" required />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Email Address</label>
+              <input type="email" class="form-control" [(ngModel)]="email" name="email" required />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Phone Number</label>
+              <input type="tel" class="form-control" [(ngModel)]="phone" name="phone" required />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">LinkedIn Profile URL</label>
+              <input type="text" class="form-control" [(ngModel)]="linkedin" name="linkedin" />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">GitHub Profile URL</label>
+              <input type="text" class="form-control" [(ngModel)]="github" name="github" />
+            </div>
+            <div class="col-12">
+              <label class="form-label fw-semibold">Location / Address</label>
+              <input type="text" class="form-control" [(ngModel)]="address" name="address" placeholder="e.g. Dhaka, Bangladesh" required />
+            </div>
+            <div class="col-12">
+              <label class="form-label fw-semibold">Professional Summary</label>
+              <textarea class="form-control" rows="4" [(ngModel)]="summary" name="summary" placeholder="A concise summary of your skills, experience, and career goals..."></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <h6 class="fw-semibold mb-3 border-bottom pb-2">Technical Skills</h6>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Skills (comma-separated)</label>
+            <input type="text" class="form-control" [(ngModel)]="skills" name="skills" placeholder="e.g. JavaScript, Angular, Node.js, Git" required />
+            <small class="text-muted">Enter keywords relevant to ATS filtering.</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Experience -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+            <h6 class="fw-semibold mb-0">Professional Experience</h6>
+            <button type="button" class="btn btn-sm btn-outline-primary" (click)="addExperience()">
+              <i class="bi bi-plus-circle me-1"></i>Add Work
+            </button>
+          </div>
+
+          <div *ngFor="let exp of experience; let i = index" class="border rounded p-3 mb-3 bg-light bg-opacity-50">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold">Job Role / Title</label>
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="exp.role" name="expRole_{{i}}" required />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold">Company Name</label>
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="exp.company" name="expCompany_{{i}}" required />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold">Duration (e.g. 2021–Present)</label>
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="exp.duration" name="expDuration_{{i}}" required />
+              </div>
+              <div class="col-12">
+                <label class="form-label small fw-semibold">Key Achievements / Description</label>
+                <textarea class="form-control form-control-sm" rows="3" [(ngModel)]="exp.description" name="expDescription_{{i}}"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+            <h6 class="fw-semibold mb-0">Education</h6>
+            <button type="button" class="btn btn-sm btn-outline-primary" (click)="addEducation()">
+              <i class="bi bi-plus-circle me-1"></i>Add Education
+            </button>
+          </div>
+
+          <div *ngFor="let edu of education; let i = index" class="border rounded p-3 mb-3 bg-light bg-opacity-50">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold">Degree / Certificate</label>
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="edu.degree" name="eduDegree_{{i}}" required />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold">School / Institution</label>
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="edu.institution" name="eduInstitution_{{i}}" required />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold">Year Range (e.g. 2017–2021)</label>
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="edu.year" name="eduYear_{{i}}" required />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold">Result (e.g. CGPA, GPA)</label>
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="edu.result" name="eduResult_{{i}}" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Side card for info & submit -->
+    <div class="col-lg-4">
+      <div class="card border-0 shadow-sm sticky-top" style="top: 80px;">
+        <div class="card-body">
+          <h6 class="fw-semibold mb-3 border-bottom pb-2">CV Guidelines</h6>
+          <ul class="small text-muted ps-3 mb-4">
+            <li class="mb-2">Use plain, professional language.</li>
+            <li class="mb-2">Ensure contact details are up to date.</li>
+            <li class="mb-2">List skills matching job descriptions.</li>
+            <li class="mb-2">Write action-oriented achievements.</li>
+          </ul>
+          <button type="button" class="btn btn-primary w-100 mb-2" routerLink="/user/cv-preview">
+            <i class="bi bi-save me-1"></i> Save & Preview
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

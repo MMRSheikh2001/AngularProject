@@ -1,0 +1,91 @@
+<div class="page-title">Admin Dashboard</div>
+
+<!-- Stats -->
+<div class="row g-4 mb-4">
+  <div class="col-md-3 col-sm-6" *ngFor="let stat of stats">
+    <app-stats-card [title]="stat.title" [value]="stat.value" [icon]="stat.icon" [color]="stat.color"></app-stats-card>
+  </div>
+</div>
+
+<div class="row g-4">
+
+  <!-- Recent Signups -->
+  <div class="col-lg-6">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h6 class="fw-semibold mb-0">Recent Signups</h6>
+          <a routerLink="/admin/manage-users" class="btn btn-sm btn-outline-primary">Manage Users</a>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Joined</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of recentSignups">
+                <td class="small">
+                  <p class="fw-semibold mb-0">{{ user.name }}</p>
+                  <span class="text-muted small">{{ user.email }}</span>
+                </td>
+                <td>
+                  <span class="badge" [class.bg-primary]="user.role === 'User'" [class.bg-secondary]="user.role === 'Company'">
+                    {{ user.role }}
+                  </span>
+                </td>
+                <td class="text-muted small">{{ user.date }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- System Reports / Flags -->
+  <div class="col-lg-6">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h6 class="fw-semibold mb-0">Recent Reports / Flags</h6>
+        </div>
+        <div *ngFor="let report of recentReports" class="border rounded p-3 mb-2">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <div>
+              <span class="badge bg-danger bg-opacity-10 text-danger small">Flagged Post</span>
+              <p class="fw-bold small mb-0 mt-1">{{ report.target }}</p>
+            </div>
+            <span class="badge" [class.bg-warning]="report.status === 'Pending'" [class.bg-success]="report.status === 'Resolved'">
+              {{ report.status }}
+            </span>
+          </div>
+          <p class="text-muted small mb-1"><strong>Reason:</strong> {{ report.reason }}</p>
+          <div class="d-flex justify-content-between text-muted small">
+            <span>By: {{ report.reporter }}</span>
+            <span>{{ report.date }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- System Quick Links -->
+  <div class="col-12">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <h6 class="fw-semibold mb-3">Quick Links</h6>
+        <div class="d-flex flex-wrap gap-2">
+          <a routerLink="/admin/manage-users" class="btn btn-outline-primary btn-sm"><i class="bi bi-people me-1"></i>Manage Users</a>
+          <a routerLink="/admin/manage-jobs" class="btn btn-outline-primary btn-sm"><i class="bi bi-briefcase me-1"></i>Manage Jobs</a>
+          <a routerLink="/admin/manage-gigs" class="btn btn-outline-warning btn-sm"><i class="bi bi-grid me-1"></i>Manage Gigs</a>
+          <a routerLink="/admin/settings" class="btn btn-outline-secondary btn-sm"><i class="bi bi-gear me-1"></i>System Settings</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

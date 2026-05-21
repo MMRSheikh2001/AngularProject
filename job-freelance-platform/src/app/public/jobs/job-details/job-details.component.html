@@ -1,0 +1,105 @@
+<!-- Breadcrumb -->
+<div class="bg-white border-bottom py-3">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+        <li class="breadcrumb-item"><a routerLink="/jobs">Jobs</a></li>
+        <li class="breadcrumb-item active">{{ job.title }}</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<div class="container py-4">
+  <div class="row g-4">
+
+    <!-- Main Content -->
+    <div class="col-lg-8">
+
+      <!-- Job header card -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-start gap-3 mb-3">
+            <div class="rounded border p-3 bg-light d-flex align-items-center justify-content-center" style="width:64px;height:64px;">
+              <i class="bi bi-building text-primary fs-3"></i>
+            </div>
+            <div class="flex-grow-1">
+              <h1 class="h4 fw-bold mb-1">{{ job.title }}</h1>
+              <p class="text-muted mb-2">{{ job.company }} &bull; {{ job.location }}</p>
+              <div class="d-flex flex-wrap gap-2">
+                <span class="badge bg-primary bg-opacity-10 text-primary">{{ job.jobType }}</span>
+                <span class="badge bg-secondary bg-opacity-10 text-secondary"><i class="bi bi-cash me-1"></i>{{ job.salary }}</span>
+                <span class="badge bg-warning bg-opacity-10 text-warning"><i class="bi bi-clock me-1"></i>Deadline: {{ job.deadline }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex gap-2">
+            <a routerLink="/register" class="btn btn-primary px-4">Apply Now</a>
+            <button class="btn btn-outline-secondary"><i class="bi bi-bookmark me-1"></i>Save</button>
+            <button class="btn btn-outline-secondary"><i class="bi bi-share me-1"></i>Share</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-4">
+          <h5 class="fw-semibold mb-3">Job Description</h5>
+          <p class="text-muted">{{ job.description }}</p>
+
+          <h6 class="fw-semibold mt-4 mb-2">Requirements</h6>
+          <ul class="text-muted">
+            <li *ngFor="let req of job.requirements">{{ req }}</li>
+          </ul>
+
+          <h6 class="fw-semibold mt-4 mb-2">Responsibilities</h6>
+          <ul class="text-muted">
+            <li *ngFor="let res of job.responsibilities">{{ res }}</li>
+          </ul>
+
+          <h6 class="fw-semibold mt-4 mb-2">Benefits</h6>
+          <div class="d-flex flex-wrap gap-2">
+            <span *ngFor="let b of job.benefits" class="badge bg-success bg-opacity-10 text-success">
+              <i class="bi bi-check-circle me-1"></i>{{ b }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div class="col-lg-4">
+
+      <!-- Job summary -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-4">
+          <h6 class="fw-semibold mb-3">Job Overview</h6>
+          <ul class="list-unstyled text-muted small">
+            <li class="mb-2"><i class="bi bi-calendar3 me-2 text-primary"></i><strong>Posted:</strong> {{ job.posted }}</li>
+            <li class="mb-2"><i class="bi bi-clock me-2 text-primary"></i><strong>Deadline:</strong> {{ job.deadline }}</li>
+            <li class="mb-2"><i class="bi bi-briefcase me-2 text-primary"></i><strong>Type:</strong> {{ job.jobType }}</li>
+            <li class="mb-2"><i class="bi bi-geo-alt me-2 text-primary"></i><strong>Location:</strong> {{ job.location }}</li>
+            <li class="mb-2"><i class="bi bi-person-badge me-2 text-primary"></i><strong>Experience:</strong> {{ job.experience }}</li>
+            <li class="mb-2"><i class="bi bi-cash-coin me-2 text-primary"></i><strong>Salary:</strong> {{ job.salary }}</li>
+          </ul>
+          <a routerLink="/register" class="btn btn-primary w-100 mt-2">Apply Now</a>
+        </div>
+      </div>
+
+      <!-- Company info -->
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+          <h6 class="fw-semibold mb-3">About the Company</h6>
+          <p class="fw-semibold mb-1">{{ job.companyInfo.name }}</p>
+          <p class="text-muted small mb-1"><i class="bi bi-building me-1"></i>{{ job.companyInfo.industry }}</p>
+          <p class="text-muted small mb-1"><i class="bi bi-people me-1"></i>{{ job.companyInfo.size }}</p>
+          <p class="text-muted small mb-3"><i class="bi bi-geo-alt me-1"></i>{{ job.companyInfo.location }}</p>
+          <a routerLink="/companies/1" class="btn btn-outline-secondary btn-sm w-100">View Company Profile</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

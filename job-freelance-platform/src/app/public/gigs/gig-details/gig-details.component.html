@@ -1,0 +1,129 @@
+<!-- Breadcrumb -->
+<div class="bg-white border-bottom py-3">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+        <li class="breadcrumb-item"><a routerLink="/gigs">Gigs</a></li>
+        <li class="breadcrumb-item active">{{ gig.title }}</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<div class="container py-4">
+  <div class="row g-4">
+
+    <!-- Left: Gig info -->
+    <div class="col-lg-8">
+
+      <!-- Title -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-4">
+          <span class="badge bg-info bg-opacity-10 text-info mb-2">{{ gig.category }}</span>
+          <h1 class="h5 fw-bold mb-3">{{ gig.title }}</h1>
+
+          <!-- Seller info -->
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="avatar-circle" style="width:48px;height:48px;font-size:1.2rem;">
+              {{ gig.seller.name.charAt(0) }}
+            </div>
+            <div>
+              <p class="fw-semibold mb-0">{{ gig.seller.name }}</p>
+              <small class="text-muted">{{ gig.seller.title }}</small>
+            </div>
+            <div class="ms-auto d-flex align-items-center gap-1">
+              <i class="bi bi-star-fill text-warning"></i>
+              <strong>{{ gig.seller.rating }}</strong>
+              <span class="text-muted small">({{ gig.seller.reviewCount }} reviews)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Portfolio gallery -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-4">
+          <h6 class="fw-semibold mb-3">Portfolio</h6>
+          <div class="row g-2">
+            <div class="col-6" *ngFor="let item of gig.portfolio">
+              <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height:120px;">
+                <i class="bi bi-image text-muted fs-3"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-4">
+          <h6 class="fw-semibold mb-3">About This Gig</h6>
+          <p class="text-muted">{{ gig.description }}</p>
+        </div>
+      </div>
+
+      <!-- Reviews -->
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+          <h6 class="fw-semibold mb-3">Reviews</h6>
+          <div *ngFor="let review of gig.reviews" class="border-bottom pb-3 mb-3">
+            <div class="d-flex justify-content-between">
+              <strong>{{ review.reviewer }}</strong>
+              <small class="text-muted">{{ review.date }}</small>
+            </div>
+            <div class="d-flex gap-1 my-1">
+              <i class="bi bi-star-fill text-warning small" *ngFor="let s of [].constructor(review.rating)"></i>
+            </div>
+            <p class="text-muted small mb-0">{{ review.comment }}</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right: Pricing packages -->
+    <div class="col-lg-4">
+      <div class="card border-0 shadow-sm sticky-top" style="top:80px;">
+        <div class="card-body p-0">
+
+          <!-- Package tabs -->
+          <ul class="nav nav-pills p-2 gap-1">
+            <li class="nav-item" *ngFor="let pkg of gig.packages; let i = index">
+              <button class="nav-link" [class.active]="selectedPackage === i" (click)="selectPackage(i)">
+                {{ pkg.name }}
+              </button>
+            </li>
+          </ul>
+
+          <div class="p-4">
+            <h4 class="fw-bold mb-1">৳{{ gig.packages[selectedPackage].price }}</h4>
+            <p class="text-muted small mb-3">
+              <i class="bi bi-clock me-1"></i>{{ gig.packages[selectedPackage].delivery }} delivery &bull;
+              <i class="bi bi-arrow-repeat me-1"></i>{{ gig.packages[selectedPackage].revisions }} revisions
+            </p>
+            <ul class="list-unstyled text-muted small mb-3">
+              <li *ngFor="let f of gig.packages[selectedPackage].features" class="mb-1">
+                <i class="bi bi-check-circle-fill text-success me-2"></i>{{ f }}
+              </li>
+            </ul>
+            <a routerLink="/register" class="btn btn-primary w-100 mb-2">Order Now</a>
+            <button class="btn btn-outline-secondary w-100">Contact Seller</button>
+          </div>
+
+          <!-- Seller card -->
+          <div class="border-top p-4">
+            <h6 class="fw-semibold mb-2">About the Seller</h6>
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <div class="avatar-circle">{{ gig.seller.name.charAt(0) }}</div>
+              <span class="fw-semibold small">{{ gig.seller.name }}</span>
+            </div>
+            <p class="text-muted small mb-1"><i class="bi bi-geo-alt me-1"></i>{{ gig.seller.location }}</p>
+            <p class="text-muted small mb-0"><i class="bi bi-calendar3 me-1"></i>Member since {{ gig.seller.memberSince }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

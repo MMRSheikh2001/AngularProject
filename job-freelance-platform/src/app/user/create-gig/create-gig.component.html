@@ -1,0 +1,82 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h5 class="page-title mb-0">Create New Gig</h5>
+  <a routerLink="/user/my-gigs" class="btn btn-outline-secondary btn-sm">Cancel</a>
+</div>
+
+<form (ngSubmit)="onSubmit()">
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <h6 class="fw-semibold mb-3 border-bottom pb-2">Gig Overview</h6>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Gig Title</label>
+            <input type="text" class="form-control" placeholder="e.g. I will design a professional logo for your brand" [(ngModel)]="title" name="title" required />
+            <small class="text-muted">Start with "I will..." and describe the service you are providing.</small>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Category</label>
+            <select class="form-select" [(ngModel)]="category" name="category" required>
+              <option value="">Select a category...</option>
+              <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Detailed Description</label>
+            <textarea class="form-control" rows="6" placeholder="Describe the details of what you are offering. List what is included, packages, and revisions." [(ngModel)]="description" name="description" required></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pricing Package -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <h6 class="fw-semibold mb-3 border-bottom pb-2">Basic Package Pricing</h6>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label class="form-label fw-semibold">Price (৳)</label>
+              <input type="number" class="form-control" [(ngModel)]="basicPrice" name="basicPrice" placeholder="500" required />
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-semibold">Delivery Time</label>
+              <input type="text" class="form-control" [(ngModel)]="basicDelivery" name="basicDelivery" placeholder="e.g. 3 days" required />
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-semibold">Revisions</label>
+              <input type="text" class="form-control" [(ngModel)]="basicRevisions" name="basicRevisions" placeholder="e.g. 3 or Unlimited" required />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search Tags -->
+      <div class="card border-0 shadow-sm">
+        <div class="card-body">
+          <h6 class="fw-semibold mb-3 border-bottom pb-2">Search Tags</h6>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Tags (comma-separated)</label>
+            <input type="text" class="form-control" placeholder="e.g. logo, graphic design, branding" [(ngModel)]="tags" name="tags" />
+            <small class="text-muted">Add up to 5 keywords to help buyers find your gig.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Guideline Card -->
+    <div class="col-lg-4">
+      <div class="card border-0 shadow-sm sticky-top" style="top: 80px;">
+        <div class="card-body">
+          <h6 class="fw-semibold mb-3 border-bottom pb-2">Gig Guidelines</h6>
+          <ul class="small text-muted ps-3 mb-4">
+            <li class="mb-2">Choose an eye-catching, clear gig title.</li>
+            <li class="mb-2">Specify your pricing and delivery duration clearly.</li>
+            <li class="mb-2">Explain in detail what value you provide in the description.</li>
+          </ul>
+          <button type="submit" class="btn btn-success w-100" routerLink="/user/my-gigs">
+            <i class="bi bi-check-circle me-1"></i>Publish Gig
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

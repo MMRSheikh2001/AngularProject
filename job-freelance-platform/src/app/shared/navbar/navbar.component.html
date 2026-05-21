@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
+  <div class="container">
+
+    <!-- Brand -->
+    <a class="navbar-brand fw-bold text-primary" routerLink="/home">
+      <i class="bi bi-briefcase-fill me-1"></i> WorkBridge
+    </a>
+
+    <!-- Mobile toggle -->
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse" data-bs-target="#mainNav"
+            aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Nav links -->
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/jobs" routerLinkActive="active">Jobs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/gigs" routerLinkActive="active">Gigs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/freelancers" routerLinkActive="active">Freelancers</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/companies" routerLinkActive="active">Companies</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/about" routerLinkActive="active">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/contact" routerLinkActive="active">Contact</a>
+        </li>
+      </ul>
+
+      <!-- Auth buttons -->
+      <div class="d-flex gap-2">
+        <a class="btn btn-outline-primary btn-sm" routerLink="/login">Login</a>
+        <a class="btn btn-primary btn-sm" routerLink="/register">Register</a>
+      </div>
+    </div>
+
+  </div>
+</nav>

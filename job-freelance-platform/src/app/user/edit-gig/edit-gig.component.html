@@ -1,0 +1,75 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h5 class="page-title mb-0">Edit Gig (ID: {{ gigId }})</h5>
+  <a routerLink="/user/my-gigs" class="btn btn-outline-secondary btn-sm">Cancel</a>
+</div>
+
+<form (ngSubmit)="onSave()">
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <h6 class="fw-semibold mb-3 border-bottom pb-2">Gig Overview</h6>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Gig Title</label>
+            <input type="text" class="form-control" [(ngModel)]="title" name="title" required />
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Category</label>
+            <select class="form-select" [(ngModel)]="category" name="category" required>
+              <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Detailed Description</label>
+            <textarea class="form-control" rows="6" [(ngModel)]="description" name="description" required></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pricing Package -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <h6 class="fw-semibold mb-3 border-bottom pb-2">Basic Package Pricing</h6>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label class="form-label fw-semibold">Price (৳)</label>
+              <input type="number" class="form-control" [(ngModel)]="basicPrice" name="basicPrice" required />
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-semibold">Delivery Time</label>
+              <input type="text" class="form-control" [(ngModel)]="basicDelivery" name="basicDelivery" required />
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-semibold">Revisions</label>
+              <input type="text" class="form-control" [(ngModel)]="basicRevisions" name="basicRevisions" required />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search Tags -->
+      <div class="card border-0 shadow-sm">
+        <div class="card-body">
+          <h6 class="fw-semibold mb-3 border-bottom pb-2">Search Tags</h6>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Tags (comma-separated)</label>
+            <input type="text" class="form-control" [(ngModel)]="tags" name="tags" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions Side Card -->
+    <div class="col-lg-4">
+      <div class="card border-0 shadow-sm sticky-top" style="top: 80px;">
+        <div class="card-body">
+          <h6 class="fw-semibold mb-3 border-bottom pb-2">Actions</h6>
+          <button type="submit" class="btn btn-primary w-100 mb-2" routerLink="/user/my-gigs">
+            <i class="bi bi-save me-1"></i> Save Changes
+          </button>
+          <a routerLink="/user/my-gigs" class="btn btn-outline-secondary w-100">Cancel</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

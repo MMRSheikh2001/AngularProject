@@ -1,1 +1,197 @@
-/* You can add global styles to this file, and also import other style files */
+/* WorkBridge — Global Styles */
+/* Bootstrap is loaded via angular.json — only minimal overrides here */
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+/* Sidebar width */
+.sidebar {
+  width: 250px;
+  min-height: 100vh;
+  background-color: #1e3a5f;
+}
+
+.sidebar .nav-link {
+  color: #adb5bd;
+  padding: 10px 20px;
+  font-size: 0.95rem;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.sidebar .nav-link i {
+  margin-right: 8px;
+}
+
+/* Topbar */
+.topbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #dee2e6;
+  padding: 10px 20px;
+}
+
+/* Main content area in dashboard */
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  background-color: #f8f9fa;
+}
+
+/* Page titles */
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #1e3a5f;
+}
+
+/* Card hover effect */
+.card-hover:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease;
+}
+
+/* Job/Gig badge colors */
+.badge-fulltime  { background-color: #0d6efd; }
+.badge-parttime  { background-color: #6c757d; }
+.badge-remote    { background-color: #198754; }
+.badge-contract  { background-color: #fd7e14; }
+.badge-internship{ background-color: #6f42c1; }
+
+/* Avatar circle */
+.avatar-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #0d6efd;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* Chat bubbles */
+.bubble-sent {
+  background-color: #0d6efd;
+  color: #fff;
+  border-radius: 18px 18px 4px 18px;
+  padding: 8px 14px;
+  max-width: 70%;
+  align-self: flex-end;
+}
+
+.bubble-received {
+  background-color: #e9ecef;
+  color: #212529;
+  border-radius: 18px 18px 18px 4px;
+  padding: 8px 14px;
+  max-width: 70%;
+  align-self: flex-start;
+}
+
+/* Wallet cards */
+.wallet-card {
+  border-left: 4px solid #0d6efd;
+}
+
+/* CV preview */
+.cv-preview-wrapper {
+  background: #fff;
+  padding: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+  border: 1px solid #dee2e6;
+}
+
+/* Spinner overlay */
+.spinner-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* Hero section */
+.hero-section {
+  background: linear-gradient(135deg, #1e3a5f 0%, #0d6efd 100%);
+  color: #fff;
+  padding: 80px 0;
+}
+
+.hero-section h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* Section headings */
+.section-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #1e3a5f;
+  margin-bottom: 8px;
+}
+
+.section-subtitle {
+  color: #6c757d;
+  margin-bottom: 32px;
+}
+
+/* Footer */
+footer {
+  background-color: #1e3a5f;
+  color: #adb5bd;
+}
+
+footer a {
+  color: #adb5bd;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #fff;
+}
+
+/* Navbar brand */
+.navbar-brand {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1e3a5f !important;
+}
+
+/* Gig portfolio thumbnails */
+.portfolio-thumb {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 6px;
+  background-color: #dee2e6;
+}
+
+/* Stats card icon */
+.stats-icon {
+  font-size: 2rem;
+  opacity: 0.8;
+}
+
+/* Utility */
+.cursor-pointer { cursor: pointer; }
+.gap-2 { gap: 0.5rem; }

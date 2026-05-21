@@ -1,0 +1,13 @@
+<div class="input-group">
+  <input
+    type="text"
+    id="searchInput"
+    class="form-control"
+    [placeholder]="placeholder"
+    [(ngModel)]="query"
+    (keydown)="onKeydown($event)"
+  />
+  <button class="btn btn-primary" type="button" (click)="onSearch()">
+    <i class="bi bi-search me-1"></i> Search
+  </button>
+</div>

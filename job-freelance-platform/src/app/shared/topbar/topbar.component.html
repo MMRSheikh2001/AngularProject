@@ -1,0 +1,36 @@
+<div class="topbar d-flex justify-content-between align-items-center">
+
+  <!-- Left: Page context / breadcrumb placeholder -->
+  <div>
+    <h6 class="mb-0 fw-semibold text-muted">Welcome back, {{ userName }}</h6>
+  </div>
+
+  <!-- Right: actions -->
+  <div class="d-flex align-items-center gap-3">
+
+    <!-- Notifications -->
+    <app-notification-dropdown></app-notification-dropdown>
+
+    <!-- User avatar dropdown -->
+    <div class="dropdown">
+      <button
+        class="btn btn-light d-flex align-items-center gap-2"
+        type="button"
+        id="userMenuBtn"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <div class="avatar-circle">{{ userInitial }}</div>
+        <span class="small fw-semibold d-none d-md-inline">{{ userName }}</span>
+        <i class="bi bi-chevron-down small"></i>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuBtn">
+        <li><a class="dropdown-item" routerLink="/user/profile"><i class="bi bi-person me-2"></i>My Profile</a></li>
+        <li><a class="dropdown-item" routerLink="/user/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item text-danger" routerLink="/login"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>

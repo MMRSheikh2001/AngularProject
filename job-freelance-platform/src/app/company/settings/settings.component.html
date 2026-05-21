@@ -1,0 +1,57 @@
+<div class="page-title">Company Settings</div>
+
+<div class="row g-4">
+  <div class="col-lg-8">
+
+    <!-- Security & Password -->
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-body">
+        <h6 class="fw-semibold mb-3 border-bottom pb-2">Employer Account</h6>
+        <form (ngSubmit)="onSaveAccount()">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Company Main Email</label>
+            <input type="email" class="form-control" [(ngModel)]="email" name="companyEmail" required />
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Current Password</label>
+            <input type="password" class="form-control" [(ngModel)]="currentPassword" name="companyCurrPass" />
+          </div>
+          <div class="row g-3 mb-4">
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">New Password</label>
+              <input type="password" class="form-control" [(ngModel)]="newPassword" name="companyNewPass" />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Confirm Password</label>
+              <input type="password" class="form-control" [(ngModel)]="confirmPassword" name="companyConfPass" />
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm">Update Employer Account</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Notification settings -->
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-body">
+        <h6 class="fw-semibold mb-3 border-bottom pb-2">Employer Email Preferences</h6>
+        <form (ngSubmit)="onSaveNotifications()">
+          <div class="form-check mb-2">
+            <input type="checkbox" class="form-check-input" id="compEmailNotif" [(ngModel)]="emailNotifications" name="compEmailNotif" />
+            <label class="form-check-label small" for="compEmailNotif">Send main system and server updates to company email</label>
+          </div>
+          <div class="form-check mb-2">
+            <input type="checkbox" class="form-check-input" id="compAppAlerts" [(ngModel)]="applicantAlerts" name="compAppAlerts" />
+            <label class="form-check-label small" for="compAppAlerts">Notify immediately when a candidate applies to our jobs</label>
+          </div>
+          <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="compBillingAlerts" [(ngModel)]="billingEmails" name="compBillingAlerts" />
+            <label class="form-check-label small" for="compBillingAlerts">Send invoice and transaction reports to accounts</label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm">Save Preferences</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>

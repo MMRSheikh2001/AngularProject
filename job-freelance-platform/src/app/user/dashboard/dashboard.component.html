@@ -1,0 +1,79 @@
+<div class="page-title">Dashboard</div>
+
+<!-- Stats -->
+<div class="row g-4 mb-4">
+  <div class="col-md-3 col-sm-6" *ngFor="let stat of stats">
+    <app-stats-card [title]="stat.title" [value]="stat.value" [icon]="stat.icon" [color]="stat.color"></app-stats-card>
+  </div>
+</div>
+
+<div class="row g-4">
+
+  <!-- Recent Applications -->
+  <div class="col-lg-7">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h6 class="fw-semibold mb-0">Recent Applications</h6>
+          <a routerLink="/user/applications" class="btn btn-sm btn-outline-primary">View All</a>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr><th>Job</th><th>Company</th><th>Date</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let app of recentApplications">
+                <td class="fw-semibold small">{{ app.title }}</td>
+                <td class="text-muted small">{{ app.company }}</td>
+                <td class="text-muted small">{{ app.date }}</td>
+                <td><span class="badge bg-primary bg-opacity-10 text-primary">{{ app.status }}</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Orders -->
+  <div class="col-lg-5">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h6 class="fw-semibold mb-0">Recent Orders</h6>
+          <a routerLink="/user/orders" class="btn btn-sm btn-outline-primary">View All</a>
+        </div>
+        <div *ngFor="let order of recentOrders" class="border rounded p-2 mb-2">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <p class="fw-semibold mb-0 small">{{ order.gig }}</p>
+              <small class="text-muted">{{ order.buyer }}</small>
+            </div>
+            <div class="text-end">
+              <p class="fw-bold text-primary mb-0 small">{{ order.amount }}</p>
+              <span class="badge bg-success bg-opacity-10 text-success small">{{ order.status }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Links -->
+  <div class="col-12">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <h6 class="fw-semibold mb-3">Quick Actions</h6>
+        <div class="d-flex flex-wrap gap-2">
+          <a routerLink="/jobs" class="btn btn-outline-primary btn-sm"><i class="bi bi-search me-1"></i>Browse Jobs</a>
+          <a routerLink="/user/cv-builder" class="btn btn-outline-primary btn-sm"><i class="bi bi-file-earmark-text me-1"></i>Update CV</a>
+          <a routerLink="/user/create-gig" class="btn btn-outline-success btn-sm"><i class="bi bi-plus-circle me-1"></i>Create Gig</a>
+          <a routerLink="/user/wallet" class="btn btn-outline-info btn-sm"><i class="bi bi-wallet2 me-1"></i>View Wallet</a>
+          <a routerLink="/user/messages" class="btn btn-outline-secondary btn-sm"><i class="bi bi-chat-dots me-1"></i>Messages</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

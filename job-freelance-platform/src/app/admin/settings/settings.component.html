@@ -1,0 +1,31 @@
+<div class="page-title">Platform Configuration</div>
+
+<div class="row g-4">
+  <div class="col-lg-8">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <h6 class="fw-semibold mb-3 border-bottom pb-2">System Config</h6>
+        <form (ngSubmit)="onSaveConfig()">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Commission Rate (%)</label>
+            <input type="number" class="form-control" [(ngModel)]="commissionRate" name="commRate" required />
+            <small class="text-muted">Percentage cut from gig sales.</small>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Maximum File Upload Size (MB)</label>
+            <input type="number" class="form-control" [(ngModel)]="maxUploadSize" name="maxSize" required />
+          </div>
+          <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="maintMode" [(ngModel)]="maintenanceMode" name="maintMode" />
+            <label class="form-check-label small" for="maintMode">Enable maintenance mode (closes public portal)</label>
+          </div>
+          <div class="form-check mb-4">
+            <input type="checkbox" class="form-check-input" id="secLogs" [(ngModel)]="securityLogAlerts" name="secLogs" />
+            <label class="form-check-label small" for="secLogs">Email security logs and error events immediately</label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm">Update System Configuration</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

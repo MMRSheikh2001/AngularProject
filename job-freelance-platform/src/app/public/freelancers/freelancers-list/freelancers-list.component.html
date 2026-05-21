@@ -1,0 +1,74 @@
+<!-- Header -->
+<div class="bg-white border-bottom py-4">
+  <div class="container">
+    <h1 class="page-title mb-1">Browse Freelancers</h1>
+    <p class="text-muted mb-0">Find skilled professionals for your next project</p>
+  </div>
+</div>
+
+<div class="container py-4">
+  <div class="row g-4">
+
+    <!-- Filters -->
+    <div class="col-lg-3">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body">
+          <h6 class="fw-semibold mb-3">Filters</h6>
+
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Search</label>
+            <input type="text" class="form-control" placeholder="Name or skill..." [(ngModel)]="searchQuery" (ngModelChange)="onFilterChange()" />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Skill</label>
+            <select class="form-select" [(ngModel)]="selectedSkill" (ngModelChange)="onFilterChange()">
+              <option value="">All Skills</option>
+              <option *ngFor="let s of skills" [value]="s">{{ s }}</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Location</label>
+            <select class="form-select" [(ngModel)]="selectedLocation" (ngModelChange)="onFilterChange()">
+              <option value="">All Locations</option>
+              <option *ngFor="let loc of locations" [value]="loc">{{ loc }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Freelancer cards -->
+    <div class="col-lg-9">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <p class="text-muted mb-0"><strong>{{ freelancers.length }}</strong> freelancers found</p>
+        <select class="form-select form-select-sm w-auto">
+          <option>Top Rated</option>
+          <option>Newest</option>
+          <option>Rate: Low to High</option>
+        </select>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div class="col-md-4" *ngFor="let fl of freelancers">
+          <app-freelancer-card
+            [userId]="fl.userId"
+            [name]="fl.name"
+            [title]="fl.title"
+            [skills]="fl.skills"
+            [rating]="fl.rating"
+            [reviewCount]="fl.reviewCount"
+            [hourlyRate]="fl.hourlyRate"
+            [location]="fl.location">
+          </app-freelancer-card>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (pageChange)="onPageChange($event)"></app-pagination>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,80 @@
+<div class="d-flex justify-content-between align-items-center mb-4 d-print-none">
+  <h5 class="page-title mb-0">ATS-Friendly CV Preview</h5>
+  <div class="d-flex gap-2">
+    <a routerLink="/user/cv-builder" class="btn btn-outline-secondary btn-sm"><i class="bi bi-pencil me-1"></i>Edit CV</a>
+    <button type="button" class="btn btn-primary btn-sm" (click)="printCV()"><i class="bi bi-printer me-1"></i>Print / Download PDF</button>
+  </div>
+</div>
+
+<div class="cv-preview-wrapper shadow bg-white p-5 mx-auto">
+  <!-- ATS Header Section -->
+  <div class="text-center border-bottom pb-3 mb-4">
+    <h2 class="fw-bold mb-1" style="letter-spacing: 0.5px;">{{ cv.fullName }}</h2>
+    <p class="text-muted fw-semibold mb-2" style="font-size: 1.1rem;">{{ cv.jobTitle }}</p>
+    <div class="d-flex justify-content-center flex-wrap gap-3 small text-muted">
+      <span><i class="bi bi-geo-alt me-1"></i>{{ cv.address }}</span>
+      <span>|</span>
+      <span><i class="bi bi-envelope me-1"></i>{{ cv.email }}</span>
+      <span>|</span>
+      <span><i class="bi bi-telephone me-1"></i>{{ cv.phone }}</span>
+    </div>
+    <div class="d-flex justify-content-center flex-wrap gap-3 small text-muted mt-2">
+      <span *ngIf="cv.linkedin"><i class="bi bi-linkedin me-1"></i>{{ cv.linkedin }}</span>
+      <span *ngIf="cv.linkedin && cv.github">|</span>
+      <span *ngIf="cv.github"><i class="bi bi-github me-1"></i>{{ cv.github }}</span>
+    </div>
+  </div>
+
+  <!-- Summary Section -->
+  <div class="mb-4">
+    <h5 class="fw-bold text-uppercase border-bottom pb-1" style="font-size: 0.95rem; border-color: #333 !important;">Professional Summary</h5>
+    <p class="text-muted small" style="line-height: 1.6;">{{ cv.summary }}</p>
+  </div>
+
+  <!-- Technical Skills -->
+  <div class="mb-4">
+    <h5 class="fw-bold text-uppercase border-bottom pb-1" style="font-size: 0.95rem; border-color: #333 !important;">Core Competencies & Skills</h5>
+    <div class="d-flex flex-wrap gap-2 pt-1">
+      <span *ngFor="let skill of cv.skills" class="badge bg-light text-dark border small py-1 px-2">{{ skill }}</span>
+    </div>
+  </div>
+
+  <!-- Professional Experience -->
+  <div class="mb-4">
+    <h5 class="fw-bold text-uppercase border-bottom pb-1" style="font-size: 0.95rem; border-color: #333 !important;">Professional Experience</h5>
+    <div *ngFor="let exp of cv.experience" class="mb-3">
+      <div class="d-flex justify-content-between align-items-baseline mb-1">
+        <h6 class="fw-bold mb-0" style="font-size: 0.9rem;">{{ exp.role }} <span class="text-muted fw-normal">at {{ exp.company }}</span></h6>
+        <span class="text-muted small fw-semibold">{{ exp.duration }}</span>
+      </div>
+      <p class="text-muted small mb-0" style="line-height: 1.5; white-space: pre-line;">{{ exp.description }}</p>
+    </div>
+  </div>
+
+  <!-- Education Section -->
+  <div class="mb-4">
+    <h5 class="fw-bold text-uppercase border-bottom pb-1" style="font-size: 0.95rem; border-color: #333 !important;">Education</h5>
+    <div *ngFor="let edu of cv.education" class="mb-2">
+      <div class="d-flex justify-content-between align-items-baseline mb-1">
+        <h6 class="fw-bold mb-0" style="font-size: 0.9rem;">{{ edu.degree }}</h6>
+        <span class="text-muted small fw-semibold">{{ edu.year }}</span>
+      </div>
+      <div class="d-flex justify-content-between text-muted small">
+        <span>{{ edu.institution }}</span>
+        <span *ngIf="edu.result">{{ edu.result }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- References Section -->
+  <div class="mb-2" *ngIf="cv.references && cv.references.length > 0">
+    <h5 class="fw-bold text-uppercase border-bottom pb-1" style="font-size: 0.95rem; border-color: #333 !important;">References</h5>
+    <div class="row g-3">
+      <div class="col-md-6" *ngFor="let ref of cv.references">
+        <h6 class="fw-bold mb-0" style="font-size: 0.9rem;">{{ ref.name }}</h6>
+        <p class="text-muted small mb-0">{{ ref.designation }}</p>
+        <p class="text-muted small mb-0">Contact: {{ ref.contact }}</p>
+      </div>
+    </div>
+  </div>
+</div>

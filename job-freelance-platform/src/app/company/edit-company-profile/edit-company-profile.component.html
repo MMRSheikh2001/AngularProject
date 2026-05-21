@@ -1,0 +1,93 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h5 class="page-title mb-0">Edit Company Profile</h5>
+  <a routerLink="/company/profile" class="btn btn-outline-secondary btn-sm">Cancel</a>
+</div>
+
+<form (ngSubmit)="onSave()">
+  <div class="row g-4">
+
+    <!-- Profile details -->
+    <div class="col-lg-8">
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <h6 class="fw-semibold mb-3">Company Details</h6>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Company Name</label>
+              <input type="text" class="form-control" [(ngModel)]="name" name="companyName" required />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Industry</label>
+              <input type="text" class="form-control" [(ngModel)]="industry" name="companyIndustry" required />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Company Size</label>
+              <input type="text" class="form-control" [(ngModel)]="size" name="companySize" placeholder="e.g. 51–200 employees" />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Founded Year</label>
+              <input type="text" class="form-control" [(ngModel)]="founded" name="companyFounded" placeholder="e.g. 2015" />
+            </div>
+            <div class="col-12">
+              <label class="form-label fw-semibold">Website URL</label>
+              <input type="url" class="form-control" [(ngModel)]="website" name="companyWebsite" />
+            </div>
+            <div class="col-12">
+              <label class="form-label fw-semibold">About Company</label>
+              <textarea class="form-control" rows="5" [(ngModel)]="about" name="companyAbout"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bangladesh Address Structure -->
+      <div class="card border-0 shadow-sm">
+        <div class="card-body">
+          <h6 class="fw-semibold mb-3">Address (Bangladesh)</h6>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Division</label>
+              <select class="form-select" [(ngModel)]="division" name="companyDivision">
+                <option *ngFor="let d of divisions" [value]="d">{{ d }}</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">District</label>
+              <input type="text" class="form-control" [(ngModel)]="district" name="companyDistrict" />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Police Station / Upazila</label>
+              <input type="text" class="form-control" [(ngModel)]="upazila" name="companyUpazila" />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Postcode</label>
+              <input type="text" class="form-control" [(ngModel)]="postcode" name="companyPostcode" />
+            </div>
+            <div class="col-12">
+              <label class="form-label fw-semibold">Full Address</label>
+              <input type="text" class="form-control" [(ngModel)]="fullAddress" name="companyFullAddress" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Side Actions -->
+    <div class="col-lg-4">
+      <div class="card border-0 shadow-sm sticky-top" style="top: 80px;">
+        <div class="card-body text-center p-4">
+          <div class="rounded border p-3 bg-light d-flex align-items-center justify-content-center mx-auto mb-3" style="width:72px;height:72px;">
+            <i class="bi bi-building-fill text-secondary fs-2"></i>
+          </div>
+          <button type="button" class="btn btn-outline-secondary btn-sm w-100 mb-2">Upload Logo</button>
+          <small class="text-muted d-block">JPG, PNG. Max 2MB</small>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="mt-4">
+    <button type="submit" class="btn btn-primary px-4" routerLink="/company/profile"><i class="bi bi-check2 me-1"></i>Save Changes</button>
+  </div>
+</form>

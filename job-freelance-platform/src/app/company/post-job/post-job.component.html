@@ -1,0 +1,80 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h5 class="page-title mb-0">Post a New Job</h5>
+  <a routerLink="/company/manage-jobs" class="btn btn-outline-secondary btn-sm">Cancel</a>
+</div>
+
+<form (ngSubmit)="onSubmit()">
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <h6 class="fw-semibold mb-3 border-bottom pb-2">Job Overview</h6>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Job Title</label>
+            <input type="text" class="form-control" placeholder="e.g. Senior Angular Developer" [(ngModel)]="title" name="jobTitle" required />
+          </div>
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Job Type</label>
+              <select class="form-select" [(ngModel)]="jobType" name="jobType" required>
+                <option value="">Select job type...</option>
+                <option *ngFor="let t of jobTypes" [value]="t">{{ t }}</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Location</label>
+              <input type="text" class="form-control" placeholder="e.g. Dhaka, Bangladesh" [(ngModel)]="location" name="jobLocation" required />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Salary Range</label>
+              <input type="text" class="form-control" placeholder="e.g. ৳80,000 - ৳1,20,000" [(ngModel)]="salary" name="jobSalary" required />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Experience Required</label>
+              <input type="text" class="form-control" placeholder="e.g. 3+ years" [(ngModel)]="experience" name="jobExperience" />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Application Deadline</label>
+              <input type="date" class="form-control" [(ngModel)]="deadline" name="jobDeadline" required />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description Details -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <h6 class="fw-semibold mb-3 border-bottom pb-2">Job Details</h6>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Job Description</label>
+            <textarea class="form-control" rows="5" placeholder="Outline the primary duties and responsibilities..." [(ngModel)]="description" name="jobDesc" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Requirements</label>
+            <textarea class="form-control" rows="4" placeholder="List technical requirements, soft skills, educational background..." [(ngModel)]="requirements" name="jobReq" required></textarea>
+          </div>
+          <div class="mb-0">
+            <label class="form-label fw-semibold">Benefits & Perks</label>
+            <textarea class="form-control" rows="3" placeholder="e.g. Festive bonuses, health insurance, free lunch..." [(ngModel)]="benefits" name="jobBenefits"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Side Actions -->
+    <div class="col-lg-4">
+      <div class="card border-0 shadow-sm sticky-top" style="top: 80px;">
+        <div class="card-body">
+          <h6 class="fw-semibold mb-3 border-bottom pb-2">Posting Guidelines</h6>
+          <ul class="small text-muted ps-3 mb-4">
+            <li class="mb-2">Enter accurate salary expectations to attract relevant job seekers.</li>
+            <li class="mb-2">Break requirements into bullet points for readability.</li>
+          </ul>
+          <button type="submit" class="btn btn-primary w-100" routerLink="/company/manage-jobs">
+            <i class="bi bi-briefcase me-1"></i>Publish Job Post
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

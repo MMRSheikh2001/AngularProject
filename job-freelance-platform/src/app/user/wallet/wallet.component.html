@@ -1,0 +1,70 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h5 class="page-title mb-0">My Wallet</h5>
+  <div class="d-flex gap-2">
+    <button type="button" class="btn btn-primary btn-sm"><i class="bi bi-plus-lg me-1"></i>Deposit Funds</button>
+    <button type="button" class="btn btn-outline-primary btn-sm"><i class="bi bi-cash-stack me-1"></i>Withdrawal</button>
+  </div>
+</div>
+
+<!-- Balance Cards -->
+<div class="row g-4 mb-4">
+  <div class="col-md-4">
+    <div class="card border-0 shadow-sm wallet-card p-3">
+      <div class="card-body">
+        <span class="text-muted small">Available Balance</span>
+        <h3 class="fw-bold text-success mt-1">৳{{ balance }}</h3>
+        <p class="small text-muted mb-0">Ready to withdraw or spend</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card border-0 shadow-sm wallet-card p-3" style="border-left-color: #ffc107 !important;">
+      <div class="card-body">
+        <span class="text-muted small">Pending Clearance</span>
+        <h3 class="fw-bold text-warning mt-1">৳{{ pendingBalance }}</h3>
+        <p class="small text-muted mb-0">From active or processing orders</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card border-0 shadow-sm wallet-card p-3" style="border-left-color: #0dcaf0 !important;">
+      <div class="card-body">
+        <span class="text-muted small">Total Earnings</span>
+        <h3 class="fw-bold text-info mt-1">৳{{ totalEarned }}</h3>
+        <p class="small text-muted mb-0">Lifetime earnings on the platform</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Transaction History -->
+<div class="card border-0 shadow-sm">
+  <div class="card-body">
+    <h6 class="fw-semibold mb-3 border-bottom pb-2">Transaction History</h6>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th class="px-4">Transaction ID</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th class="text-end px-4">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let txn of transactions">
+            <td class="px-4 fw-semibold text-primary">{{ txn.id }}</td>
+            <td>{{ txn.description }}</td>
+            <td class="text-muted">{{ txn.date }}</td>
+            <td class="text-end px-4 fw-bold" [class.text-success]="txn.type === 'credit'" [class.text-danger]="txn.type === 'debit'">
+              {{ txn.type === 'credit' ? '+' : '-' }}৳{{ txn.amount }}
+            </td>
+          </tr>
+          <tr *ngIf="transactions.length === 0">
+            <td colspan="4" class="text-center py-4 text-muted">No transactions found.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
