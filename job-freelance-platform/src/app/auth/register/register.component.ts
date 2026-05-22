@@ -1,46 +1,72 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+
 import { CommonModule } from '@angular/common';
+import { UserModel } from '../../models/user.model';
+import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule],
   templateUrl: './register.component.html'
 })
 export class RegisterComponent {
-  // Role selection
-  selectedRole: string = 'user'; // 'user' | 'company'
+  user: UserModel = {
+    name: '',
+    email: '',
+    password: '',
+    phone: '',
+    profileImage: '',
+    role: 'user',
+    isVerified: false,
+    isActive: true,
+    isSuspended: false
 
-  // Common fields
-  email: string = '';
-  password: string = '';
-  confirmPassword: string = '';
 
-  // User fields
-  firstName: string = '';
-  lastName: string = '';
-  phone: string = '';
+  };
+  previewImage: string = '';
 
-  // Company fields
-  companyName: string = '';
-  companyEmail: string = '';
-  companyPhone: string = '';
-  industry: string = '';
 
-  agreeTerms: boolean = false;
-
-  industries = [
-    'Software & Technology', 'Design & Media', 'Marketing', 'Finance',
-    'Healthcare', 'Education', 'E-Commerce', 'Manufacturing', 'Other'
-  ];
-
-  selectRole(role: string): void {
-    this.selectedRole = role;
+  constructor(
+    private userService: UserService,
+    private cdr: ChangeDetectorRef,
+    private router: Router
+  ) { }
+  onFileSelect(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.previewImage = reader.result as string;
+        this.user.profileImage = this.previewImage;
+        this.cdr.markForCheck();
+      }
+      reader.readAsDataURL(file);
+    }
   }
 
-  onSubmit(): void {
-    // Registration logic will be added later
-    console.log('Register submitted', { role: this.selectedRole, email: this.email });
+  saveUser() {
+    if (this.user.email) {
+      this.user.email = this.user.email.trim().toLowerCase();
+    }
+
+    this.userService.save(this.user).subscribe(
+      {
+        next: (data) => {
+          console.log(data);
+          alert('Registration succesful');
+          this.router.navigate(['/']);
+        }, error: (err) => {
+          console.log(err);
+        }
+      }
+    )
+
   }
+  toggleRole(): void {
+    this.user.role = this.user.role === 'user' ? 'company' : 'user';
+    console.log('Current registration role:', this.user.role);
+  }
+
 }
