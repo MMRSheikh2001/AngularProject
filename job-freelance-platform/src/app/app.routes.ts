@@ -59,6 +59,7 @@ import { AdminManageUsersComponent } from './admin/manage-users/manage-users.com
 import { AdminManageJobsComponent } from './admin/manage-jobs/manage-jobs.component';
 import { AdminManageGigsComponent } from './admin/manage-gigs/manage-gigs.component';
 import { AdminSettingsComponent } from './admin/settings/settings.component';
+import { authGuardGuard } from './guards/auth-guard-guard';
 
 export const routes: Routes = [
   // Public layout routes
@@ -87,7 +88,7 @@ export const routes: Routes = [
   // User dashboard layout routes
   {
     path: 'user',
-    component: DashboardLayoutComponent,
+    component: DashboardLayoutComponent, canActivate: [authGuardGuard], data: { role: 'user' },
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: UserDashboardComponent },
@@ -111,7 +112,7 @@ export const routes: Routes = [
   // Company dashboard layout routes
   {
     path: 'company',
-    component: DashboardLayoutComponent,
+    component: DashboardLayoutComponent, canActivate: [authGuardGuard], data: { role: 'company' },
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: CompanyDashboardComponent },
@@ -132,7 +133,7 @@ export const routes: Routes = [
   // Admin dashboard layout routes
   {
     path: 'admin',
-    component: DashboardLayoutComponent,
+    component: DashboardLayoutComponent, canActivate: [authGuardGuard], data: { role: 'admin' },
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: AdminDashboardComponent },
