@@ -12,9 +12,9 @@ export class CreateGigComponent {
   title: string = '';
   category: string = '';
   description: string = '';
-  basicPrice: number = 0;
-  basicDelivery: string = '';
-  basicRevisions: string = '';
+  basicPrice: number | null = null;
+  deliveryDays: number | null = null;
+  revisions: number | null = null;
   tags: string = '';
 
   categories = ['Design', 'Web Development', 'Mobile App', 'Writing', 'Digital Marketing', 'Video & Animation', 'Data Entry', 'SEO'];

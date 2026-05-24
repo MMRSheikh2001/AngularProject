@@ -2,44 +2,46 @@
   <div class="card p-4 shadow-sm">
     <h2 class="mb-4 text-center">Register</h2>
 
-    <form>
-      <button type="button" class="btn btn-outline-primary" (click)="toggleRole()">
+    <form #registerForm="ngForm" (ngSubmit)="saveUser()">
+      <button type="button" class="btn btn-outline-primary mb-3" (click)="toggleRole()">
         Registering as: {{ user.role === 'company' ? 'Company' : 'User' }}
       </button>
 
-
       <div class="mb-3">
-        <label class="form-label">Name</label>
-        <input type="text" class="form-control" [(ngModel)]="user.name" name="name">
+        <label class="form-label">Name <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" [(ngModel)]="user.name" name="name" required #name="ngModel">
+        <div *ngIf="name.invalid && name.touched" class="text-danger small mt-1">Name is required.</div>
       </div>
 
       <div class="mb-3">
-        <label class="form-label">Email</label>
-        <input type="email" class="form-control" [(ngModel)]="user.email" name="email">
+        <label class="form-label">Email <span class="text-danger">*</span></label>
+        <input type="email" class="form-control" [(ngModel)]="user.email" name="email" required email #email="ngModel">
+        <div *ngIf="email.invalid && email.touched" class="text-danger small mt-1">A valid email is required.</div>
       </div>
 
       <div class="mb-3">
-        <label class="form-label">Phone</label>
-        <input type="text" class="form-control" [(ngModel)]="user.phone" name="phone">
+        <label class="form-label">Phone <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" [(ngModel)]="user.phone" name="phone" required #phone="ngModel">
+        <div *ngIf="phone.invalid && phone.touched" class="text-danger small mt-1">Phone number is required.</div>
       </div>
 
       <div class="mb-3">
-        <label class="form-label">Password</label>
-        <input type="password" class="form-control" [(ngModel)]="user.password" name="password">
+        <label class="form-label">Password <span class="text-danger">*</span></label>
+        <input type="password" class="form-control" [(ngModel)]="user.password" name="password" required minlength="6" #password="ngModel">
+        <div *ngIf="password.invalid && password.touched" class="text-danger small mt-1">Password must be at least 6 characters.</div>
       </div>
 
       <div class="mb-4">
         <label class="form-label">Profile Image/Company Logo</label>
         <input type="file" class="form-control" (change)="onFileSelect($event)">
       </div>
-      <div *ngIf="previewImage">
+      <div *ngIf="previewImage" class="mb-3 text-center">
         <img [src]="previewImage" width="120" height="120" class="rounded-circle border">
       </div>
 
-      <button type="submit" (click)="saveUser()" class="btn btn-primary w-100">
+      <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary w-100">
         Sign Up
       </button>
-
     </form>
   </div>
 </div>

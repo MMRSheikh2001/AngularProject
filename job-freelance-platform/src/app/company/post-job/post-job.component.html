@@ -22,16 +22,25 @@
               </select>
             </div>
             <div class="col-md-6">
-              <label class="form-label fw-semibold">Location</label>
-              <input type="text" class="form-control" placeholder="e.g. Dhaka, Bangladesh" [(ngModel)]="location" name="jobLocation" required />
+              <label class="form-label fw-semibold">Workplace Type</label>
+              <select class="form-select" [(ngModel)]="workplaceType" name="workplaceType" required>
+                <option value="">Select workplace type...</option>
+                <option value="On-site">On-site</option>
+                <option value="Hybrid">Hybrid</option>
+                <option value="Remote">Remote</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-semibold">Min Salary</label>
+              <input type="number" class="form-control" placeholder="e.g. 50000" [(ngModel)]="salaryMin" name="salaryMin" required />
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-semibold">Max Salary</label>
+              <input type="number" class="form-control" placeholder="e.g. 80000" [(ngModel)]="salaryMax" name="salaryMax" required />
             </div>
             <div class="col-md-6">
-              <label class="form-label fw-semibold">Salary Range</label>
-              <input type="text" class="form-control" placeholder="e.g. ৳80,000 - ৳1,20,000" [(ngModel)]="salary" name="jobSalary" required />
-            </div>
-            <div class="col-md-6">
-              <label class="form-label fw-semibold">Experience Required</label>
-              <input type="text" class="form-control" placeholder="e.g. 3+ years" [(ngModel)]="experience" name="jobExperience" />
+              <label class="form-label fw-semibold">Vacancy</label>
+              <input type="number" class="form-control" placeholder="e.g. 2" [(ngModel)]="vacancy" name="vacancy" required />
             </div>
             <div class="col-md-6">
               <label class="form-label fw-semibold">Application Deadline</label>
@@ -54,8 +63,8 @@
             <textarea class="form-control" rows="4" placeholder="List technical requirements, soft skills, educational background..." [(ngModel)]="requirements" name="jobReq" required></textarea>
           </div>
           <div class="mb-0">
-            <label class="form-label fw-semibold">Benefits & Perks</label>
-            <textarea class="form-control" rows="3" placeholder="e.g. Festive bonuses, health insurance, free lunch..." [(ngModel)]="benefits" name="jobBenefits"></textarea>
+            <label class="form-label fw-semibold">Responsibilities</label>
+            <textarea class="form-control" rows="4" placeholder="List the daily responsibilities for this role..." [(ngModel)]="responsibilities" name="jobResp"></textarea>
           </div>
         </div>
       </div>

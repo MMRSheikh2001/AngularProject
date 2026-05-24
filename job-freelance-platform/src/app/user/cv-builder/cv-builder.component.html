@@ -14,11 +14,11 @@
           <div class="row g-3">
             <div class="col-md-6">
               <label class="form-label fw-semibold">Full Name</label>
-              <input type="text" class="form-control" [(ngModel)]="fullName" name="fullName" required />
+              <input type="text" class="form-control" [(ngModel)]="name" name="name" required />
             </div>
             <div class="col-md-6">
               <label class="form-label fw-semibold">Job Title</label>
-              <input type="text" class="form-control" [(ngModel)]="jobTitle" name="jobTitle" placeholder="e.g. Senior Frontend Developer" required />
+              <input type="text" class="form-control" [(ngModel)]="professionalTitle" name="professionalTitle" placeholder="e.g. Senior Frontend Developer" required />
             </div>
             <div class="col-md-6">
               <label class="form-label fw-semibold">Email Address</label>
@@ -30,11 +30,11 @@
             </div>
             <div class="col-md-6">
               <label class="form-label fw-semibold">LinkedIn Profile URL</label>
-              <input type="text" class="form-control" [(ngModel)]="linkedin" name="linkedin" />
+              <input type="text" class="form-control" [(ngModel)]="linkedinUrl" name="linkedinUrl" />
             </div>
             <div class="col-md-6">
               <label class="form-label fw-semibold">GitHub Profile URL</label>
-              <input type="text" class="form-control" [(ngModel)]="github" name="github" />
+              <input type="text" class="form-control" [(ngModel)]="githubUrl" name="githubUrl" />
             </div>
             <div class="col-12">
               <label class="form-label fw-semibold">Location / Address</label>
@@ -42,7 +42,7 @@
             </div>
             <div class="col-12">
               <label class="form-label fw-semibold">Professional Summary</label>
-              <textarea class="form-control" rows="4" [(ngModel)]="summary" name="summary" placeholder="A concise summary of your skills, experience, and career goals..."></textarea>
+              <textarea class="form-control" rows="4" [(ngModel)]="professionalSummary" name="professionalSummary" placeholder="A concise summary of your skills, experience, and career goals..."></textarea>
             </div>
           </div>
         </div>

@@ -10,14 +10,14 @@ import { CommonModule } from '@angular/common';
 })
 export class CvBuilderComponent {
   // Personal
-  fullName: string = 'Mahbub Rahman';
-  jobTitle: string = 'Full Stack Developer';
+  name: string = 'Mahbub Rahman';
+  professionalTitle: string = 'Full Stack Developer';
   email: string = 'mahbub@example.com';
   phone: string = '+880 1711-000001';
   address: string = 'Gulshan-2, Dhaka-1212';
-  linkedin: string = 'linkedin.com/in/mahbub';
-  github: string = 'github.com/mahbub';
-  summary: string = 'Experienced Full Stack Developer with 5+ years building scalable web applications using React and Node.js.';
+  linkedinUrl: string = 'linkedin.com/in/mahbub';
+  githubUrl: string = 'github.com/mahbub';
+  professionalSummary: string = 'Experienced Full Stack Developer with 5+ years building scalable web applications using React and Node.js.';
 
   // Skills
   skills: string = 'React, Node.js, MySQL, Express.js, TypeScript, Git, REST API, Bootstrap';

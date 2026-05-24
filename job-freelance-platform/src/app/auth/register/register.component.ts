@@ -47,18 +47,28 @@ export class RegisterComponent {
   }
 
   saveUser() {
+    if (!this.user.name || !this.user.email || !this.user.password) {
+      alert('Please fill out all required fields properly.');
+      return;
+    }
+
     if (this.user.email) {
       this.user.email = this.user.email.trim().toLowerCase();
     }
+    
+    // Set creation timestamps
+    this.user.createdAt = new Date().toISOString();
+    this.user.updatedAt = new Date().toISOString();
 
     this.userService.save(this.user).subscribe(
       {
         next: (data) => {
           console.log(data);
-          alert('Registration succesful');
-          this.router.navigate(['/']);
+          alert('Registration successful');
+          this.router.navigate(['/login']);
         }, error: (err) => {
           console.log(err);
+          alert('Registration failed');
         }
       }
     )

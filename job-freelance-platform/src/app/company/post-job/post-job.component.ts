@@ -11,13 +11,14 @@ import { CommonModule } from '@angular/common';
 export class PostJobComponent {
   title: string = '';
   jobType: string = '';
-  location: string = '';
-  salary: string = '';
-  experience: string = '';
+  workplaceType: string = '';
+  salaryMin: number | null = null;
+  salaryMax: number | null = null;
+  vacancy: number = 1;
   deadline: string = '';
   description: string = '';
   requirements: string = '';
-  benefits: string = '';
+  responsibilities: string = '';
 
   jobTypes = ['Full-time', 'Part-time', 'Remote', 'Contract', 'Internship'];
 

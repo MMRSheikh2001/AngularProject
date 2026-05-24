@@ -10,8 +10,7 @@ import { CommonModule } from '@angular/common';
 })
 export class EditProfileComponent {
   // Personal Info
-  firstName: string = 'Mahbub';
-  lastName: string = 'Rahman';
+  name: string = 'Mahbub Rahman';
   title: string = 'Full Stack Developer';
   phone: string = '+880 1711-000001';
   bio: string = 'Experienced Full Stack Developer with 5+ years in React and Node.js.';

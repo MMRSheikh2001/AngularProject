@@ -38,12 +38,12 @@
               <input type="number" class="form-control" [(ngModel)]="basicPrice" name="basicPrice" placeholder="500" required />
             </div>
             <div class="col-md-4">
-              <label class="form-label fw-semibold">Delivery Time</label>
-              <input type="text" class="form-control" [(ngModel)]="basicDelivery" name="basicDelivery" placeholder="e.g. 3 days" required />
+              <label class="form-label fw-semibold">Delivery Time (Days)</label>
+              <input type="number" class="form-control" [(ngModel)]="deliveryDays" name="deliveryDays" placeholder="e.g. 3" required />
             </div>
             <div class="col-md-4">
               <label class="form-label fw-semibold">Revisions</label>
-              <input type="text" class="form-control" [(ngModel)]="basicRevisions" name="basicRevisions" placeholder="e.g. 3 or Unlimited" required />
+              <input type="number" class="form-control" [(ngModel)]="revisions" name="revisions" placeholder="e.g. 3" required />
             </div>
           </div>
         </div>
