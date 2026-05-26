@@ -1,0 +1,51 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h5 class="page-title mb-0">Certifications</h5>
+</div>
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    <h6 class="fw-semibold mb-3">Add New Certification</h6>
+    <form>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Certification Name</label>
+          <input type="text" class="form-control" placeholder="e.g. AWS Certified">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Issuing Organization</label>
+          <input type="text" class="form-control" placeholder="e.g. Amazon">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Issue Date</label>
+          <input type="month" class="form-control">
+        </div>
+        <div class="col-12 mt-3">
+          <button type="button" class="btn btn-primary btn-sm">Save Certification</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="card border-0 shadow-sm">
+  <div class="card-body p-0">
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-light">
+        <tr>
+          <th class="px-4">Name</th>
+          <th>Organization</th>
+          <th>Date</th>
+          <th class="text-center px-4">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of certifications">
+          <td class="px-4 fw-semibold">{{ c.name }}</td>
+          <td>{{ c.issuer }}</td>
+          <td>{{ c.date }}</td>
+          <td class="text-center px-4">
+            <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

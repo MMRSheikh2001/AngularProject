@@ -49,12 +49,12 @@ export class SidebarComponent {
   adminLinks = [
     { label: 'Dashboard',     icon: 'bi-speedometer2',  path: '/admin/dashboard' },
     { label: 'Users',         icon: 'bi-people',        path: '/admin/manage-users' },
-    { label: 'Companies',     icon: 'bi-building',      path: '/admin/companies' },
+    { label: 'Companies',     icon: 'bi-building',      path: '/admin/manage-companies' },
     { label: 'Jobs',          icon: 'bi-briefcase',     path: '/admin/manage-jobs' },
     { label: 'Gigs',          icon: 'bi-grid',          path: '/admin/manage-gigs' },
-    { label: 'Disputes',      icon: 'bi-exclamation-triangle', path: '/admin/disputes' },
-    { label: 'Transactions',  icon: 'bi-credit-card',   path: '/admin/transactions' },
-    { label: 'Reports',       icon: 'bi-bar-chart-line',path: '/admin/reports' },
+    { label: 'Disputes',      icon: 'bi-exclamation-triangle', path: '/admin/manage-disputes' },
+    { label: 'Transactions',  icon: 'bi-credit-card',   path: '/admin/manage-transactions' },
+    { label: 'Reports',       icon: 'bi-bar-chart-line',path: '/admin/manage-reports' },
      { label: 'Settings', icon: 'bi-gear', path: '/admin/settings' }
   ];
 

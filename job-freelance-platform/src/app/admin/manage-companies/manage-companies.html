@@ -1,0 +1,34 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h5 class="page-title mb-0">Manage Companies</h5>
+</div>
+<div class="card border-0 shadow-sm">
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th class="px-4">Company Name</th>
+            <th>License No.</th>
+            <th>Employees</th>
+            <th>Status</th>
+            <th class="text-center px-4">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of companies">
+            <td class="px-4 fw-semibold">{{ c.name }}</td>
+            <td>{{ c.license }}</td>
+            <td class="text-muted">{{ c.employees }}</td>
+            <td>
+              <span class="badge" [class.bg-success]="c.status === 'Active'" [class.bg-warning]="c.status === 'Pending'">{{ c.status }}</span>
+            </td>
+            <td class="text-center px-4">
+              <button class="btn btn-outline-secondary btn-sm me-2">Review</button>
+              <button class="btn btn-danger btn-sm">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

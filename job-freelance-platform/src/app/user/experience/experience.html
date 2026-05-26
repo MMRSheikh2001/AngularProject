@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h5 class="page-title mb-0">Experience</h5>
+</div>
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    <h6 class="fw-semibold mb-3">Add New Experience</h6>
+    <form>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">Job Title</label>
+          <input type="text" class="form-control" placeholder="e.g. Software Engineer">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Company</label>
+          <input type="text" class="form-control" placeholder="e.g. TechCorp">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Start Date</label>
+          <input type="month" class="form-control">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">End Date</label>
+          <input type="month" class="form-control">
+        </div>
+        <div class="col-12">
+          <label class="form-label">Description</label>
+          <textarea class="form-control" rows="2"></textarea>
+        </div>
+        <div class="col-12 mt-3">
+          <button type="button" class="btn btn-primary btn-sm">Save Experience</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="card border-0 shadow-sm">
+  <div class="card-body p-0">
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-light">
+        <tr>
+          <th class="px-4">Title</th>
+          <th>Company</th>
+          <th>Duration</th>
+          <th class="text-center px-4">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let exp of experiences">
+          <td class="px-4 fw-semibold">{{ exp.title }}</td>
+          <td>{{ exp.company }}</td>
+          <td>{{ exp.start }} - {{ exp.end }}</td>
+          <td class="text-center px-4">
+            <button class="btn btn-outline-secondary btn-sm me-2"><i class="bi bi-pencil"></i></button>
+            <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h5 class="page-title mb-0">Languages</h5>
+</div>
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    <h6 class="fw-semibold mb-3">Add New Language</h6>
+    <form>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">Language Name</label>
+          <input type="text" class="form-control" placeholder="e.g. English">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Proficiency</label>
+          <select class="form-select">
+            <option>Basic</option>
+            <option>Conversational</option>
+            <option>Fluent</option>
+            <option>Native</option>
+          </select>
+        </div>
+        <div class="col-12 mt-3">
+          <button type="button" class="btn btn-primary btn-sm">Save Language</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="card border-0 shadow-sm">
+  <div class="card-body p-0">
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-light">
+        <tr>
+          <th class="px-4">Language</th>
+          <th>Proficiency</th>
+          <th class="text-center px-4">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let l of languages">
+          <td class="px-4 fw-semibold">{{ l.name }}</td>
+          <td>{{ l.level }}</td>
+          <td class="text-center px-4">
+            <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

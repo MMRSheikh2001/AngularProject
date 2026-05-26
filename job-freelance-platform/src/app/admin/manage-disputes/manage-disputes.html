@@ -1,0 +1,35 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h5 class="page-title mb-0">Manage Disputes</h5>
+</div>
+<div class="card border-0 shadow-sm">
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th class="px-4">Dispute ID</th>
+            <th>Related Gig</th>
+            <th>Raised By</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th class="text-center px-4">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let d of disputes">
+            <td class="px-4 fw-semibold">{{ d.id }}</td>
+            <td>{{ d.gig }}</td>
+            <td class="text-muted">{{ d.raisedBy }}</td>
+            <td>{{ d.date }}</td>
+            <td>
+              <span class="badge" [class.bg-danger]="d.status === 'Open'" [class.bg-success]="d.status === 'Resolved'">{{ d.status }}</span>
+            </td>
+            <td class="text-center px-4">
+              <button class="btn btn-outline-primary btn-sm me-2">Resolve</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

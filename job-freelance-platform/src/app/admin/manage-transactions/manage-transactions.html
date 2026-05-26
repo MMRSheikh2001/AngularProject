@@ -1,0 +1,37 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h5 class="page-title mb-0">Manage Transactions</h5>
+</div>
+<div class="card border-0 shadow-sm">
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th class="px-4">Transaction ID</th>
+            <th>User</th>
+            <th>Type</th>
+            <th>Amount ($)</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th class="text-center px-4">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let t of transactions">
+            <td class="px-4 fw-semibold">{{ t.id }}</td>
+            <td>{{ t.user }}</td>
+            <td><span class="badge bg-secondary">{{ t.type }}</span></td>
+            <td class="fw-bold">{{ t.amount }}</td>
+            <td>{{ t.date }}</td>
+            <td>
+              <span class="badge" [class.bg-warning]="t.status === 'Pending'" [class.bg-success]="t.status === 'Completed'">{{ t.status }}</span>
+            </td>
+            <td class="text-center px-4">
+              <button class="btn btn-outline-success btn-sm me-2" *ngIf="t.status === 'Pending'">Approve</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

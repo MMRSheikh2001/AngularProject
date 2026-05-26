@@ -38,6 +38,15 @@ import { UserWalletComponent } from './user/wallet/wallet.component';
 import { UserMessagesComponent } from './user/messages/messages.component';
 import { UserNotificationsComponent } from './user/notifications/notifications.component';
 import { UserSettingsComponent } from './user/settings/settings.component';
+import { Education } from './user/education/education';
+import { Experience } from './user/experience/experience';
+import { Training } from './user/training/training';
+import { Certifications } from './user/certifications/certifications';
+import { Skills } from './user/skills/skills';
+import { Languages } from './user/languages/languages';
+import { Portfolio } from './user/portfolio/portfolio';
+import { References } from './user/references/references';
+import { Extracurricular } from './user/extracurricular/extracurricular';
 
 // Company pages
 import { CompanyDashboardComponent } from './company/dashboard/dashboard.component';
@@ -59,6 +68,10 @@ import { AdminManageUsersComponent } from './admin/manage-users/manage-users.com
 import { AdminManageJobsComponent } from './admin/manage-jobs/manage-jobs.component';
 import { AdminManageGigsComponent } from './admin/manage-gigs/manage-gigs.component';
 import { AdminSettingsComponent } from './admin/settings/settings.component';
+import { ManageCompanies } from './admin/manage-companies/manage-companies';
+import { ManageDisputes } from './admin/manage-disputes/manage-disputes';
+import { ManageTransactions } from './admin/manage-transactions/manage-transactions';
+import { ManageReports } from './admin/manage-reports/manage-reports';
 import { authGuardGuard } from './guards/auth-guard-guard';
 
 export const routes: Routes = [
@@ -95,6 +108,15 @@ export const routes: Routes = [
       { path: 'profile', component: UserProfileComponent },
       { path: 'edit-profile', component: EditProfileComponent },
       { path: 'cv-builder', component: CvBuilderComponent },
+      { path: 'education', component: Education },
+      { path: 'experience', component: Experience },
+      { path: 'training', component: Training },
+      { path: 'certifications', component: Certifications },
+      { path: 'skills', component: Skills },
+      { path: 'languages', component: Languages },
+      { path: 'portfolio', component: Portfolio },
+      { path: 'references', component: References },
+      { path: 'extracurricular', component: Extracurricular },
       { path: 'cv-preview', component: CvPreviewComponent },
       { path: 'applications', component: ApplicationsComponent },
       { path: 'saved-jobs', component: SavedJobsComponent },
@@ -138,8 +160,12 @@ export const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: AdminDashboardComponent },
       { path: 'manage-users', component: AdminManageUsersComponent },
+      { path: 'manage-companies', component: ManageCompanies },
       { path: 'manage-jobs', component: AdminManageJobsComponent },
       { path: 'manage-gigs', component: AdminManageGigsComponent },
+      { path: 'manage-disputes', component: ManageDisputes },
+      { path: 'manage-transactions', component: ManageTransactions },
+      { path: 'manage-reports', component: ManageReports },
       { path: 'settings', component: AdminSettingsComponent }
     ]
   },
