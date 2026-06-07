@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { JobCardComponent } from '../../shared/job-card/job-card.component';
 import { GigCardComponent } from '../../shared/gig-card/gig-card.component';
 import { FreelancerCardComponent } from '../../shared/freelancer-card/freelancer-card.component';
@@ -8,7 +9,7 @@ import { StatsCardComponent } from '../../shared/stats-card/stats-card.component
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, JobCardComponent, GigCardComponent, FreelancerCardComponent, CompanyCardComponent, StatsCardComponent],
+  imports: [RouterLink, CommonModule, JobCardComponent, GigCardComponent, FreelancerCardComponent, CompanyCardComponent, StatsCardComponent],
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
